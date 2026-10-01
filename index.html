@@ -1,3742 +1,4602 @@
 <!DOCTYPE html>
 <html lang="pt-PT">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>André Silva | Fotografia</title>
-
-<style>
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  font-family: Arial, Helvetica, sans-serif;
-  background: #101010;
-  color: #f1f1f1;
-  min-height: 100vh;
-}
-
-button,
-input,
-textarea,
-select {
-  font: inherit;
-}
-
-button {
-  cursor: pointer;
-}
-
-.hidden {
-  display: none !important;
-}
-
-/* =========================
-   HEADER
-========================= */
-
-header {
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  background: rgba(16,16,16,0.97);
-  border-bottom: 1px solid #292929;
-  backdrop-filter: blur(10px);
-}
-
-.header-inner {
-  max-width: 1450px;
-  margin: auto;
-  padding: 14px 22px;
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 15px;
-}
-
-.logo {
-  color: #d6b56a;
-  font-weight: bold;
-  font-size: 19px;
-  letter-spacing: 0.5px;
-}
-
-.header-buttons {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.header-button {
-  background: #191919;
-  color: #ddd;
-  border: 1px solid #3a3a3a;
-  border-radius: 6px;
-  padding: 9px 13px;
-}
-
-.header-button:hover {
-  border-color: #d6b56a;
-  color: #d6b56a;
-}
-
-.header-button.gold {
-  background: #d6b56a;
-  color: #111;
-  border-color: #d6b56a;
-  font-weight: bold;
-}
-
-/* =========================
-   MAIN
-========================= */
-
-main {
-  max-width: 1450px;
-  margin: auto;
-  padding: 35px 22px 70px;
-}
-
-.page-title {
-  margin-bottom: 30px;
-}
-
-.page-title h1 {
-  font-size: 35px;
-  margin-bottom: 8px;
-}
-
-.page-title p {
-  color: #888;
-}
-
-/* =========================
-   EVENTS
-========================= */
-
-.events-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 20px;
-}
-
-.event-card {
-  background: #181818;
-  border: 1px solid #2d2d2d;
-  border-radius: 9px;
-  overflow: hidden;
-  cursor: pointer;
-  transition: border-color .15s, transform .15s;
-}
-
-.event-card:hover {
-  border-color: #d6b56a;
-  transform: translateY(-2px);
-}
-
-.event-cover {
-  display: block;
-  width: 100%;
-  height: 220px;
-  object-fit: cover;
-  background: #222;
-}
-
-.event-info {
-  padding: 17px;
-}
-
-.event-info h3 {
-  margin-bottom: 7px;
-}
-
-.event-info p {
-  color: #999;
-  line-height: 1.45;
-  font-size: 14px;
-}
-
-.event-date {
-  color: #d6b56a !important;
-  margin-bottom: 5px;
-}
-
-/* =========================
-   EVENT PAGE
-========================= */
-
-.back-button {
-  background: #191919;
-  border: 1px solid #3b3b3b;
-  color: #ddd;
-  padding: 9px 14px;
-  border-radius: 6px;
-  margin-bottom: 25px;
-}
-
-.back-button:hover {
-  border-color: #d6b56a;
-  color: #d6b56a;
-}
-
-.event-header {
-  margin-bottom: 28px;
-}
-
-.event-header h1 {
-  font-size: 32px;
-  margin-bottom: 8px;
-}
-
-.event-header p {
-  color: #999;
-  margin-top: 5px;
-  line-height: 1.5;
-}
-
-/* =========================
-   GALLERY
-========================= */
-
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-  gap: 13px;
-}
-
-.photo-card {
-  position: relative;
-  overflow: hidden;
-  aspect-ratio: 4 / 3;
-  background: #181818;
-  border: 1px solid #292929;
-  border-radius: 7px;
-  cursor: pointer;
-}
-
-.photo-card img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform .2s;
-}
-
-.photo-card:hover img {
-  transform: scale(1.035);
-}
-
-.watermark {
-  position: absolute;
-  inset: 0;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  color: rgba(255,255,255,.30);
-  font-size: 23px;
-  font-weight: bold;
-
-  transform: rotate(-25deg);
-  pointer-events: none;
-
-  text-shadow: 0 2px 5px #000;
-}
-
-.photo-label {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-
-  padding: 35px 10px 9px;
-
-  background: linear-gradient(
-    transparent,
-    rgba(0,0,0,.92)
-  );
-
-  font-weight: bold;
-}
-
-/* =========================
-   MODAL
-========================= */
-
-.modal {
-  position: fixed;
-  inset: 0;
-  z-index: 5000;
-
-  display: none;
-  align-items: center;
-  justify-content: center;
-
-  background: rgba(0,0,0,.90);
-  padding: 20px;
-}
-
-.modal.active {
-  display: flex;
-}
-
-.modal-box {
-  position: relative;
-
-  width: min(1100px, 100%);
-  max-height: 94vh;
-  overflow-y: auto;
-
-  background: #181818;
-  border: 1px solid #333;
-  border-radius: 9px;
-
-  padding: 18px;
-}
-
-.modal-close {
-  position: absolute;
-  right: 12px;
-  top: 12px;
-
-  width: 38px;
-  height: 38px;
-
-  border: 0;
-  border-radius: 50%;
-
-  background: #222;
-  color: white;
-
-  font-size: 23px;
-  z-index: 2;
-}
-
-.modal-image {
-  width: 100%;
-  max-height: 70vh;
-  object-fit: contain;
-  background: #000;
-  border-radius: 6px;
-}
-
-.modal-details {
-  padding-top: 17px;
-}
-
-.modal-details h2 {
-  margin-bottom: 7px;
-}
-
-.modal-details p {
-  color: #999;
-  line-height: 1.5;
-  margin-bottom: 8px;
-}
-
-.whatsapp-button {
-  display: inline-block;
-
-  background: #25d366;
-  color: white;
-
-  text-decoration: none;
-
-  border-radius: 6px;
-  padding: 11px 16px;
-
-  font-weight: bold;
-}
-
-/* =========================
-   LOGIN
-========================= */
-
-.login-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 6000;
-
-  display: none;
-  align-items: center;
-  justify-content: center;
-
-  background: rgba(0,0,0,.87);
-  padding: 20px;
-}
-
-.login-overlay.active {
-  display: flex;
-}
-
-.login-box {
-  width: min(400px, 100%);
-
-  background: #191919;
-  border: 1px solid #333;
-  border-radius: 9px;
-
-  padding: 25px;
-}
-
-.login-box h2 {
-  margin-bottom: 20px;
-}
-
-/* =========================
-   FORMS
-========================= */
-
-.form-group {
-  margin-bottom: 15px;
-}
-
-.form-group label {
-  display: block;
-  color: #aaa;
-  font-size: 14px;
-  margin-bottom: 6px;
-}
-
-input,
-textarea,
-select {
-  width: 100%;
-
-  background: #101010;
-  color: white;
-
-  border: 1px solid #3a3a3a;
-  border-radius: 6px;
-
-  padding: 10px;
-
-  outline: none;
-}
-
-input:focus,
-textarea:focus,
-select:focus {
-  border-color: #d6b56a;
-}
-
-textarea {
-  min-height: 90px;
-  resize: vertical;
-}
-
-/* =========================
-   BUTTONS
-========================= */
-
-.button {
-  border: 0;
-  border-radius: 6px;
-  padding: 10px 14px;
-  font-weight: bold;
-}
-
-.button-gold {
-  background: #d6b56a;
-  color: #111;
-}
-
-.button-dark {
-  background: #303030;
-  color: white;
-}
-
-.button-danger {
-  background: #8c3030;
-  color: white;
-}
-
-.button-success {
-  background: #278c58;
-  color: white;
-}
-
-.button:hover {
-  filter: brightness(1.08);
-}
-
-.button-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 7px;
-}
-
-/* =========================
-   ADMIN
-========================= */
-
-.admin-page {
-  display: none;
-}
-
-.admin-page.active {
-  display: block;
-}
-
-.admin-toolbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 15px;
-
-  margin-bottom: 25px;
-  padding: 14px;
-
-  background: #181818;
-  border: 1px solid #2c2c2c;
-  border-radius: 8px;
-}
-
-.admin-toolbar-left {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.admin-toolbar-title {
-  font-weight: bold;
-  color: #d6b56a;
-}
-
-.admin-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-}
-
-.admin-box {
-  background: #191919;
-  border: 1px solid #2c2c2c;
-  border-radius: 9px;
-  padding: 20px;
-}
-
-.admin-box h2 {
-  margin-bottom: 18px;
-}
-
-.admin-operation-menu {
-  display: none;
-
-  margin-bottom: 20px;
-  padding: 18px;
-
-  background: #181818;
-  border: 1px solid #333;
-  border-radius: 8px;
-}
-
-.admin-operation-menu.active {
-  display: block;
-}
-
-.operation-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-  gap: 10px;
-}
-
-.operation {
-  background: #111;
-  border: 1px solid #333;
-  color: #ddd;
-  border-radius: 7px;
-  padding: 14px;
-  text-align: left;
-}
-
-.operation:hover {
-  border-color: #d6b56a;
-  color: #d6b56a;
-}
-
-.operation strong {
-  display: block;
-  margin-bottom: 5px;
-}
-
-.operation small {
-  color: #777;
-}
-
-/* =========================
-   UPLOAD
-========================= */
-
-.photo-upload-area {
-  border: 2px dashed #444;
-  border-radius: 8px;
-  padding: 25px;
-
-  text-align: center;
-
-  cursor: pointer;
-
-  margin-bottom: 15px;
-}
-
-.photo-upload-area:hover {
-  border-color: #d6b56a;
-}
-
-.photo-upload-area input {
-  display: none;
-}
-
-.selected-files {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-
-  max-height: 500px;
-  overflow-y: auto;
-
-  margin-top: 15px;
-}
-
-.selected-file {
-  display: grid;
-  grid-template-columns: 85px 1fr 35px;
-
-  gap: 10px;
-  align-items: center;
-
-  background: #101010;
-  border: 1px solid #2d2d2d;
-  border-radius: 7px;
-
-  padding: 7px;
-}
-
-.selected-file img {
-  width: 85px;
-  height: 65px;
-  object-fit: cover;
-  border-radius: 5px;
-}
-
-.file-name {
-  color: #888;
-  font-size: 12px;
-  margin-bottom: 5px;
-  word-break: break-all;
-}
-
-.remove-file {
-  width: 33px;
-  height: 33px;
-
-  border: 0;
-  border-radius: 5px;
-
-  background: #702b2b;
-  color: white;
-}
-
-.upload-progress {
-  margin-top: 12px;
-  color: #d6b56a;
-  font-size: 14px;
-}
-
-/* =========================
-   ADMIN PHOTOS
-========================= */
-
-.admin-photo-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(205px, 1fr));
-  gap: 14px;
-}
-
-.admin-photo {
-  background: #111;
-  border: 1px solid #2d2d2d;
-  border-radius: 7px;
-  overflow: hidden;
-}
-
-.admin-photo img {
-  width: 100%;
-  height: 150px;
-  object-fit: cover;
-  display: block;
-}
-
-.admin-photo-info {
-  padding: 10px;
-}
-
-.admin-photo-title {
-  font-weight: bold;
-  margin-bottom: 5px;
-  word-break: break-word;
-}
-
-.admin-photo-file {
-  color: #777;
-  font-size: 12px;
-  margin-bottom: 10px;
-  word-break: break-word;
-}
-
-.admin-photo-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px;
-}
-
-.admin-photo-buttons .button {
-  padding: 7px 9px;
-  font-size: 12px;
-}
-
-/* =========================
-   STATUS
-========================= */
-
-.status {
-  display: none;
-
-  padding: 11px;
-
-  background: #202020;
-  border-radius: 6px;
-
-  margin-bottom: 15px;
-
-  color: #bbb;
-}
-
-.status.show {
-  display: block;
-}
-
-.status.success {
-  color: #8dffb4;
-  border: 1px solid #28613f;
-}
-
-.status.error {
-  color: #ff9090;
-  border: 1px solid #6b2a2a;
-}
-
-.loading {
-  color: #888;
-  padding: 25px 0;
-}
-
-.empty {
-  color: #777;
-  padding: 25px 0;
-}
-
-/* =========================
-   RESPONSIVE
-========================= */
-
-@media (max-width: 850px) {
-
-  .admin-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .admin-toolbar {
-    align-items: flex-start;
-    flex-direction: column;
-  }
-
-  .gallery {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .selected-file {
-    grid-template-columns: 70px 1fr 33px;
-  }
-
-  .selected-file img {
-    width: 70px;
-    height: 58px;
-  }
-
-}
-
-@media (max-width: 550px) {
-
-  .header-inner {
-    align-items: flex-start;
-    flex-direction: column;
-  }
-
-  .header-buttons {
-    width: 100%;
-  }
-
-  .header-button {
-    flex: 1;
-  }
-
-  main {
-    padding: 25px 13px 50px;
-  }
-
-  .gallery {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 7px;
-  }
-
-  .photo-label {
-    font-size: 12px;
-  }
-
-  .watermark {
-    font-size: 17px;
-  }
-
-}
-</style>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Portfólio | André Silva</title>
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: #111;
+      color: #eee;
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+    }
+
+    button,
+    input,
+    textarea,
+    select {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+
+    /* =====================================================
+       CORES
+       ===================================================== */
+
+    :root {
+      --bg: #111;
+      --bg2: #181818;
+      --bg3: #202020;
+      --border: #333;
+      --text: #eee;
+      --muted: #aaa;
+      --gold: #c8a96b;
+      --gold-hover: #e0c589;
+      --danger: #d9534f;
+      --success: #4caf50;
+    }
+
+
+    /* =====================================================
+       HEADER
+       ===================================================== */
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+
+      background: rgba(17,17,17,.96);
+
+      border-bottom:
+        1px solid rgba(200,169,107,.2);
+
+      backdrop-filter: blur(10px);
+    }
+
+    .header-inner {
+      max-width: 1400px;
+      margin: auto;
+
+      padding: 16px 22px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 20px;
+    }
+
+    .logo {
+      font-size: 21px;
+      font-weight: 700;
+      letter-spacing: .5px;
+    }
+
+    .logo span {
+      color: var(--gold);
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+
+    /* =====================================================
+       BOTÕES
+       ===================================================== */
+
+    .btn {
+      border: 1px solid var(--border);
+
+      background: #1b1b1b;
+
+      color: #eee;
+
+      padding: 10px 15px;
+
+      border-radius: 8px;
+
+      transition:
+        .18s ease;
+    }
+
+    .btn:hover {
+      background: #282828;
+      border-color: #555;
+    }
+
+    .btn-gold {
+      background: var(--gold);
+      color: #111;
+      border-color: var(--gold);
+      font-weight: 700;
+    }
+
+    .btn-gold:hover {
+      background: var(--gold-hover);
+      border-color: var(--gold-hover);
+    }
+
+    .btn-danger {
+      background: #351515;
+      border-color: #703030;
+      color: #ffb1ae;
+    }
+
+    .btn-danger:hover {
+      background: #4a1919;
+    }
+
+    .btn-success {
+      background: #153519;
+      border-color: #2d6734;
+      color: #a7e6ad;
+    }
+
+
+    /* =====================================================
+       CONTAINER
+       ===================================================== */
+
+    .container {
+      width: min(1400px, calc(100% - 36px));
+      margin: auto;
+    }
+
+
+    /* =====================================================
+       HERO
+       ===================================================== */
+
+    .hero {
+      min-height: 360px;
+
+      display: flex;
+      align-items: center;
+
+      padding: 80px 0;
+    }
+
+    .hero-content {
+      max-width: 850px;
+    }
+
+    .hero h1 {
+      margin: 0 0 15px;
+
+      font-size:
+        clamp(42px, 7vw, 78px);
+
+      line-height: 1;
+    }
+
+    .hero h1 span {
+      color: var(--gold);
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.6;
+    }
+
+
+    /* =====================================================
+       TÍTULOS
+       ===================================================== */
+
+    .section-title {
+      margin: 40px 0 22px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 20px;
+    }
+
+    .section-title h2 {
+      margin: 0;
+      font-size: 28px;
+    }
+
+    .section-title p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+
+    /* =====================================================
+       EVENTOS
+       ===================================================== */
+
+    .events-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(auto-fill, minmax(270px, 1fr));
+
+      gap: 20px;
+
+      padding-bottom: 60px;
+    }
+
+    .event-card {
+      background: var(--bg2);
+
+      border:
+        1px solid var(--border);
+
+      border-radius: 12px;
+
+      overflow: hidden;
+
+      cursor: pointer;
+
+      transition:
+        transform .18s ease,
+        border-color .18s ease;
+    }
+
+    .event-card:hover {
+      transform: translateY(-3px);
+      border-color: #555;
+    }
+
+    .event-cover {
+      height: 210px;
+
+      background: #222;
+
+      overflow: hidden;
+    }
+
+    .event-cover img {
+      width: 100%;
+      height: 100%;
+
+      object-fit: cover;
+    }
+
+    .event-info {
+      padding: 18px;
+    }
+
+    .event-info h3 {
+      margin: 0 0 8px;
+      font-size: 20px;
+    }
+
+    .event-info p {
+      margin: 5px 0;
+      color: var(--muted);
+    }
+
+
+    /* =====================================================
+       EVENTO
+       ===================================================== */
+
+    .event-page {
+      padding: 45px 0 70px;
+    }
+
+    .back-button {
+      margin-bottom: 25px;
+    }
+
+    .event-header {
+      margin-bottom: 35px;
+    }
+
+    .event-header h1 {
+      margin: 0 0 12px;
+      font-size: 40px;
+    }
+
+    .event-meta {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+
+      color: var(--muted);
+    }
+
+    .event-description {
+      max-width: 850px;
+
+      color: #ccc;
+
+      line-height: 1.6;
+
+      margin-top: 18px;
+    }
+
+
+    /* =====================================================
+       GALERIA
+       ===================================================== */
+
+    .gallery {
+      display: grid;
+
+      grid-template-columns:
+        repeat(auto-fill, minmax(230px, 1fr));
+
+      gap: 14px;
+    }
+
+    .photo-card {
+      position: relative;
+
+      background: #181818;
+
+      border:
+        1px solid #292929;
+
+      border-radius: 9px;
+
+      overflow: hidden;
+
+      cursor: pointer;
+
+      min-height: 190px;
+    }
+
+    .photo-image-wrap {
+      position: relative;
+
+      width: 100%;
+      height: 250px;
+
+      overflow: hidden;
+
+      background: #222;
+    }
+
+    .photo-image {
+      width: 100%;
+      height: 100%;
+
+      object-fit: cover;
+
+      transition:
+        transform .25s ease;
+    }
+
+    .photo-card:hover .photo-image {
+      transform: scale(1.025);
+    }
+
+
+    /* =====================================================
+       MARCA DE ÁGUA
+       ===================================================== */
+
+    .watermark {
+      position: absolute;
+
+      inset: 0;
+
+      z-index: 5;
+
+      pointer-events: none;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      overflow: hidden;
+    }
+
+    .watermark span {
+      color: rgba(255,255,255,.72);
+
+      font-size:
+        clamp(17px, 2vw, 25px);
+
+      font-weight: 700;
+
+      letter-spacing: 3px;
+
+      text-transform: uppercase;
+
+      white-space: nowrap;
+
+      transform: rotate(-25deg);
+
+      text-shadow:
+        0 1px 3px rgba(0,0,0,.9);
+
+      user-select: none;
+    }
+
+    /*
+     * Segunda marca de água nos cantos.
+     * Ajuda a dificultar o corte simples da imagem.
+     */
+
+    .watermark-corner {
+      position: absolute;
+
+      right: 10px;
+      bottom: 10px;
+
+      color: rgba(255,255,255,.75);
+
+      font-size: 12px;
+
+      font-weight: 700;
+
+      letter-spacing: 1px;
+
+      text-shadow:
+        0 1px 3px #000;
+
+      pointer-events: none;
+
+      z-index: 6;
+    }
+
+
+    /* =====================================================
+       INFORMAÇÃO DA FOTO
+       ===================================================== */
+
+    .photo-info {
+      padding: 13px;
+    }
+
+    .photo-info h3 {
+      margin: 0 0 6px;
+      font-size: 16px;
+    }
+
+    .photo-price {
+      color: var(--gold);
+      font-weight: 700;
+    }
+
+    .photo-description {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+
+    /* =====================================================
+       MODAL
+       ===================================================== */
+
+    .modal {
+      position: fixed;
+
+      inset: 0;
+
+      z-index: 5000;
+
+      display: none;
+
+      align-items: center;
+      justify-content: center;
+
+      background: rgba(0,0,0,.9);
+
+      padding: 20px;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      position: relative;
+
+      width: min(1100px, 100%);
+
+      max-height: 95vh;
+
+      overflow: auto;
+
+      background: #151515;
+
+      border:
+        1px solid #333;
+
+      border-radius: 12px;
+
+      padding: 20px;
+    }
+
+    .modal-close {
+      position: absolute;
+
+      top: 12px;
+      right: 12px;
+
+      width: 40px;
+      height: 40px;
+
+      border-radius: 50%;
+
+      border: 1px solid #555;
+
+      background: rgba(0,0,0,.7);
+
+      color: white;
+
+      font-size: 22px;
+
+      z-index: 20;
+    }
+
+    .modal-image-wrap {
+      position: relative;
+
+      background: #000;
+
+      border-radius: 8px;
+
+      overflow: hidden;
+
+      display: flex;
+      justify-content: center;
+    }
+
+    .modal-image {
+      max-height: 70vh;
+
+      width: auto;
+
+      max-width: 100%;
+
+      object-fit: contain;
+    }
+
+    .modal-info {
+      padding: 20px 0 5px;
+    }
+
+    .modal-info h2 {
+      margin: 0 0 10px;
+    }
+
+    .modal-info p {
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .whatsapp-button {
+      display: inline-block;
+
+      margin-top: 12px;
+
+      padding: 12px 18px;
+
+      border-radius: 8px;
+
+      background: #168c43;
+
+      color: white;
+
+      font-weight: 700;
+    }
+
+
+    /* =====================================================
+       ADMIN
+       ===================================================== */
+
+    #adminSection {
+      display: none;
+    }
+
+    .admin-section {
+      padding: 35px 0 70px;
+    }
+
+    .admin-toolbar {
+      background: #181818;
+
+      border:
+        1px solid #333;
+
+      border-radius: 10px;
+
+      padding: 14px;
+
+      display: flex;
+
+      flex-wrap: wrap;
+
+      gap: 10px;
+
+      align-items: center;
+
+      margin-bottom: 25px;
+    }
+
+    .admin-toolbar-title {
+      margin-right: auto;
+
+      font-weight: 700;
+
+      color: var(--gold);
+    }
+
+
+    /* =====================================================
+       ADMIN LOGIN
+       ===================================================== */
+
+    .login-box {
+      width: min(430px, 100%);
+
+      margin: 80px auto;
+
+      background: #181818;
+
+      border:
+        1px solid #333;
+
+      border-radius: 12px;
+
+      padding: 28px;
+    }
+
+    .login-box h2 {
+      margin-top: 0;
+    }
+
+
+    /* =====================================================
+       FORMULÁRIOS
+       ===================================================== */
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+
+      margin-bottom: 7px;
+
+      color: #ccc;
+
+      font-size: 14px;
+    }
+
+    .form-control {
+      width: 100%;
+
+      background: #101010;
+
+      color: #eee;
+
+      border:
+        1px solid #3b3b3b;
+
+      border-radius: 7px;
+
+      padding: 11px 12px;
+
+      outline: none;
+    }
+
+    .form-control:focus {
+      border-color: var(--gold);
+    }
+
+    textarea.form-control {
+      min-height: 100px;
+
+      resize: vertical;
+    }
+
+
+    /* =====================================================
+       ADMIN EVENTOS
+       ===================================================== */
+
+    .admin-event-list {
+      display: grid;
+
+      grid-template-columns:
+        repeat(auto-fill, minmax(260px, 1fr));
+
+      gap: 15px;
+    }
+
+    .admin-event-card {
+      background: #181818;
+
+      border:
+        1px solid #333;
+
+      border-radius: 10px;
+
+      padding: 15px;
+    }
+
+    .admin-event-card h3 {
+      margin-top: 0;
+    }
+
+    .admin-event-actions {
+      display: flex;
+
+      flex-wrap: wrap;
+
+      gap: 8px;
+
+      margin-top: 12px;
+    }
+
+
+    /* =====================================================
+       ADMIN FOTOGRAFIAS
+       ===================================================== */
+
+    .admin-photos {
+      display: grid;
+
+      grid-template-columns:
+        repeat(auto-fill, minmax(240px, 1fr));
+
+      gap: 15px;
+
+      margin-top: 20px;
+    }
+
+    .admin-photo-card {
+      background: #181818;
+
+      border:
+        1px solid #333;
+
+      border-radius: 10px;
+
+      overflow: hidden;
+    }
+
+    .admin-photo-image {
+      height: 200px;
+
+      background: #222;
+
+      overflow: hidden;
+    }
+
+    .admin-photo-image img {
+      width: 100%;
+      height: 100%;
+
+      object-fit: cover;
+    }
+
+    .admin-photo-info {
+      padding: 13px;
+    }
+
+    .admin-photo-info h4 {
+      margin: 0 0 7px;
+    }
+
+    .admin-file-name {
+      color: #888;
+
+      font-size: 12px;
+
+      word-break: break-all;
+
+      margin-bottom: 10px;
+    }
+
+    .admin-photo-actions {
+      display: flex;
+
+      flex-wrap: wrap;
+
+      gap: 7px;
+    }
+
+    .admin-photo-actions .btn {
+      font-size: 13px;
+      padding: 8px 10px;
+    }
+
+
+    /* =====================================================
+       OPERAÇÕES
+       ===================================================== */
+
+    .operations-menu {
+      display: none;
+
+      background: #181818;
+
+      border:
+        1px solid #333;
+
+      border-radius: 10px;
+
+      padding: 12px;
+
+      margin-bottom: 20px;
+    }
+
+    .operations-menu.active {
+      display: block;
+    }
+
+    .operations-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(auto-fit, minmax(200px, 1fr));
+
+      gap: 10px;
+    }
+
+
+    /* =====================================================
+       UPLOAD
+       ===================================================== */
+
+    .upload-box {
+      background: #181818;
+
+      border:
+        1px solid #333;
+
+      border-radius: 10px;
+
+      padding: 20px;
+
+      margin-bottom: 25px;
+    }
+
+    .upload-list {
+      display: grid;
+
+      gap: 10px;
+
+      margin-top: 15px;
+    }
+
+    .upload-item {
+      display: grid;
+
+      grid-template-columns:
+        80px 1fr;
+
+      gap: 12px;
+
+      align-items: center;
+
+      background: #111;
+
+      border:
+        1px solid #292929;
+
+      border-radius: 8px;
+
+      padding: 8px;
+    }
+
+    .upload-item img {
+      width: 80px;
+      height: 70px;
+
+      object-fit: cover;
+
+      border-radius: 5px;
+    }
+
+    .upload-status {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .upload-status.success {
+      color: #8bdc91;
+    }
+
+    .upload-status.error {
+      color: #ff8b87;
+    }
+
+
+    /* =====================================================
+       LOADING
+       ===================================================== */
+
+    .loading {
+      padding: 35px 0;
+
+      text-align: center;
+
+      color: var(--muted);
+    }
+
+    .empty {
+      padding: 35px;
+
+      text-align: center;
+
+      border:
+        1px dashed #444;
+
+      border-radius: 10px;
+
+      color: var(--muted);
+    }
+
+
+    /* =====================================================
+       TOAST
+       ===================================================== */
+
+    .toast {
+      position: fixed;
+
+      right: 20px;
+      bottom: 20px;
+
+      z-index: 9000;
+
+      background: #222;
+
+      border:
+        1px solid #444;
+
+      color: white;
+
+      padding: 13px 17px;
+
+      border-radius: 8px;
+
+      display: none;
+
+      max-width: 350px;
+
+      box-shadow:
+        0 8px 30px rgba(0,0,0,.4);
+    }
+
+    .toast.active {
+      display: block;
+    }
+
+
+    /* =====================================================
+       RESPONSIVO
+       ===================================================== */
+
+    @media (max-width: 700px) {
+
+      .container {
+        width:
+          calc(100% - 24px);
+      }
+
+      .header-inner {
+        padding:
+          12px;
+      }
+
+      .hero {
+        padding:
+          55px 0;
+      }
+
+      .gallery {
+        grid-template-columns:
+          repeat(2, minmax(0, 1fr));
+
+        gap: 8px;
+      }
+
+      .photo-image-wrap {
+        height: 180px;
+      }
+
+      .event-cover {
+        height: 180px;
+      }
+
+      .modal {
+        padding: 8px;
+      }
+
+      .modal-content {
+        padding: 12px;
+      }
+
+      .admin-toolbar-title {
+        width: 100%;
+      }
+
+      .admin-photo-actions .btn {
+        flex: 1;
+      }
+
+    }
+
+  </style>
+
 </head>
+
 
 <body>
 
-<header>
 
-  <div class="header-inner">
+  <!-- =====================================================
+       HEADER
+       ===================================================== -->
 
-    <div class="logo">
-      ANDRÉ SILVA | FOTOGRAFIA
-    </div>
+  <header>
 
-    <div class="header-buttons">
+    <div class="header-inner">
 
-      <button
-        id="siteHeaderButton"
-        class="header-button"
-        onclick="abrirLogin()"
+      <div
+        class="logo"
+        onclick="voltarInicio()"
+        style="cursor:pointer"
       >
-        Administração / Login
-      </button>
-
-      <button
-        id="adminHeaderButton"
-        class="header-button gold hidden"
-        onclick="voltarParaAdmin()"
-      >
-        Administração
-      </button>
-
-    </div>
-
-  </div>
-
-</header>
-
-
-<main>
-
-<!-- =========================
-     SITE PÚBLICO
-========================= -->
-
-<section id="publicPage">
-
-  <div class="page-title">
-
-    <h1>Portefólio</h1>
-
-    <p>
-      Fotografia e cobertura de eventos
-    </p>
-
-  </div>
-
-  <div id="publicContent">
-    <div class="loading">
-      A carregar...
-    </div>
-  </div>
-
-</section>
-
-
-<!-- =========================
-     ADMIN
-========================= -->
-
-<section
-  id="adminPage"
-  class="admin-page"
->
-
-  <div class="admin-toolbar">
-
-    <div class="admin-toolbar-left">
-
-      <span class="admin-toolbar-title">
-        ADMINISTRAÇÃO
-      </span>
-
-    </div>
-
-    <div class="button-row">
-
-      <button
-        class="button button-gold"
-        onclick="mostrarSiteNormal()"
-      >
-        Ver site
-      </button>
-
-      <button
-        class="button button-dark"
-        onclick="toggleOperacoes()"
-      >
-        Adicionar operação
-      </button>
-
-      <button
-        class="button button-danger"
-        onclick="logout()"
-      >
-        Terminar sessão
-      </button>
-
-    </div>
-
-  </div>
-
-
-  <!-- MENU OPERAÇÕES -->
-
-  <div
-    id="operationMenu"
-    class="admin-operation-menu"
-  >
-
-    <h3 style="margin-bottom:15px;">
-      Adicionar operação
-    </h3>
-
-    <div class="operation-grid">
-
-      <button
-        class="operation"
-        onclick="irParaUpload()"
-      >
-        <strong>📷 Adicionar fotografias</strong>
-        <small>
-          Upload de várias fotografias
-        </small>
-      </button>
-
-      <button
-        class="operation"
-        onclick="irParaCriarEvento()"
-      >
-        <strong>📁 Criar evento</strong>
-        <small>
-          Criar uma nova sessão fotográfica
-        </small>
-      </button>
-
-      <button
-        class="operation"
-        onclick="mostrarMensagemOperacao('A gestão de configurações será adicionada aqui.')"
-      >
-        <strong>⚙ Configurações</strong>
-        <small>
-          Configurações do portefólio
-        </small>
-      </button>
-
-    </div>
-
-  </div>
-
-
-  <div
-    id="adminStatus"
-    class="status"
-  ></div>
-
-
-  <div class="admin-grid">
-
-
-    <!-- EVENTOS -->
-
-    <div
-      id="eventManagement"
-      class="admin-box"
-    >
-
-      <h2>Eventos</h2>
-
-      <div class="form-group">
-
-        <label>
-          Nome do evento
-        </label>
-
-        <input
-          id="eventoNome"
-          type="text"
-          placeholder="Ex.: Campeonato de Futebol"
-        >
-
+        André <span>Silva</span>
       </div>
 
 
-      <div class="form-group">
-
-        <label>
-          Data
-        </label>
-
-        <input
-          id="eventoData"
-          type="date"
-        >
-
-      </div>
-
-
-      <div class="form-group">
-
-        <label>
-          Local
-        </label>
-
-        <input
-          id="eventoLocal"
-          type="text"
-        >
-
-      </div>
-
-
-      <div class="form-group">
-
-        <label>
-          Categoria
-        </label>
-
-        <input
-          id="eventoCategoria"
-          type="text"
-        >
-
-      </div>
-
-
-      <div class="form-group">
-
-        <label>
-          Descrição
-        </label>
-
-        <textarea
-          id="eventoDescricao"
-        ></textarea>
-
-      </div>
-
-
-      <button
-        class="button button-gold"
-        onclick="criarEvento()"
-      >
-        Criar evento
-      </button>
-
-
-      <hr
-        style="
-          border:0;
-          border-top:1px solid #333;
-          margin:25px 0;
-        "
-      >
-
-
-      <h3 style="margin-bottom:12px;">
-        Evento selecionado
-      </h3>
-
-
-      <div class="form-group">
-
-        <select
-          id="adminEventoSelect"
-          onchange="selecionarEventoAdmin()"
-        >
-
-          <option value="">
-            Selecionar evento
-          </option>
-
-        </select>
-
-      </div>
-
-
-      <div class="button-row">
+      <div class="header-actions">
 
         <button
-          class="button button-dark"
-          onclick="editarEventoAtual()"
+          id="btnAdmin"
+          class="btn"
+          onclick="abrirAdmin()"
         >
-          Editar evento
+          Administração
         </button>
 
         <button
-          class="button button-danger"
-          onclick="apagarEventoAtual()"
+          id="btnVoltarSite"
+          class="btn"
+          onclick="mostrarSite()"
+          style="display:none"
         >
-          Apagar evento
+          Ver site
         </button>
 
       </div>
 
     </div>
 
+  </header>
 
-    <!-- UPLOAD -->
 
-    <div
-      id="uploadManagement"
-      class="admin-box"
-    >
+  <!-- =====================================================
+       SITE PÚBLICO
+       ===================================================== -->
 
-      <h2>
-        Upload de fotografias
-      </h2>
+  <main id="publicSection">
 
+    <div class="container">
 
-      <div class="form-group">
+      <section class="hero">
 
-        <label>
-          Evento
-        </label>
+        <div class="hero-content">
 
-        <select id="uploadEventoSelect">
+          <h1>
+            Portfólio
+            <span>Fotográfico</span>
+          </h1>
 
-          <option value="">
-            Selecionar evento
-          </option>
-
-        </select>
-
-      </div>
-
-
-      <div class="form-group">
-
-        <label>
-          Preço por defeito
-        </label>
-
-        <input
-          id="uploadPreco"
-          type="number"
-          min="0"
-          step="0.01"
-          placeholder="Ex.: 5"
-        >
-
-      </div>
-
-
-      <div class="form-group">
-
-        <label>
-          Descrição por defeito
-        </label>
-
-        <textarea
-          id="uploadDescricao"
-          placeholder="Opcional"
-        ></textarea>
-
-      </div>
-
-
-      <div
-        class="photo-upload-area"
-        onclick="
-          document
-            .getElementById('photoInput')
-            .click()
-        "
-      >
-
-        <strong>
-          Selecionar fotografias
-        </strong>
-
-        <p
-          style="
-            color:#777;
-            margin-top:7px;
-          "
-        >
-          Podes selecionar várias fotografias
-          ao mesmo tempo.
-        </p>
-
-        <input
-          id="photoInput"
-          type="file"
-          accept="image/*"
-          multiple
-          onchange="prepararFotografias(this.files)"
-        >
-
-      </div>
-
-
-      <div
-        id="selectedFiles"
-        class="selected-files"
-      ></div>
-
-
-      <div
-        id="uploadProgress"
-        class="upload-progress"
-      ></div>
-
-
-      <div
-        class="button-row"
-        style="margin-top:15px;"
-      >
-
-        <button
-          class="button button-success"
-          onclick="uploadFotografiasEmMassa()"
-        >
-          Carregar fotografias
-        </button>
-
-        <button
-          class="button button-dark"
-          onclick="limparSelecaoFotografias()"
-        >
-          Limpar seleção
-        </button>
-
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <!-- FOTOGRAFIAS -->
-
-  <div
-    class="admin-box"
-    style="margin-top:20px;"
-  >
-
-    <h2>
-      Fotografias do evento
-    </h2>
-
-    <div id="adminPhotos">
-
-      <div class="loading">
-        Seleciona um evento.
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-</main>
-
-
-<!-- =========================
-     LOGIN
-========================= -->
-
-<div
-  id="loginOverlay"
-  class="login-overlay"
->
-
-  <div class="login-box">
-
-    <h2>
-      Administração
-    </h2>
-
-
-    <div
-      id="loginStatus"
-      class="status"
-    ></div>
-
-
-    <div class="form-group">
-
-      <label>
-        Utilizador
-      </label>
-
-      <input
-        id="loginUsername"
-        type="text"
-        autocomplete="username"
-      >
-
-    </div>
-
-
-    <div class="form-group">
-
-      <label>
-        Palavra-passe
-      </label>
-
-      <input
-        id="loginPassword"
-        type="password"
-        autocomplete="current-password"
-      >
-
-    </div>
-
-
-    <div class="button-row">
-
-      <button
-        class="button button-gold"
-        onclick="login()"
-      >
-        Entrar
-      </button>
-
-      <button
-        class="button button-dark"
-        onclick="fecharLogin()"
-      >
-        Cancelar
-      </button>
-
-    </div>
-
-  </div>
-
-</div>
-
-
-<!-- =========================
-     MODAL FOTOGRAFIA
-========================= -->
-
-<div
-  id="photoModal"
-  class="modal"
-  onclick="fecharModal(event)"
->
-
-  <div class="modal-box">
-
-    <button
-      class="modal-close"
-      onclick="fecharModal()"
-    >
-      ×
-    </button>
-
-
-    <img
-      id="modalImage"
-      class="modal-image"
-      src=""
-      alt=""
-    >
-
-
-    <div class="modal-details">
-
-      <h2 id="modalTitle"></h2>
-
-      <p id="modalDescription"></p>
-
-      <p id="modalPrice"></p>
-
-      <a
-        id="modalWhatsapp"
-        class="whatsapp-button"
-        target="_blank"
-        href="#"
-      >
-        Pedir fotografia pelo WhatsApp
-      </a>
-
-    </div>
-
-  </div>
-
-</div>
-
-
-<script>
-
-/* =========================================================
-   CONFIGURAÇÃO
-========================================================= */
-
-const API_URL =
-  "https://script.google.com/macros/s/AKfycbwmpVdajsKiouktxt-vP6vDqfjwgYmfgq2y761QE3g3LtZA4PmwZoBZTsnIUcIr6aTX9A/exec";
-
-const WHATSAPP_NUMBER =
-  "351914625989";
-
-const SESSION_STORAGE_KEY =
-  "portfolio_admin_token";
-
-
-/* =========================================================
-   ESTADO
-========================================================= */
-
-let eventos = [];
-
-let eventoAtualAdmin = null;
-
-let fotografiasSelecionadas = [];
-
-let modoAdmin = false;
-
-
-/* =========================================================
-   API
-========================================================= */
-
-async function apiGet(
-  acao,
-  parametros = {}
-) {
-
-  const query =
-    new URLSearchParams({
-      acao,
-      ...parametros
-    });
-
-  const resposta =
-    await fetch(
-      API_URL +
-      "?" +
-      query.toString(),
-      {
-        cache: "no-store"
-      }
-    );
-
-  if (!resposta.ok) {
-    throw new Error(
-      "Erro HTTP " +
-      resposta.status
-    );
-  }
-
-  const dados =
-    await resposta.json();
-
-  if (!dados.ok) {
-    throw new Error(
-      dados.erro ||
-      "Erro na API"
-    );
-  }
-
-  return dados;
-}
-
-
-async function apiPost(
-  dados
-) {
-
-  const resposta =
-    await fetch(
-      API_URL,
-      {
-        method: "POST",
-
-        headers: {
-          "Content-Type":
-            "text/plain;charset=utf-8"
-        },
-
-        body:
-          JSON.stringify(dados)
-      }
-    );
-
-  if (!resposta.ok) {
-
-    throw new Error(
-      "Erro HTTP " +
-      resposta.status
-    );
-  }
-
-  const resultado =
-    await resposta.json();
-
-  if (!resultado.ok) {
-
-    throw new Error(
-      resultado.erro ||
-      "Erro na API"
-    );
-  }
-
-  return resultado;
-}
-
-
-/* =========================================================
-   INÍCIO
-========================================================= */
-
-document.addEventListener(
-  "DOMContentLoaded",
-  () => {
-
-    carregarEventosPublicos();
-
-    verificarSessao();
-
-  }
-);
-
-
-/* =========================================================
-   PÚBLICO
-========================================================= */
-
-async function carregarEventosPublicos() {
-
-  const content =
-    document.getElementById(
-      "publicContent"
-    );
-
-  content.innerHTML =
-    '<div class="loading">A carregar eventos...</div>';
-
-  try {
-
-    const resposta =
-      await apiGet("eventos");
-
-    eventos =
-      resposta.eventos || [];
-
-    renderizarEventos();
-
-  } catch (erro) {
-
-    content.innerHTML =
-      '<div class="empty">' +
-      escaparHTML(
-        erro.message
-      ) +
-      '</div>';
-  }
-}
-
-
-function renderizarEventos() {
-
-  const content =
-    document.getElementById(
-      "publicContent"
-    );
-
-  if (!eventos.length) {
-
-    content.innerHTML =
-      '<div class="empty">' +
-      'Ainda não existem eventos.' +
-      '</div>';
-
-    return;
-  }
-
-  const grid =
-    document.createElement(
-      "div"
-    );
-
-  grid.className =
-    "events-grid";
-
-  eventos.forEach(
-    evento => {
-
-      const card =
-        document.createElement(
-          "div"
-        );
-
-      card.className =
-        "event-card";
-
-      card.onclick =
-        () =>
-          abrirEventoPublico(
-            evento.ID
-          );
-
-      const capa =
-        evento.Capa ||
-        "https://via.placeholder.com/800x600?text=Sem+fotografia";
-
-      card.innerHTML = `
-
-        <img
-          class="event-cover"
-          src="${escaparAtributo(capa)}"
-          loading="lazy"
-          alt="${escaparAtributo(evento.Nome || "")}"
-        >
-
-        <div class="event-info">
-
-          <h3>
-            ${escaparHTML(evento.Nome || "Evento")}
-          </h3>
-
-          ${
-            evento.Data
-            ?
-            `
-            <p class="event-date">
-              ${escaparHTML(
-                formatarData(evento.Data)
-              )}
-            </p>
-            `
-            :
-            ""
-          }
-
-          ${
-            evento.Local
-            ?
-            `
-            <p>
-              ${escaparHTML(evento.Local)}
-            </p>
-            `
-            :
-            ""
-          }
-
-          ${
-            evento.Descricao
-            ?
-            `
-            <p style="margin-top:7px;">
-              ${escaparHTML(
-                evento.Descricao
-              )}
-            </p>
-            `
-            :
-            ""
-          }
+          <p>
+            Fotografia, eventos e momentos captados
+            através da minha lente.
+          </p>
 
         </div>
-      `;
 
-      grid.appendChild(card);
-
-    }
-  );
-
-  content.innerHTML = "";
-
-  content.appendChild(grid);
-}
+      </section>
 
 
-/* =========================================================
-   EVENTO
-========================================================= */
+      <section>
 
-async function abrirEventoPublico(
-  id
-) {
+        <div class="section-title">
 
-  const evento =
-    eventos.find(
-      e =>
-        String(e.ID) ===
-        String(id)
-    );
+          <div>
 
-  if (!evento) return;
+            <h2>Eventos</h2>
 
-  const content =
-    document.getElementById(
-      "publicContent"
-    );
+            <p>
+              Explora os trabalhos disponíveis.
+            </p>
 
-  content.innerHTML =
-    '<div class="loading">A carregar fotografias...</div>';
+          </div>
 
-  try {
+        </div>
 
-    const resposta =
-      await apiGet(
-        "fotografias",
-        {
-          eventoId: id
-        }
-      );
 
-    const fotos =
-      resposta.fotografias || [];
+        <div
+          id="eventosPublicos"
+          class="events-grid"
+        >
 
-    content.innerHTML = `
+          <div class="loading">
+            A carregar eventos...
+          </div>
+
+        </div>
+
+      </section>
+
+    </div>
+
+  </main>
+
+
+  <!-- =====================================================
+       PÁGINA DO EVENTO
+       ===================================================== -->
+
+  <section
+    id="eventPage"
+    class="event-page"
+    style="display:none"
+  >
+
+    <div class="container">
 
       <button
-        class="back-button"
-        onclick="carregarEventosPublicos()"
+        class="btn back-button"
+        onclick="voltarEventos()"
       >
         ← Voltar aos eventos
       </button>
 
-      <div class="event-header">
 
-        <h1>
-          ${escaparHTML(
-            evento.Nome || ""
-          )}
-        </h1>
+      <div
+        id="eventDetails"
+        class="event-header"
+      ></div>
 
-        ${
-          evento.Data
-          ?
-          `
-          <p style="color:#d6b56a;">
-            ${escaparHTML(
-              formatarData(
-                evento.Data
-              )
-            )}
-          </p>
-          `
-          :
-          ""
-        }
 
-        ${
-          evento.Local
-          ?
-          `
-          <p>
-            ${escaparHTML(
-              evento.Local
-            )}
-          </p>
-          `
-          :
-          ""
-        }
+      <div
+        id="eventGallery"
+        class="gallery"
+      ></div>
 
-        ${
-          evento.Descricao
-          ?
-          `
-          <p>
-            ${escaparHTML(
-              evento.Descricao
-            )}
-          </p>
-          `
-          :
-          ""
-        }
+    </div>
+
+  </section>
+
+
+  <!-- =====================================================
+       LOGIN ADMIN
+       ===================================================== -->
+
+  <section
+    id="loginSection"
+    style="display:none"
+  >
+
+    <div class="container">
+
+      <div class="login-box">
+
+        <h2>Administração</h2>
+
+        <p
+          style="color:#aaa"
+        >
+          Inicia sessão para gerir o portfólio.
+        </p>
+
+
+        <form
+          id="loginForm"
+        >
+
+          <div class="form-group">
+
+            <label>
+              Utilizador
+            </label>
+
+            <input
+              id="loginUser"
+              class="form-control"
+              type="text"
+              autocomplete="username"
+              required
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>
+              Palavra-passe
+            </label>
+
+            <input
+              id="loginPassword"
+              class="form-control"
+              type="password"
+              autocomplete="current-password"
+              required
+            >
+
+          </div>
+
+
+          <button
+            class="btn btn-gold"
+            type="submit"
+            style="width:100%"
+          >
+            Entrar
+          </button>
+
+        </form>
 
       </div>
 
-      <div id="publicGallery"></div>
-    `;
+    </div>
 
-    renderizarGaleria(
-      fotos
-    );
-
-  } catch (erro) {
-
-    content.innerHTML =
-      '<div class="empty">' +
-      escaparHTML(
-        erro.message
-      ) +
-      '</div>';
-  }
-}
+  </section>
 
 
-function renderizarGaleria(
-  fotos
-) {
+  <!-- =====================================================
+       ADMIN
+       ===================================================== -->
 
-  const gallery =
-    document.getElementById(
-      "publicGallery"
-    );
+  <section
+    id="adminSection"
+    class="admin-section"
+  >
 
-  if (!fotos.length) {
+    <div class="container">
 
-    gallery.innerHTML =
-      '<div class="empty">' +
-      'Ainda não existem fotografias neste evento.' +
-      '</div>';
 
-    return;
-  }
+      <div class="admin-toolbar">
 
-  const grid =
-    document.createElement(
-      "div"
-    );
+        <div class="admin-toolbar-title">
+          Administração
+        </div>
 
-  grid.className =
-    "gallery";
 
-  fotos.forEach(
-    foto => {
-
-      const card =
-        document.createElement(
-          "div"
-        );
-
-      card.className =
-        "photo-card";
-
-      card.onclick =
-        () =>
-          abrirFotoModal(
-            foto
-          );
-
-      card.innerHTML = `
-
-        <img
-          src="${escaparAtributo(
-            foto.ImagemURL || ""
-          )}"
-          loading="lazy"
-          alt="${escaparAtributo(
-            foto.Titulo || ""
-          )}"
+        <button
+          class="btn"
+          onclick="mostrarSite()"
         >
+          Ver site
+        </button>
 
-        <div class="watermark">
-          ANDRÉ SILVA
+
+        <button
+          class="btn btn-gold"
+          onclick="toggleOperacoes()"
+        >
+          Adicionar operação
+        </button>
+
+
+        <button
+          class="btn btn-danger"
+          onclick="terminarSessao()"
+        >
+          Terminar sessão
+        </button>
+
+      </div>
+
+
+      <!-- =================================================
+           OPERAÇÕES
+           ================================================= -->
+
+      <div
+        id="operationsMenu"
+        class="operations-menu"
+      >
+
+        <div class="operations-grid">
+
+          <button
+            class="btn"
+            onclick="mostrarUpload()"
+          >
+            📷 Adicionar fotografias
+          </button>
+
+          <button
+            class="btn"
+            onclick="mostrarCriarEvento()"
+          >
+            📁 Criar evento
+          </button>
+
+          <button
+            class="btn"
+            onclick="carregarAdmin()"
+          >
+            🔄 Atualizar
+          </button>
+
         </div>
 
-        <div class="photo-label">
-          ${escaparHTML(
-            foto.Titulo ||
-            foto.NomeFicheiro ||
-            ""
-          )}
+      </div>
+
+
+      <!-- =================================================
+           UPLOAD
+           ================================================= -->
+
+      <div
+        id="uploadBox"
+        class="upload-box"
+        style="display:none"
+      >
+
+        <h2>
+          Adicionar fotografias
+        </h2>
+
+
+        <div class="form-group">
+
+          <label>
+            Evento
+          </label>
+
+          <select
+            id="uploadEvento"
+            class="form-control"
+          >
+            <option value="">
+              Seleciona um evento
+            </option>
+          </select>
+
         </div>
 
-      `;
 
-      grid.appendChild(card);
-
-    }
-  );
-
-  gallery.appendChild(grid);
-}
-
-
-/* =========================================================
-   MODO SITE NORMAL
-========================================================= */
-
-function mostrarSiteNormal() {
-
-  modoAdmin = false;
-
-  document
-    .getElementById("adminPage")
-    .classList.remove("active");
-
-  document
-    .getElementById("publicPage")
-    .style.display = "block";
-
-  document
-    .getElementById("siteHeaderButton")
-    .classList.add("hidden");
-
-  document
-    .getElementById("adminHeaderButton")
-    .classList.remove("hidden");
-
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth"
-  });
-
-  carregarEventosPublicos();
-}
-
-
-function voltarParaAdmin() {
-
-  modoAdmin = true;
-
-  document
-    .getElementById("publicPage")
-    .style.display = "none";
-
-  document
-    .getElementById("adminPage")
-    .classList.add("active");
-
-  document
-    .getElementById("siteHeaderButton")
-    .classList.remove("hidden");
-
-  document
-    .getElementById("adminHeaderButton")
-    .classList.add("hidden");
-
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth"
-  });
-}
-
-
-/* =========================================================
-   LOGIN
-========================================================= */
-
-function abrirLogin() {
-
-  document
-    .getElementById(
-      "loginOverlay"
-    )
-    .classList.add("active");
-
-  document
-    .getElementById(
-      "loginUsername"
-    )
-    .focus();
-}
-
-
-function fecharLogin() {
-
-  document
-    .getElementById(
-      "loginOverlay"
-    )
-    .classList.remove("active");
-}
-
-
-async function login() {
-
-  const username =
-    document
-      .getElementById(
-        "loginUsername"
-      )
-      .value
-      .trim();
-
-  const password =
-    document
-      .getElementById(
-        "loginPassword"
-      )
-      .value;
-
-  const status =
-    document.getElementById(
-      "loginStatus"
-    );
-
-  status.className =
-    "status show";
-
-  status.textContent =
-    "A entrar...";
-
-  try {
-
-    const resposta =
-      await apiPost({
-
-        acao: "login",
-
-        utilizador:
-          username,
-
-        password:
-          password
-
-      });
-
-    sessionStorage.setItem(
-      SESSION_STORAGE_KEY,
-      resposta.token
-    );
-
-    status.className =
-      "status show success";
-
-    status.textContent =
-      "Sessão iniciada.";
-
-    setTimeout(
-      () => {
-
-        fecharLogin();
-
-        abrirAdministracao();
-
-      },
-      200
-    );
-
-  } catch (erro) {
-
-    status.className =
-      "status show error";
-
-    status.textContent =
-      erro.message;
-  }
-}
-
-
-async function verificarSessao() {
-
-  const token =
-    sessionStorage.getItem(
-      SESSION_STORAGE_KEY
-    );
-
-  if (!token) return;
-
-  try {
-
-    await apiGet(
-      "validarsessao",
-      {
-        token
-      }
-    );
-
-  } catch (erro) {
-
-    sessionStorage.removeItem(
-      SESSION_STORAGE_KEY
-    );
-  }
-}
-
-
-/* =========================================================
-   ADMIN
-========================================================= */
-
-async function abrirAdministracao() {
-
-  const token =
-    sessionStorage.getItem(
-      SESSION_STORAGE_KEY
-    );
-
-  if (!token) {
-
-    abrirLogin();
-
-    return;
-  }
-
-  try {
-
-    await apiGet(
-      "validarsessao",
-      {
-        token
-      }
-    );
-
-    modoAdmin = true;
-
-    document
-      .getElementById(
-        "publicPage"
-      )
-      .style.display = "none";
-
-    document
-      .getElementById(
-        "adminPage"
-      )
-      .classList.add("active");
-
-    document
-      .getElementById(
-        "siteHeaderButton"
-      )
-      .classList.remove("hidden");
-
-    document
-      .getElementById(
-        "adminHeaderButton"
-      )
-      .classList.add("hidden");
-
-    await carregarDadosAdmin();
-
-  } catch (erro) {
-
-    sessionStorage.removeItem(
-      SESSION_STORAGE_KEY
-    );
-
-    abrirLogin();
-  }
-}
-
-
-async function carregarDadosAdmin() {
-
-  try {
-
-    const resposta =
-      await apiGet(
-        "admindados",
-        {
-          token:
-            sessionStorage.getItem(
-              SESSION_STORAGE_KEY
-            )
-        }
-      );
-
-    eventos =
-      resposta.eventos || [];
-
-    preencherSelectsEventos();
-
-  } catch (erro) {
-
-    mostrarAdminStatus(
-      erro.message,
-      "error"
-    );
-  }
-}
-
-
-function preencherSelectsEventos() {
-
-  const selects = [
-
-    document.getElementById(
-      "adminEventoSelect"
-    ),
-
-    document.getElementById(
-      "uploadEventoSelect"
-    )
-
-  ];
-
-  selects.forEach(
-    select => {
-
-      const valor =
-        select.value;
-
-      select.innerHTML =
-        `
-        <option value="">
-          Selecionar evento
-        </option>
-        `;
-
-      eventos.forEach(
-        evento => {
-
-          const option =
-            document.createElement(
-              "option"
-            );
-
-          option.value =
-            evento.ID;
-
-          option.textContent =
-            evento.Nome;
-
-          select.appendChild(
-            option
-          );
-        }
-      );
-
-      if (valor) {
-        select.value =
-          valor;
-      }
-
-    }
-  );
-}
-
-
-/* =========================================================
-   OPERAÇÕES
-========================================================= */
-
-function toggleOperacoes() {
-
-  document
-    .getElementById(
-      "operationMenu"
-    )
-    .classList.toggle(
-      "active"
-    );
-}
-
-
-function irParaUpload() {
-
-  document
-    .getElementById(
-      "operationMenu"
-    )
-    .classList.remove(
-      "active"
-    );
-
-  document
-    .getElementById(
-      "uploadManagement"
-    )
-    .scrollIntoView({
-      behavior: "smooth"
-    });
-}
-
-
-function irParaCriarEvento() {
-
-  document
-    .getElementById(
-      "operationMenu"
-    )
-    .classList.remove(
-      "active"
-    );
-
-  document
-    .getElementById(
-      "eventManagement"
-    )
-    .scrollIntoView({
-      behavior: "smooth"
-    });
-
-  setTimeout(
-    () => {
-
-      document
-        .getElementById(
-          "eventoNome"
-        )
-        .focus();
-
-    },
-    350
-  );
-}
-
-
-function mostrarMensagemOperacao(
-  mensagem
-) {
-
-  mostrarAdminStatus(
-    mensagem,
-    ""
-  );
-}
-
-
-/* =========================================================
-   EVENTO ADMIN
-========================================================= */
-
-function selecionarEventoAdmin() {
-
-  const id =
-    document
-      .getElementById(
-        "adminEventoSelect"
-      )
-      .value;
-
-  if (!id) {
-
-    eventoAtualAdmin = null;
-
-    document
-      .getElementById(
-        "adminPhotos"
-      )
-      .innerHTML =
-      '<div class="loading">Seleciona um evento.</div>';
-
-    return;
-  }
-
-  eventoAtualAdmin =
-    eventos.find(
-      evento =>
-        String(evento.ID) ===
-        String(id)
-    );
-
-  document
-    .getElementById(
-      "uploadEventoSelect"
-    )
-    .value = id;
-
-  carregarFotografiasAdmin(
-    id
-  );
-}
-
-
-async function carregarFotografiasAdmin(
-  eventoId
-) {
-
-  const container =
-    document.getElementById(
-      "adminPhotos"
-    );
-
-  container.innerHTML =
-    '<div class="loading">A carregar...</div>';
-
-  try {
-
-    const resposta =
-      await apiGet(
-        "fotografias",
-        {
-          eventoId
-        }
-      );
-
-    const fotos =
-      resposta.fotografias || [];
-
-    if (!fotos.length) {
-
-      container.innerHTML =
-        '<div class="empty">' +
-        'Este evento ainda não tem fotografias.' +
-        '</div>';
-
-      return;
-    }
-
-    const grid =
-      document.createElement(
-        "div"
-      );
-
-    grid.className =
-      "admin-photo-list";
-
-    fotos.forEach(
-      foto => {
-
-        const card =
-          document.createElement(
-            "div"
-          );
-
-        card.className =
-          "admin-photo";
-
-        card.innerHTML = `
-
-          <img
-            src="${escaparAtributo(
-              foto.ImagemURL || ""
-            )}"
-            loading="lazy"
-            alt=""
+        <div class="form-group">
+
+          <label>
+            Fotografias
+          </label>
+
+          <input
+            id="photoFiles"
+            class="form-control"
+            type="file"
+            accept="image/*"
+            multiple
           >
 
-          <div class="admin-photo-info">
+        </div>
 
-            <div class="admin-photo-title">
-              ${escaparHTML(
-                foto.Titulo ||
-                foto.NomeFicheiro ||
-                ""
-              )}
-            </div>
 
-            <div class="admin-photo-file">
-              ${escaparHTML(
-                foto.NomeFicheiro ||
-                ""
-              )}
-            </div>
+        <div
+          id="uploadList"
+          class="upload-list"
+        ></div>
 
-            <div class="admin-photo-buttons">
 
-              ${
-                foto.OriginalURL
-                ?
-                `
-                <button
-                  class="button button-success"
-                  onclick='descarregarOriginal(${JSON.stringify(
-                    foto.OriginalURL
-                  )})'
-                >
-                  ⬇ Original
-                </button>
-                `
-                :
-                ""
-              }
-
-              <button
-                class="button button-dark"
-                onclick='editarFotografia(${JSON.stringify(
-                  foto.ID
-                )})'
-              >
-                Editar
-              </button>
-
-              <button
-                class="button button-danger"
-                onclick='apagarFotografia(${JSON.stringify(
-                  foto.ID
-                )})'
-              >
-                Apagar
-              </button>
-
-            </div>
-
-          </div>
-        `;
-
-        grid.appendChild(
-          card
-        );
-      }
-    );
-
-    container.innerHTML = "";
-
-    container.appendChild(
-      grid
-    );
-
-  } catch (erro) {
-
-    container.innerHTML =
-      '<div class="empty">' +
-      escaparHTML(
-        erro.message
-      ) +
-      '</div>';
-  }
-}
-
-
-/* =========================================================
-   CRIAR EVENTO
-========================================================= */
-
-async function criarEvento() {
-
-  const nome =
-    document
-      .getElementById(
-        "eventoNome"
-      )
-      .value
-      .trim();
-
-  if (!nome) {
-
-    mostrarAdminStatus(
-      "Indica o nome do evento.",
-      "error"
-    );
-
-    return;
-  }
-
-  try {
-
-    await apiPost({
-
-      acao:
-        "criarEvento",
-
-      token:
-        sessionStorage.getItem(
-          SESSION_STORAGE_KEY
-        ),
-
-      nome,
-
-      data:
-        document.getElementById(
-          "eventoData"
-        ).value,
-
-      local:
-        document.getElementById(
-          "eventoLocal"
-        ).value
-        .trim(),
-
-      categoria:
-        document.getElementById(
-          "eventoCategoria"
-        ).value
-        .trim(),
-
-      descricao:
-        document.getElementById(
-          "eventoDescricao"
-        ).value
-        .trim()
-
-    });
-
-    mostrarAdminStatus(
-      "Evento criado com sucesso.",
-      "success"
-    );
-
-    document.getElementById(
-      "eventoNome"
-    ).value = "";
-
-    document.getElementById(
-      "eventoData"
-    ).value = "";
-
-    document.getElementById(
-      "eventoLocal"
-    ).value = "";
-
-    document.getElementById(
-      "eventoCategoria"
-    ).value = "";
-
-    document.getElementById(
-      "eventoDescricao"
-    ).value = "";
-
-    await carregarDadosAdmin();
-
-  } catch (erro) {
-
-    mostrarAdminStatus(
-      erro.message,
-      "error"
-    );
-  }
-}
-
-
-/* =========================================================
-   EDITAR EVENTO
-========================================================= */
-
-async function editarEventoAtual() {
-
-  if (!eventoAtualAdmin) {
-
-    mostrarAdminStatus(
-      "Seleciona primeiro um evento.",
-      "error"
-    );
-
-    return;
-  }
-
-  const nome =
-    prompt(
-      "Nome do evento:",
-      eventoAtualAdmin.Nome || ""
-    );
-
-  if (nome === null) return;
-
-  const data =
-    prompt(
-      "Data:",
-      eventoAtualAdmin.Data || ""
-    );
-
-  if (data === null) return;
-
-  const local =
-    prompt(
-      "Local:",
-      eventoAtualAdmin.Local || ""
-    );
-
-  if (local === null) return;
-
-  const descricao =
-    prompt(
-      "Descrição:",
-      eventoAtualAdmin.Descricao || ""
-    );
-
-  if (descricao === null) return;
-
-  try {
-
-    await apiPost({
-
-      acao:
-        "editarEvento",
-
-      token:
-        sessionStorage.getItem(
-          SESSION_STORAGE_KEY
-        ),
-
-      id:
-        eventoAtualAdmin.ID,
-
-      nome,
-
-      data,
-
-      local,
-
-      descricao
-
-    });
-
-    mostrarAdminStatus(
-      "Evento atualizado.",
-      "success"
-    );
-
-    await carregarDadosAdmin();
-
-  } catch (erro) {
-
-    mostrarAdminStatus(
-      erro.message,
-      "error"
-    );
-  }
-}
-
-
-/* =========================================================
-   APAGAR EVENTO
-========================================================= */
-
-async function apagarEventoAtual() {
-
-  if (!eventoAtualAdmin) {
-
-    mostrarAdminStatus(
-      "Seleciona primeiro um evento.",
-      "error"
-    );
-
-    return;
-  }
-
-  if (
-    !confirm(
-      'Apagar o evento "' +
-      eventoAtualAdmin.Nome +
-      '" e as fotografias associadas?'
-    )
-  ) {
-    return;
-  }
-
-  try {
-
-    await apiPost({
-
-      acao:
-        "apagarEvento",
-
-      token:
-        sessionStorage.getItem(
-          SESSION_STORAGE_KEY
-        ),
-
-      id:
-        eventoAtualAdmin.ID
-
-    });
-
-    eventoAtualAdmin =
-      null;
-
-    mostrarAdminStatus(
-      "Evento apagado.",
-      "success"
-    );
-
-    await carregarDadosAdmin();
-
-    document
-      .getElementById(
-        "adminPhotos"
-      )
-      .innerHTML =
-      '<div class="loading">Seleciona um evento.</div>';
-
-  } catch (erro) {
-
-    mostrarAdminStatus(
-      erro.message,
-      "error"
-    );
-  }
-}
-
-
-/* =========================================================
-   SELEÇÃO DE FOTOGRAFIAS
-========================================================= */
-
-function prepararFotografias(
-  files
-) {
-
-  const lista =
-    Array.from(
-      files || []
-    );
-
-  lista.forEach(
-    file => {
-
-      const existe =
-        fotografiasSelecionadas.some(
-          item =>
-            item.file.name ===
-              file.name &&
-            item.file.size ===
-              file.size &&
-            item.file.lastModified ===
-              file.lastModified
-        );
-
-      if (existe) return;
-
-      fotografiasSelecionadas.push({
-
-        file,
-
-        titulo:
-          obterTituloDoFicheiro(
-            file.name
-          ),
-
-        preview:
-          URL.createObjectURL(
-            file
-          )
-
-      });
-
-    }
-  );
-
-  renderizarFotografiasSelecionadas();
-}
-
-
-function obterTituloDoFicheiro(
-  nome
-) {
-
-  const ponto =
-    nome.lastIndexOf(".");
-
-  if (ponto <= 0) {
-    return nome;
-  }
-
-  return nome.substring(
-    0,
-    ponto
-  );
-}
-
-
-function renderizarFotografiasSelecionadas() {
-
-  const container =
-    document.getElementById(
-      "selectedFiles"
-    );
-
-  container.innerHTML = "";
-
-  if (!fotografiasSelecionadas.length) {
-
-    container.innerHTML =
-      '<div style="color:#777;">Nenhuma fotografia selecionada.</div>';
-
-    return;
-  }
-
-  fotografiasSelecionadas.forEach(
-    (item, index) => {
-
-      const row =
-        document.createElement(
-          "div"
-        );
-
-      row.className =
-        "selected-file";
-
-      row.innerHTML = `
-
-        <img
-          src="${item.preview}"
-          alt=""
+        <div
+          style="
+            display:flex;
+            gap:10px;
+            margin-top:15px;
+            flex-wrap:wrap;
+          "
         >
+
+          <button
+            class="btn btn-gold"
+            onclick="iniciarUpload()"
+          >
+            Fazer upload
+          </button>
+
+          <button
+            class="btn"
+            onclick="fecharUpload()"
+          >
+            Fechar
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- =================================================
+           CRIAR EVENTO
+           ================================================= -->
+
+      <div
+        id="createEventBox"
+        class="upload-box"
+        style="display:none"
+      >
+
+        <h2>
+          Criar evento
+        </h2>
+
+
+        <div class="form-group">
+
+          <label>
+            Nome
+          </label>
+
+          <input
+            id="newEventName"
+            class="form-control"
+            type="text"
+          >
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>
+            Data
+          </label>
+
+          <input
+            id="newEventDate"
+            class="form-control"
+            type="date"
+          >
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>
+            Local
+          </label>
+
+          <input
+            id="newEventLocation"
+            class="form-control"
+            type="text"
+          >
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>
+            Categoria
+          </label>
+
+          <input
+            id="newEventCategory"
+            class="form-control"
+            type="text"
+          >
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>
+            Descrição
+          </label>
+
+          <textarea
+            id="newEventDescription"
+            class="form-control"
+          ></textarea>
+
+        </div>
+
+
+        <button
+          class="btn btn-gold"
+          onclick="criarNovoEvento()"
+        >
+          Criar evento
+        </button>
+
+        <button
+          class="btn"
+          onclick="fecharCriarEvento()"
+        >
+          Fechar
+        </button>
+
+      </div>
+
+
+      <!-- =================================================
+           EVENTOS ADMIN
+           ================================================= -->
+
+      <div class="section-title">
 
         <div>
 
-          <div class="file-name">
-            ${escaparHTML(
-              item.file.name
-            )}
-          </div>
+          <h2>
+            Eventos
+          </h2>
 
-          <input
-            type="text"
-            value="${escaparAtributo(
-              item.titulo
-            )}"
-            oninput="
-              alterarTituloFotografia(
-                ${index},
-                this.value
-              )
-            "
-          >
+          <p>
+            Gestão dos eventos do portfólio.
+          </p>
 
         </div>
 
-        <button
-          class="remove-file"
-          onclick="
-            removerFotografiaSelecionada(
-              ${index}
-            )
-          "
+      </div>
+
+
+      <div
+        id="adminEvents"
+        class="admin-event-list"
+      >
+
+        <div class="loading">
+          A carregar...
+        </div>
+
+      </div>
+
+
+      <!-- =================================================
+           FOTOGRAFIAS ADMIN
+           ================================================= -->
+
+      <div class="section-title">
+
+        <div>
+
+          <h2>
+            Fotografias
+          </h2>
+
+          <p>
+            Gestão das fotografias.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div
+        id="adminPhotos"
+        class="admin-photos"
+      >
+
+        <div class="empty">
+          Seleciona ou adiciona fotografias.
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================================================
+       MODAL FOTO
+       ===================================================== -->
+
+  <div
+    id="photoModal"
+    class="modal"
+    onclick="fecharModalFora(event)"
+  >
+
+    <div class="modal-content">
+
+      <button
+        class="modal-close"
+        onclick="fecharModal()"
+      >
+        ×
+      </button>
+
+
+      <div class="modal-image-wrap">
+
+        <img
+          id="modalImage"
+          class="modal-image"
+          src=""
+          alt=""
         >
-          ×
-        </button>
-
-      `;
-
-      container.appendChild(
-        row
-      );
-    }
-  );
-}
 
 
-function alterarTituloFotografia(
-  index,
-  valor
-) {
+        <div class="watermark">
 
-  if (
-    fotografiasSelecionadas[index]
-  ) {
+          <span>
+            André Silva
+          </span>
 
-    fotografiasSelecionadas[index]
-      .titulo =
-      valor;
-  }
-}
+        </div>
 
 
-function removerFotografiaSelecionada(
-  index
-) {
+        <div class="watermark-corner">
+          André Silva
+        </div>
 
-  const item =
-    fotografiasSelecionadas[
-      index
-    ];
-
-  if (item?.preview) {
-
-    URL.revokeObjectURL(
-      item.preview
-    );
-  }
-
-  fotografiasSelecionadas.splice(
-    index,
-    1
-  );
-
-  renderizarFotografiasSelecionadas();
-}
+      </div>
 
 
-function limparSelecaoFotografias() {
+      <div
+        id="modalInfo"
+        class="modal-info"
+      ></div>
 
-  fotografiasSelecionadas.forEach(
-    item => {
+    </div>
 
-      if (item.preview) {
+  </div>
 
-        URL.revokeObjectURL(
-          item.preview
+
+  <!-- =====================================================
+       TOAST
+       ===================================================== -->
+
+  <div
+    id="toast"
+    class="toast"
+  ></div>
+
+
+  <script>
+
+    /* =====================================================
+       CONFIGURAÇÃO
+       ===================================================== */
+
+    const API_URL =
+      "https://script.google.com/macros/s/AKfycbwmpVdajsKiouktxt-vP6vDqfjwgYmfgq2y761QE3g3LtZA4PmwZoBZTsnIUcIr6aTX9A/exec";
+
+    const WHATSAPP_NUMBER =
+      "351914625989";
+
+    const SESSION_STORAGE_KEY =
+      "portfolio_admin_token";
+
+
+    let eventosCache =
+      [];
+
+    let fotografiasAdminCache =
+      [];
+
+    let eventoAtual =
+      null;
+
+    let fotosSelecionadas =
+      [];
+
+    let dadosAdminCarregados =
+      false;
+
+
+    /* =====================================================
+       API GET
+       ===================================================== */
+
+    async function apiGet(
+      acao,
+      parametros = {}
+    ) {
+
+      const query =
+        new URLSearchParams({
+
+          acao,
+
+          ...parametros
+
+        });
+
+
+      const resposta =
+        await fetch(
+          API_URL +
+          "?" +
+          query.toString(),
+          {
+            cache: "no-store"
+          }
         );
+
+
+      if (!resposta.ok) {
+
+        throw new Error(
+          "Erro HTTP " +
+          resposta.status
+        );
+
+      }
+
+
+      const dados =
+        await resposta.json();
+
+
+      if (!dados.ok) {
+
+        throw new Error(
+          dados.erro ||
+          "Erro na API."
+        );
+
+      }
+
+
+      return dados;
+
+    }
+
+
+    /* =====================================================
+       API POST
+       ===================================================== */
+
+    async function apiPost(
+      dados
+    ) {
+
+      const resposta =
+        await fetch(
+          API_URL,
+          {
+            method: "POST",
+
+            headers: {
+              "Content-Type":
+                "text/plain;charset=utf-8"
+            },
+
+            body:
+              JSON.stringify(
+                dados
+              )
+          }
+        );
+
+
+      if (!resposta.ok) {
+
+        throw new Error(
+          "Erro HTTP " +
+          resposta.status
+        );
+
+      }
+
+
+      const resultado =
+        await resposta.json();
+
+
+      if (!resultado.ok) {
+
+        throw new Error(
+          resultado.erro ||
+          "Erro na API."
+        );
+
+      }
+
+
+      return resultado;
+
+    }
+
+
+    /* =====================================================
+       SESSÃO
+       ===================================================== */
+
+    function obterToken() {
+
+      return (
+        sessionStorage.getItem(
+          SESSION_STORAGE_KEY
+        ) ||
+        localStorage.getItem(
+          SESSION_STORAGE_KEY
+        ) ||
+        ""
+      );
+
+    }
+
+
+    function guardarToken(
+      token
+    ) {
+
+      sessionStorage.setItem(
+        SESSION_STORAGE_KEY,
+        token
+      );
+
+    }
+
+
+    function apagarToken() {
+
+      sessionStorage.removeItem(
+        SESSION_STORAGE_KEY
+      );
+
+      localStorage.removeItem(
+        SESSION_STORAGE_KEY
+      );
+
+    }
+
+
+    /* =====================================================
+       INÍCIO
+       ===================================================== */
+
+    document.addEventListener(
+      "DOMContentLoaded",
+      iniciar
+    );
+
+
+    async function iniciar() {
+
+      configurarTeclas();
+
+      configurarUpload();
+
+      await carregarEventosPublicos();
+
+      const token =
+        obterToken();
+
+
+      if (token) {
+
+        try {
+
+          const dados =
+            await apiGet(
+              "validarsessao",
+              {
+                token
+              }
+            );
+
+
+          if (
+            dados.autenticado
+          ) {
+
+            mostrarAdmin();
+
+          }
+
+        } catch (erro) {
+
+          apagarToken();
+
+        }
+
       }
 
     }
-  );
 
-  fotografiasSelecionadas = [];
 
-  document.getElementById(
-    "photoInput"
-  ).value = "";
+    /* =====================================================
+       TECLAS
+       ===================================================== */
 
-  document.getElementById(
-    "uploadProgress"
-  ).textContent = "";
+    function configurarTeclas() {
 
-  renderizarFotografiasSelecionadas();
-}
+      document.addEventListener(
+        "keydown",
+        function(event) {
 
+          if (
+            event.ctrlKey &&
+            event.altKey &&
+            event.key.toLowerCase() === "a"
+          ) {
 
-/* =========================================================
-   BASE64
-========================================================= */
+            event.preventDefault();
 
-function ficheiroParaBase64(
-  file
-) {
+            abrirAdmin();
 
-  return new Promise(
-    (resolve, reject) => {
+          }
 
-      const reader =
-        new FileReader();
 
-      reader.onload =
-        () => {
+          if (
+            event.key === "Escape"
+          ) {
 
-          const resultado =
-            reader.result;
+            fecharModal();
 
-          resolve(
-            String(resultado)
-              .split(",")[1]
-          );
-        };
+          }
 
-      reader.onerror =
-        () => {
-
-          reject(
-            new Error(
-              "Não foi possível ler " +
-              file.name
-            )
-          );
-
-        };
-
-      reader.readAsDataURL(
-        file
-      );
-    }
-  );
-}
-
-
-/* =========================================================
-   UPLOAD
-========================================================= */
-
-async function uploadFotografiasEmMassa() {
-
-  const token =
-    sessionStorage.getItem(
-      SESSION_STORAGE_KEY
-    );
-
-  const eventoId =
-    document
-      .getElementById(
-        "uploadEventoSelect"
-      )
-      .value;
-
-  if (!token) {
-
-    abrirLogin();
-
-    return;
-  }
-
-  if (!eventoId) {
-
-    mostrarAdminStatus(
-      "Seleciona o evento.",
-      "error"
-    );
-
-    return;
-  }
-
-  if (!fotografiasSelecionadas.length) {
-
-    mostrarAdminStatus(
-      "Seleciona pelo menos uma fotografia.",
-      "error"
-    );
-
-    return;
-  }
-
-  const preco =
-    document.getElementById(
-      "uploadPreco"
-    ).value;
-
-  const descricao =
-    document.getElementById(
-      "uploadDescricao"
-    ).value
-    .trim();
-
-  const total =
-    fotografiasSelecionadas.length;
-
-  let enviadas = 0;
-
-  const progress =
-    document.getElementById(
-      "uploadProgress"
-    );
-
-  try {
-
-    for (
-      let i = 0;
-      i < total;
-      i++
-    ) {
-
-      const item =
-        fotografiasSelecionadas[
-          i
-        ];
-
-      progress.textContent =
-        "A carregar " +
-        (i + 1) +
-        " de " +
-        total +
-        ": " +
-        item.file.name;
-
-      const base64 =
-        await ficheiroParaBase64(
-          item.file
-        );
-
-      const titulo =
-        item.titulo.trim() ||
-        obterTituloDoFicheiro(
-          item.file.name
-        );
-
-      await apiPost({
-
-        acao:
-          "uploadFotografia",
-
-        token,
-
-        eventoId,
-
-        titulo,
-
-        preco,
-
-        descricao,
-
-        destaque:
-          false,
-
-        ativo:
-          true,
-
-        base64,
-
-        nomeFicheiro:
-          item.file.name,
-
-        mimeType:
-          item.file.type ||
-          "image/jpeg"
-
-      });
-
-      enviadas++;
-    }
-
-    progress.textContent =
-      "Concluído: " +
-      enviadas +
-      " fotografias.";
-
-    mostrarAdminStatus(
-      enviadas +
-      " fotografias carregadas com sucesso.",
-      "success"
-    );
-
-    const eventoAdmin =
-      document
-        .getElementById(
-          "adminEventoSelect"
-        )
-        .value;
-
-    if (
-      String(eventoAdmin) ===
-      String(eventoId)
-    ) {
-
-      await carregarFotografiasAdmin(
-        eventoId
-      );
-    }
-
-    limparSelecaoFotografias();
-
-  } catch (erro) {
-
-    progress.textContent =
-      "Upload interrompido.";
-
-    mostrarAdminStatus(
-      "Foram carregadas " +
-      enviadas +
-      " de " +
-      total +
-      ". " +
-      erro.message,
-      "error"
-    );
-  }
-}
-
-
-/* =========================================================
-   FOTOGRAFIA ADMIN
-========================================================= */
-
-async function editarFotografia(
-  id
-) {
-
-  const eventoId =
-    document
-      .getElementById(
-        "adminEventoSelect"
-      )
-      .value;
-
-  try {
-
-    const resposta =
-      await apiGet(
-        "fotografias",
-        {
-          eventoId
         }
       );
 
-    const foto =
-      (resposta.fotografias || [])
-        .find(
-          f =>
-            String(f.ID) ===
-            String(id)
+    }
+
+
+    /* =====================================================
+       TOAST
+       ===================================================== */
+
+    let toastTimer =
+      null;
+
+
+    function mostrarToast(
+      mensagem
+    ) {
+
+      const toast =
+        document.getElementById(
+          "toast"
         );
 
-    if (!foto) {
 
-      mostrarAdminStatus(
-        "Fotografia não encontrada.",
-        "error"
+      toast.textContent =
+        mensagem;
+
+
+      toast.classList.add(
+        "active"
       );
 
-      return;
+
+      clearTimeout(
+        toastTimer
+      );
+
+
+      toastTimer =
+        setTimeout(
+          function() {
+
+            toast.classList.remove(
+              "active"
+            );
+
+          },
+          3000
+        );
+
     }
 
-    const titulo =
-      prompt(
-        "Título:",
-        foto.Titulo || ""
-      );
 
-    if (titulo === null) return;
+    /* =====================================================
+       NAVEGAÇÃO
+       ===================================================== */
 
-    const preco =
-      prompt(
-        "Preço:",
-        foto.Preco || ""
-      );
+    function esconderTudo() {
 
-    if (preco === null) return;
-
-    const descricao =
-      prompt(
-        "Descrição:",
-        foto.Descricao || ""
-      );
-
-    if (descricao === null) return;
-
-    await apiPost({
-
-      acao:
-        "editarFotografia",
-
-      token:
-        sessionStorage.getItem(
-          SESSION_STORAGE_KEY
-        ),
-
-      id,
-
-      titulo,
-
-      preco,
-
-      descricao,
-
-      destaque:
-        foto.Destaque,
-
-      ativo:
-        foto.Ativo
-
-    });
-
-    mostrarAdminStatus(
-      "Fotografia atualizada.",
-      "success"
-    );
-
-    await carregarFotografiasAdmin(
-      eventoId
-    );
-
-  } catch (erro) {
-
-    mostrarAdminStatus(
-      erro.message,
-      "error"
-    );
-  }
-}
+      document.getElementById(
+        "publicSection"
+      ).style.display = "none";
 
 
-async function apagarFotografia(
-  id
-) {
-
-  if (
-    !confirm(
-      "Apagar esta fotografia?"
-    )
-  ) {
-    return;
-  }
-
-  try {
-
-    await apiPost({
-
-      acao:
-        "apagarFotografia",
-
-      token:
-        sessionStorage.getItem(
-          SESSION_STORAGE_KEY
-        ),
-
-      id
-
-    });
-
-    mostrarAdminStatus(
-      "Fotografia apagada.",
-      "success"
-    );
-
-    await carregarFotografiasAdmin(
-      document
-        .getElementById(
-          "adminEventoSelect"
-        )
-        .value
-    );
-
-  } catch (erro) {
-
-    mostrarAdminStatus(
-      erro.message,
-      "error"
-    );
-  }
-}
+      document.getElementById(
+        "eventPage"
+      ).style.display = "none";
 
 
-/* =========================================================
-   DOWNLOAD ORIGINAL
-========================================================= */
+      document.getElementById(
+        "loginSection"
+      ).style.display = "none";
 
-function descarregarOriginal(
-  url
-) {
 
-  if (!url) {
+      document.getElementById(
+        "adminSection"
+      ).style.display = "none";
 
-    alert(
-      "O original não está disponível."
-    );
 
-    return;
-  }
+      document.getElementById(
+        "btnVoltarSite"
+      ).style.display = "none";
 
-  /*
-    Tentamos obter o ID do Google Drive.
-  */
 
-  let fileId = "";
+      document.getElementById(
+        "btnAdmin"
+      ).style.display = "block";
 
-  const match1 =
-    url.match(
-      /\/d\/([a-zA-Z0-9_-]+)/
-    );
-
-  if (match1) {
-
-    fileId =
-      match1[1];
-  }
-
-  if (!fileId) {
-
-    const match2 =
-      url.match(
-        /[?&]id=([a-zA-Z0-9_-]+)/
-      );
-
-    if (match2) {
-
-      fileId =
-        match2[1];
     }
-  }
-
-  if (!fileId) {
-
-    window.open(
-      url,
-      "_blank"
-    );
-
-    return;
-  }
-
-  const downloadUrl =
-    "https://drive.google.com/uc?export=download&id=" +
-    encodeURIComponent(
-      fileId
-    );
-
-  window.open(
-    downloadUrl,
-    "_blank"
-  );
-}
 
 
-/* =========================================================
-   MODAL
-========================================================= */
+    function mostrarSite() {
 
-function abrirFotoModal(
-  foto
-) {
-
-  document.getElementById(
-    "modalImage"
-  ).src =
-    foto.ImagemURL || "";
-
-  document.getElementById(
-    "modalTitle"
-  ).textContent =
-    foto.Titulo ||
-    foto.NomeFicheiro ||
-    "";
-
-  document.getElementById(
-    "modalDescription"
-  ).textContent =
-    foto.Descricao || "";
-
-  const preco =
-    document.getElementById(
-      "modalPrice"
-    );
-
-  if (
-    foto.Preco !== undefined &&
-    foto.Preco !== null &&
-    foto.Preco !== ""
-  ) {
-
-    preco.textContent =
-      "Preço: " +
-      Number(
-        foto.Preco
-      ).toFixed(2) +
-      " €";
-
-  } else {
-
-    preco.textContent =
-      "";
-  }
-
-  const mensagem =
-    "Olá! Tenho interesse na fotografia \"" +
-    (
-      foto.Titulo ||
-      foto.NomeFicheiro ||
-      ""
-    ) +
-    "\".";
-
-  document.getElementById(
-    "modalWhatsapp"
-  ).href =
-    "https://wa.me/" +
-    WHATSAPP_NUMBER +
-    "?text=" +
-    encodeURIComponent(
-      mensagem
-    );
-
-  document
-    .getElementById(
-      "photoModal"
-    )
-    .classList.add(
-      "active"
-    );
-}
+      esconderTudo();
 
 
-function fecharModal(
-  event
-) {
-
-  if (
-    event &&
-    event.target &&
-    event.target.id !==
-      "photoModal"
-  ) {
-    return;
-  }
-
-  document
-    .getElementById(
-      "photoModal"
-    )
-    .classList.remove(
-      "active"
-    );
-}
+      document.getElementById(
+        "publicSection"
+      ).style.display = "block";
 
 
-/* =========================================================
-   LOGOUT
-========================================================= */
-
-async function logout() {
-
-  const token =
-    sessionStorage.getItem(
-      SESSION_STORAGE_KEY
-    );
-
-  if (token) {
-
-    try {
-
-      await apiPost({
-
-        acao:
-          "logout",
-
-        token
-
+      window.scrollTo({
+        top: 0,
+        behavior: "instant"
       });
 
-    } catch (erro) {}
 
-  }
+      carregarEventosPublicos();
 
-  sessionStorage.removeItem(
-    SESSION_STORAGE_KEY
-  );
-
-  modoAdmin = false;
-
-  document
-    .getElementById(
-      "adminPage"
-    )
-    .classList.remove(
-      "active"
-    );
-
-  document
-    .getElementById(
-      "publicPage"
-    )
-    .style.display =
-    "block";
-
-  document
-    .getElementById(
-      "siteHeaderButton"
-    )
-    .classList.remove(
-      "hidden"
-    );
-
-  document
-    .getElementById(
-      "adminHeaderButton"
-    )
-    .classList.add(
-      "hidden"
-    );
-
-  carregarEventosPublicos();
-}
+    }
 
 
-/* =========================================================
-   STATUS
-========================================================= */
+    function voltarInicio() {
 
-function mostrarAdminStatus(
-  mensagem,
-  tipo = ""
-) {
+      mostrarSite();
 
-  const status =
+    }
+
+
+    function voltarEventos() {
+
+      mostrarSite();
+
+    }
+
+
+    /* =====================================================
+       EVENTOS PÚBLICOS
+       ===================================================== */
+
+    async function carregarEventosPublicos() {
+
+      const container =
+        document.getElementById(
+          "eventosPublicos"
+        );
+
+
+      if (
+        !eventosCache.length
+      ) {
+
+        container.innerHTML =
+          '<div class="loading">A carregar eventos...</div>';
+
+      }
+
+
+      try {
+
+        const dados =
+          await apiGet(
+            "eventos"
+          );
+
+
+        eventosCache =
+          dados.eventos ||
+          [];
+
+
+        renderizarEventosPublicos();
+
+      } catch (erro) {
+
+        container.innerHTML =
+          '<div class="empty">' +
+          escapeHtml(
+            erro.message
+          ) +
+          '</div>';
+
+      }
+
+    }
+
+
+    function renderizarEventosPublicos() {
+
+      const container =
+        document.getElementById(
+          "eventosPublicos"
+        );
+
+
+      if (
+        !eventosCache.length
+      ) {
+
+        container.innerHTML =
+          '<div class="empty">' +
+          'Ainda não existem eventos.' +
+          '</div>';
+
+        return;
+
+      }
+
+
+      container.innerHTML =
+        eventosCache
+          .map(
+            function(evento) {
+
+              return `
+                <article
+                  class="event-card"
+                  onclick="abrirEvento('${escapeAttr(evento.ID)}')"
+                >
+
+                  <div class="event-cover">
+
+                    ${
+                      evento.Capa
+                        ? `
+                          <img
+                            src="${escapeAttr(evento.Capa)}"
+                            alt="${escapeAttr(evento.Nome)}"
+                            loading="lazy"
+                          >
+                        `
+                        : `
+                          <div
+                            style="
+                              width:100%;
+                              height:100%;
+                              display:flex;
+                              align-items:center;
+                              justify-content:center;
+                              color:#777;
+                            "
+                          >
+                            Sem capa
+                          </div>
+                        `
+                    }
+
+                  </div>
+
+
+                  <div class="event-info">
+
+                    <h3>
+                      ${escapeHtml(evento.Nome || "Sem nome")}
+                    </h3>
+
+                    ${
+                      evento.Data
+                        ? `
+                          <p>
+                            ${escapeHtml(
+                              formatarData(evento.Data)
+                            )}
+                          </p>
+                        `
+                        : ""
+                    }
+
+                    ${
+                      evento.Local
+                        ? `
+                          <p>
+                            ${escapeHtml(evento.Local)}
+                          </p>
+                        `
+                        : ""
+                    }
+
+                  </div>
+
+                </article>
+              `;
+
+            }
+          )
+          .join("");
+
+    }
+
+
+    /* =====================================================
+       ABRIR EVENTO
+       ===================================================== */
+
+    async function abrirEvento(
+      id
+    ) {
+
+      esconderTudo();
+
+
+      document.getElementById(
+        "eventPage"
+      ).style.display = "block";
+
+
+      const details =
+        document.getElementById(
+          "eventDetails"
+        );
+
+
+      const gallery =
+        document.getElementById(
+          "eventGallery"
+        );
+
+
+      details.innerHTML =
+        '<div class="loading">A carregar evento...</div>';
+
+
+      gallery.innerHTML =
+        "";
+
+
+      window.scrollTo({
+        top: 0,
+        behavior: "instant"
+      });
+
+
+      try {
+
+        const dadosEvento =
+          await apiGet(
+            "evento",
+            {
+              id
+            }
+          );
+
+
+        const evento =
+          dadosEvento.evento;
+
+
+        if (!evento) {
+
+          throw new Error(
+            "Evento não encontrado."
+          );
+
+        }
+
+
+        eventoAtual =
+          evento;
+
+
+        details.innerHTML = `
+
+          <h1>
+            ${escapeHtml(
+              evento.Nome || ""
+            )}
+          </h1>
+
+
+          <div class="event-meta">
+
+            ${
+              evento.Data
+                ? `
+                  <span>
+                    📅
+                    ${escapeHtml(
+                      formatarData(evento.Data)
+                    )}
+                  </span>
+                `
+                : ""
+            }
+
+            ${
+              evento.Local
+                ? `
+                  <span>
+                    📍
+                    ${escapeHtml(
+                      evento.Local
+                    )}
+                  </span>
+                `
+                : ""
+            }
+
+            ${
+              evento.Categoria
+                ? `
+                  <span>
+                    ${escapeHtml(
+                      evento.Categoria
+                    )}
+                  </span>
+                `
+                : ""
+            }
+
+          </div>
+
+
+          ${
+            evento.Descricao
+              ? `
+                <div class="event-description">
+                  ${escapeHtml(
+                    evento.Descricao
+                  )}
+                </div>
+              `
+              : ""
+          }
+
+        `;
+
+
+        const dadosFotos =
+          await apiGet(
+            "fotografias",
+            {
+              eventoId: id
+            }
+          );
+
+
+        renderizarGaleria(
+          dadosFotos.fotografias ||
+          []
+        );
+
+      } catch (erro) {
+
+        details.innerHTML =
+          '<div class="empty">' +
+          escapeHtml(
+            erro.message
+          ) +
+          '</div>';
+
+      }
+
+    }
+
+
+    /* =====================================================
+       GALERIA
+       ===================================================== */
+
+    function renderizarGaleria(
+      fotos
+    ) {
+
+      const gallery =
+        document.getElementById(
+          "eventGallery"
+        );
+
+
+      if (!fotos.length) {
+
+        gallery.innerHTML =
+          '<div class="empty">' +
+          'Ainda não existem fotografias neste evento.' +
+          '</div>';
+
+        return;
+
+      }
+
+
+      gallery.innerHTML =
+        fotos
+          .map(
+            function(foto) {
+
+              return `
+
+                <article
+                  class="photo-card"
+                  onclick='abrirFoto(${JSON.stringify(
+                    foto
+                  )})'
+                >
+
+                  <div class="photo-image-wrap">
+
+                    <img
+                      class="photo-image"
+                      src="${escapeAttr(foto.ImagemURL)}"
+                      alt="${escapeAttr(foto.Titulo || "")}"
+                      loading="lazy"
+                    >
+
+
+                    <div class="watermark">
+
+                      <span>
+                        André Silva
+                      </span>
+
+                    </div>
+
+
+                    <div class="watermark-corner">
+                      André Silva
+                    </div>
+
+                  </div>
+
+
+                  <div class="photo-info">
+
+                    <h3>
+                      ${escapeHtml(
+                        foto.Titulo || ""
+                      )}
+                    </h3>
+
+
+                    ${
+                      foto.Preco
+                        ? `
+                          <div class="photo-price">
+                            ${escapeHtml(
+                              String(foto.Preco)
+                            )}
+                          </div>
+                        `
+                        : ""
+                    }
+
+
+                    ${
+                      foto.Descricao
+                        ? `
+                          <div class="photo-description">
+                            ${escapeHtml(
+                              foto.Descricao
+                            )}
+                          </div>
+                        `
+                        : ""
+                    }
+
+                  </div>
+
+                </article>
+
+              `;
+
+            }
+          )
+          .join("");
+
+    }
+
+
+    /* =====================================================
+       MODAL
+       ===================================================== */
+
+    function abrirFoto(
+      foto
+    ) {
+
+      document.getElementById(
+        "modalImage"
+      ).src =
+        foto.ImagemURL || "";
+
+
+      document.getElementById(
+        "modalImage"
+      ).alt =
+        foto.Titulo || "";
+
+
+      const mensagem =
+        encodeURIComponent(
+          "Olá! Tenho interesse na fotografia \"" +
+          (foto.Titulo || "") +
+          "\"."
+        );
+
+
+      document.getElementById(
+        "modalInfo"
+      ).innerHTML = `
+
+        <h2>
+          ${escapeHtml(
+            foto.Titulo || ""
+          )}
+        </h2>
+
+
+        ${
+          foto.Descricao
+            ? `
+              <p>
+                ${escapeHtml(
+                  foto.Descricao
+                )}
+              </p>
+            `
+            : ""
+        }
+
+
+        ${
+          foto.Preco
+            ? `
+              <p class="photo-price">
+                ${escapeHtml(
+                  String(foto.Preco)
+                )}
+              </p>
+            `
+            : ""
+        }
+
+
+        <a
+          class="whatsapp-button"
+          href="https://wa.me/${WHATSAPP_NUMBER}?text=${mensagem}"
+          target="_blank"
+          rel="noopener"
+        >
+          Pedir esta fotografia pelo WhatsApp
+        </a>
+
+      `;
+
+
+      document.getElementById(
+        "photoModal"
+      ).classList.add(
+        "active"
+      );
+
+    }
+
+
+    function fecharModal() {
+
+      document.getElementById(
+        "photoModal"
+      ).classList.remove(
+        "active"
+      );
+
+
+      document.getElementById(
+        "modalImage"
+      ).src = "";
+
+    }
+
+
+    function fecharModalFora(
+      event
+    ) {
+
+      if (
+        event.target.id ===
+        "photoModal"
+      ) {
+
+        fecharModal();
+
+      }
+
+    }
+
+
+    /* =====================================================
+       ADMIN
+       ===================================================== */
+
+    function abrirAdmin() {
+
+      const token =
+        obterToken();
+
+
+      if (token) {
+
+        validarEEntrarAdmin();
+
+      } else {
+
+        mostrarLogin();
+
+      }
+
+    }
+
+
+    function mostrarLogin() {
+
+      esconderTudo();
+
+
+      document.getElementById(
+        "loginSection"
+      ).style.display = "block";
+
+
+      document.getElementById(
+        "loginUser"
+      ).focus();
+
+    }
+
+
+    async function validarEEntrarAdmin() {
+
+      try {
+
+        const dados =
+          await apiGet(
+            "validarsessao",
+            {
+              token:
+                obterToken()
+            }
+          );
+
+
+        if (
+          dados.autenticado
+        ) {
+
+          mostrarAdmin();
+
+        } else {
+
+          apagarToken();
+
+          mostrarLogin();
+
+        }
+
+      } catch (erro) {
+
+        apagarToken();
+
+        mostrarLogin();
+
+      }
+
+    }
+
+
+    function mostrarAdmin() {
+
+      esconderTudo();
+
+
+      document.getElementById(
+        "adminSection"
+      ).style.display = "block";
+
+
+      document.getElementById(
+        "btnAdmin"
+      ).style.display = "none";
+
+
+      document.getElementById(
+        "btnVoltarSite"
+      ).style.display = "block";
+
+
+      carregarAdmin();
+
+    }
+
+
+    /* =====================================================
+       LOGIN FORM
+       ===================================================== */
+
     document.getElementById(
-      "adminStatus"
+      "loginForm"
+    ).addEventListener(
+      "submit",
+      async function(event) {
+
+        event.preventDefault();
+
+
+        const utilizador =
+          document.getElementById(
+            "loginUser"
+          ).value.trim();
+
+
+        const password =
+          document.getElementById(
+            "loginPassword"
+          ).value;
+
+
+        try {
+
+          const dados =
+            await apiPost({
+
+              acao:
+                "login",
+
+              utilizador:
+                utilizador,
+
+              password:
+                password
+
+            });
+
+
+          if (
+            !dados.token
+          ) {
+
+            throw new Error(
+              "Não foi possível iniciar sessão."
+            );
+
+          }
+
+
+          guardarToken(
+            dados.token
+          );
+
+
+          document.getElementById(
+            "loginPassword"
+          ).value = "";
+
+
+          mostrarAdmin();
+
+
+        } catch (erro) {
+
+          alert(
+            erro.message
+          );
+
+        }
+
+      }
     );
 
-  status.textContent =
-    mensagem;
 
-  status.className =
-    "status show " +
-    tipo;
-}
+    /* =====================================================
+       CARREGAR ADMIN
+       ===================================================== */
 
+    async function carregarAdmin() {
 
-/* =========================================================
-   UTILITÁRIOS
-========================================================= */
-
-function formatarData(
-  data
-) {
-
-  if (!data) return "";
-
-  const d =
-    new Date(data);
-
-  if (
-    isNaN(
-      d.getTime()
-    )
-  ) {
-    return data;
-  }
-
-  return d.toLocaleDateString(
-    "pt-PT"
-  );
-}
+      const token =
+        obterToken();
 
 
-function escaparHTML(
-  valor
-) {
+      if (!token) {
 
-  return String(
-    valor ?? ""
-  )
-    .replace(
-      /&/g,
-      "&amp;"
-    )
-    .replace(
-      /</g,
-      "&lt;"
-    )
-    .replace(
-      />/g,
-      "&gt;"
-    )
-    .replace(
-      /"/g,
-      "&quot;"
-    )
-    .replace(
-      /'/g,
-      "&#039;"
-    );
-}
+        mostrarLogin();
+
+        return;
+
+      }
 
 
-function escaparAtributo(
-  valor
-) {
-
-  return escaparHTML(
-    valor
-  );
-}
+      const events =
+        document.getElementById(
+          "adminEvents"
+        );
 
 
-/* =========================================================
-   TECLADO
-========================================================= */
+      events.innerHTML =
+        '<div class="loading">A carregar...</div>';
 
-document.addEventListener(
-  "keydown",
-  event => {
 
-    if (
-      event.ctrlKey &&
-      event.altKey &&
-      event.key.toLowerCase() === "a"
-    ) {
+      try {
 
-      event.preventDefault();
+        const dados =
+          await apiGet(
+            "admindados",
+            {
+              token
+            }
+          );
 
-      abrirAdministracao();
+
+        eventosCache =
+          dados.eventos ||
+          [];
+
+
+        fotografiasAdminCache =
+          dados.fotografias ||
+          [];
+
+
+        dadosAdminCarregados =
+          true;
+
+
+        renderizarAdminEventos();
+
+        preencherSelectEventos();
+
+        renderizarAdminFotografias();
+
+      } catch (erro) {
+
+        dadosAdminCarregados =
+          false;
+
+
+        events.innerHTML =
+          '<div class="empty">' +
+          escapeHtml(
+            erro.message
+          ) +
+          '</div>';
+
+
+        if (
+          erro.message
+            .toLowerCase()
+            .includes("sessão")
+        ) {
+
+          apagarToken();
+
+          mostrarLogin();
+
+        }
+
+      }
+
     }
 
-    if (
-      event.key === "Escape"
-    ) {
 
-      fecharModal();
+    /* =====================================================
+       ADMIN EVENTOS
+       ===================================================== */
 
-      fecharLogin();
+    function renderizarAdminEventos() {
+
+      const container =
+        document.getElementById(
+          "adminEvents"
+        );
+
+
+      if (
+        !eventosCache.length
+      ) {
+
+        container.innerHTML =
+          '<div class="empty">' +
+          'Ainda não existem eventos.' +
+          '</div>';
+
+        return;
+
+      }
+
+
+      container.innerHTML =
+        eventosCache
+          .map(
+            function(evento) {
+
+              return `
+
+                <article
+                  class="admin-event-card"
+                >
+
+                  <h3>
+                    ${escapeHtml(
+                      evento.Nome || "Sem nome"
+                    )}
+                  </h3>
+
+
+                  ${
+                    evento.Data
+                      ? `
+                        <p>
+                          📅
+                          ${escapeHtml(
+                            formatarData(
+                              evento.Data
+                            )
+                          )}
+                        </p>
+                      `
+                      : ""
+                  }
+
+
+                  ${
+                    evento.Local
+                      ? `
+                        <p>
+                          📍
+                          ${escapeHtml(
+                            evento.Local
+                          )}
+                        </p>
+                      `
+                      : ""
+                  }
+
+
+                  <p
+                    style="color:#888;font-size:13px"
+                  >
+                    ID:
+                    ${escapeHtml(
+                      evento.ID
+                    )}
+                  </p>
+
+
+                  <div
+                    class="admin-event-actions"
+                  >
+
+                    <button
+                      class="btn"
+                      onclick="editarEventoAdmin('${escapeAttr(evento.ID)}')"
+                    >
+                      ✏ Editar
+                    </button>
+
+
+                    <button
+                      class="btn btn-danger"
+                      onclick="apagarEventoAdmin('${escapeAttr(evento.ID)}')"
+                    >
+                      🗑 Apagar
+                    </button>
+
+
+                    <button
+                      class="btn"
+                      onclick="abrirEvento('${escapeAttr(evento.ID)}')"
+                    >
+                      Ver
+                    </button>
+
+                  </div>
+
+                </article>
+
+              `;
+
+            }
+          )
+          .join("");
+
     }
 
-  }
-);
 
-</script>
+    /* =====================================================
+       EDITAR EVENTO
+       ===================================================== */
+
+    async function editarEventoAdmin(
+      id
+    ) {
+
+      const evento =
+        eventosCache.find(
+          function(item) {
+
+            return String(
+              item.ID
+            ) === String(id);
+
+          }
+        );
+
+
+      if (!evento) {
+
+        alert(
+          "Evento não encontrado."
+        );
+
+        return;
+
+      }
+
+
+      const nome =
+        prompt(
+          "Nome do evento:",
+          evento.Nome || ""
+        );
+
+
+      if (
+        nome === null
+      ) {
+
+        return;
+
+      }
+
+
+      const local =
+        prompt(
+          "Local:",
+          evento.Local || ""
+        );
+
+
+      if (
+        local === null
+      ) {
+
+        return;
+
+      }
+
+
+      const descricao =
+        prompt(
+          "Descrição:",
+          evento.Descricao || ""
+        );
+
+
+      if (
+        descricao === null
+      ) {
+
+        return;
+
+      }
+
+
+      try {
+
+        await apiPost({
+
+          acao:
+            "editarEvento",
+
+          token:
+            obterToken(),
+
+          id:
+            id,
+
+          nome:
+            nome,
+
+          local:
+            local,
+
+          descricao:
+            descricao
+
+        });
+
+
+        mostrarToast(
+          "Evento atualizado."
+        );
+
+
+        await carregarAdmin();
+
+
+        await carregarEventosPublicos();
+
+      } catch (erro) {
+
+        alert(
+          erro.message
+        );
+
+      }
+
+    }
+
+
+    /* =====================================================
+       APAGAR EVENTO
+       ===================================================== */
+
+    async function apagarEventoAdmin(
+      id
+    ) {
+
+      const evento =
+        eventosCache.find(
+          function(item) {
+
+            return String(
+              item.ID
+            ) === String(id);
+
+          }
+        );
+
+
+      if (!evento) {
+        return;
+      }
+
+
+      const confirmar =
+        confirm(
+          "Apagar o evento \"" +
+          evento.Nome +
+          "\"?\n\nAs fotografias desse evento também serão apagadas."
+        );
+
+
+      if (!confirmar) {
+        return;
+      }
+
+
+      try {
+
+        await apiPost({
+
+          acao:
+            "apagarEvento",
+
+          token:
+            obterToken(),
+
+          id:
+            id
+
+        });
+
+
+        mostrarToast(
+          "Evento apagado."
+        );
+
+
+        await carregarAdmin();
+
+        await carregarEventosPublicos();
+
+      } catch (erro) {
+
+        alert(
+          erro.message
+        );
+
+      }
+
+    }
+
+
+    /* =====================================================
+       OPERAÇÕES
+       ===================================================== */
+
+    function toggleOperacoes() {
+
+      const menu =
+        document.getElementById(
+          "operationsMenu"
+        );
+
+
+      menu.classList.toggle(
+        "active"
+      );
+
+    }
+
+
+    function mostrarUpload() {
+
+      document.getElementById(
+        "operationsMenu"
+      ).classList.remove(
+        "active"
+      );
+
+
+      document.getElementById(
+        "createEventBox"
+      ).style.display = "none";
+
+
+      document.getElementById(
+        "uploadBox"
+      ).style.display = "block";
+
+
+      document.getElementById(
+        "uploadEvento"
+      ).focus();
+
+    }
+
+
+    function fecharUpload() {
+
+      document.getElementById(
+        "uploadBox"
+      ).style.display = "none";
+
+    }
+
+
+    function mostrarCriarEvento() {
+
+      document.getElementById(
+        "operationsMenu"
+      ).classList.remove(
+        "active"
+      );
+
+
+      document.getElementById(
+        "uploadBox"
+      ).style.display = "none";
+
+
+      document.getElementById(
+        "createEventBox"
+      ).style.display = "block";
+
+
+      document.getElementById(
+        "newEventName"
+      ).focus();
+
+    }
+
+
+    function fecharCriarEvento() {
+
+      document.getElementById(
+        "createEventBox"
+      ).style.display = "none";
+
+    }
+
+
+    /* =====================================================
+       SELECT EVENTOS
+       ===================================================== */
+
+    function preencherSelectEventos() {
+
+      const select =
+        document.getElementById(
+          "uploadEvento"
+        );
+
+
+      const atual =
+        select.value;
+
+
+      select.innerHTML =
+        '<option value="">Seleciona um evento</option>';
+
+
+      eventosCache
+        .filter(
+          function(evento) {
+
+            return estaAtivo(
+              evento.Ativo
+            );
+
+          }
+        )
+        .forEach(
+          function(evento) {
+
+            const option =
+              document.createElement(
+                "option"
+              );
+
+
+            option.value =
+              evento.ID;
+
+
+            option.textContent =
+              evento.Nome;
+
+
+            select.appendChild(
+              option
+            );
+
+          }
+        );
+
+
+      if (atual) {
+        select.value = atual;
+      }
+
+    }
+
+
+    /* =====================================================
+       CRIAR EVENTO
+       ===================================================== */
+
+    async function criarNovoEvento() {
+
+      const nome =
+        document.getElementById(
+          "newEventName"
+        ).value.trim();
+
+
+      if (!nome) {
+
+        alert(
+          "Indica o nome do evento."
+        );
+
+        return;
+
+      }
+
+
+      const data =
+        document.getElementById(
+          "newEventDate"
+        ).value;
+
+
+      const local =
+        document.getElementById(
+          "newEventLocation"
+        ).value.trim();
+
+
+      const categoria =
+        document.getElementById(
+          "newEventCategory"
+        ).value.trim();
+
+
+      const descricao =
+        document.getElementById(
+          "newEventDescription"
+        ).value.trim();
+
+
+      try {
+
+        await apiPost({
+
+          acao:
+            "criarEvento",
+
+          token:
+            obterToken(),
+
+          nome:
+            nome,
+
+          data:
+            data,
+
+          local:
+            local,
+
+          categoria:
+            categoria,
+
+          descricao:
+            descricao,
+
+          ativo:
+            true
+
+        });
+
+
+        document.getElementById(
+          "newEventName"
+        ).value = "";
+
+
+        document.getElementById(
+          "newEventDate"
+        ).value = "";
+
+
+        document.getElementById(
+          "newEventLocation"
+        ).value = "";
+
+
+        document.getElementById(
+          "newEventCategory"
+        ).value = "";
+
+
+        document.getElementById(
+          "newEventDescription"
+        ).value = "";
+
+
+        fecharCriarEvento();
+
+
+        mostrarToast(
+          "Evento criado."
+        );
+
+
+        await carregarAdmin();
+
+        await carregarEventosPublicos();
+
+      } catch (erro) {
+
+        alert(
+          erro.message
+        );
+
+      }
+
+    }
+
+
+    /* =====================================================
+       UPLOAD
+       ===================================================== */
+
+    function configurarUpload() {
+
+      document.getElementById(
+        "photoFiles"
+      ).addEventListener(
+        "change",
+        prepararFotografias
+      );
+
+    }
+
+
+    function prepararFotografias(
+      event
+    ) {
+
+      fotosSelecionadas = [];
+
+
+      const files =
+        Array.from(
+          event.target.files || []
+        );
+
+
+      const list =
+        document.getElementById(
+          "uploadList"
+        );
+
+
+      list.innerHTML = "";
+
+
+      files.forEach(
+        function(file) {
+
+          const item = {
+
+            file:
+              file,
+
+            titulo:
+              obterTituloDoFicheiro(
+                file.name
+              ),
+
+            preview:
+              URL.createObjectURL(
+                file
+              )
+
+          };
+
+
+          fotosSelecionadas.push(
+            item
+          );
+
+
+          const index =
+            fotosSelecionadas.length -
+            1;
+
+
+          const div =
+            document.createElement(
+              "div"
+            );
+
+
+          div.className =
+            "upload-item";
+
+
+          div.innerHTML = `
+
+            <img
+              src="${escapeAttr(item.preview)}"
+              alt=""
+            >
+
+
+            <div>
+
+              <div
+                style="
+                  font-size:13px;
+                  color:#888;
+                  margin-bottom:5px;
+                "
+              >
+                ${escapeHtml(file.name)}
+              </div>
+
+
+              <input
+                class="form-control"
+                type="text"
+                value="${escapeAttr(item.titulo)}"
+                data-upload-title="${index}"
+                placeholder="Título / nome da fotografia"
+              >
+
+
+              <div
+                class="upload-status"
+                data-upload-status="${index}"
+              >
+                A aguardar upload
+              </div>
+
+            </div>
+
+          `;
+
+
+          list.appendChild(
+            div
+          );
+
+        }
+      );
+
+    }
+
+
+    function obterTituloDoFicheiro(
+      nome
+    ) {
+
+      return String(
+        nome
+      )
+        .replace(
+          /\.[^/.]+$/,
+          ""
+        )
+        .trim();
+
+    }
+
+
+    async function iniciarUpload() {
+
+      const eventoId =
+        document.getElementById(
+          "uploadEvento"
+        ).value;
+
+
+      if (!eventoId) {
+
+        alert(
+          "Seleciona primeiro um evento."
+        );
+
+        return;
+
+      }
+
+
+      if (
+        !fotosSelecionadas.length
+      ) {
+
+        alert(
+          "Seleciona pelo menos uma fotografia."
+        );
+
+        return;
+
+      }
+
+
+      const token =
+        obterToken();
+
+
+      if (!token) {
+
+        alert(
+          "Sessão de administrador inválida."
+        );
+
+        return;
+
+      }
+
+
+      const inputs =
+        document.querySelectorAll(
+          "[data-upload-title]"
+        );
+
+
+      inputs.forEach(
+        function(input) {
+
+          const index =
+            Number(
+              input.dataset.uploadTitle
+            );
+
+
+          if (
+            fotosSelecionadas[index]
+          ) {
+
+            fotosSelecionadas[index].titulo =
+              input.value.trim();
+
+          }
+
+        }
+      );
+
+
+      for (
+        let i = 0;
+        i < fotosSelecionadas.length;
+        i++
+      ) {
+
+        const item =
+          fotosSelecionadas[i];
+
+
+        const status =
+          document.querySelector(
+            `[data-upload-status="${i}"]`
+          );
+
+
+        try {
+
+          status.textContent =
+            "A preparar...";
+
+
+          const base64 =
+            await ficheiroParaBase64(
+              item.file
+            );
+
+
+          status.textContent =
+            "A enviar...";
+
+
+          const resultado =
+            await apiPost({
+
+              acao:
+                "uploadFotografia",
+
+              token:
+                token,
+
+              eventoId:
+                eventoId,
+
+              titulo:
+                item.titulo,
+
+              preco:
+                "",
+
+              descricao:
+                "",
+
+              destaque:
+                false,
+
+              ativo:
+                true,
+
+              base64:
+                base64,
+
+              nomeFicheiro:
+                item.file.name,
+
+              mimeType:
+                item.file.type ||
+                "image/jpeg"
+
+            });
+
+
+          status.textContent =
+            "✓ Enviada";
+
+
+          status.classList.add(
+            "success"
+          );
+
+
+        } catch (erro) {
+
+          status.textContent =
+            "✕ " +
+            erro.message;
+
+
+          status.classList.add(
+            "error"
+          );
+
+        }
+
+      }
+
+
+      mostrarToast(
+        "Processamento do upload terminado."
+      );
+
+
+      await carregarAdmin();
+
+      await carregarEventosPublicos();
+
+    }
+
+
+    function ficheiroParaBase64(
+      file
+    ) {
+
+      return new Promise(
+        function(resolve, reject) {
+
+          const reader =
+            new FileReader();
+
+
+          reader.onload =
+            function() {
+
+              resolve(
+                reader.result
+              );
+
+            };
+
+
+          reader.onerror =
+            function() {
+
+              reject(
+                new Error(
+                  "Não foi possível ler a imagem."
+                )
+              );
+
+            };
+
+
+          reader.readAsDataURL(
+            file
+          );
+
+        }
+      );
+
+    }
+
+
+    /* =====================================================
+       ADMIN FOTOGRAFIAS
+       ===================================================== */
+
+    function renderizarAdminFotografias() {
+
+      const container =
+        document.getElementById(
+          "adminPhotos"
+        );
+
+
+      if (
+        !fotografiasAdminCache.length
+      ) {
+
+        container.innerHTML =
+          '<div class="empty">' +
+          'Ainda não existem fotografias.' +
+          '</div>';
+
+        return;
+
+      }
+
+
+      container.innerHTML =
+        fotografiasAdminCache
+          .map(
+            function(foto) {
+
+              const evento =
+                eventosCache.find(
+                  function(item) {
+
+                    return String(
+                      item.ID
+                    ) === String(
+                      foto.EventoID
+                    );
+
+                  }
+                );
+
+
+              return `
+
+                <article
+                  class="admin-photo-card"
+                >
+
+                  <div
+                    class="admin-photo-image"
+                  >
+
+                    <img
+                      src="${escapeAttr(foto.ImagemURL || "")}"
+                      alt="${escapeAttr(foto.Titulo || "")}"
+                      loading="lazy"
+                    >
+
+                  </div>
+
+
+                  <div
+                    class="admin-photo-info"
+                  >
+
+                    <h4>
+                      ${escapeHtml(
+                        foto.Titulo ||
+                        foto.NomeFicheiro ||
+                        "Fotografia"
+                      )}
+                    </h4>
+
+
+                    <div
+                      style="
+                        color:#aaa;
+                        font-size:13px;
+                        margin-bottom:6px;
+                      "
+                    >
+                      Evento:
+                      ${escapeHtml(
+                        evento
+                          ? evento.Nome
+                          : "Desconhecido"
+                      )}
+                    </div>
+
+
+                    <div
+                      class="admin-file-name"
+                    >
+                      ${escapeHtml(
+                        foto.NomeFicheiro ||
+                        ""
+                      )}
+                    </div>
+
+
+                    <div
+                      class="admin-photo-actions"
+                    >
+
+                      <button
+                        class="btn btn-gold"
+                        onclick="descarregarOriginal('${escapeAttr(foto.ID)}')"
+                      >
+                        ⬇ Download original
+                      </button>
+
+
+                      <button
+                        class="btn"
+                        onclick="editarFotografiaAdmin('${escapeAttr(foto.ID)}')"
+                      >
+                        ✏ Editar
+                      </button>
+
+
+                      <button
+                        class="btn btn-danger"
+                        onclick="apagarFotografiaAdmin('${escapeAttr(foto.ID)}')"
+                      >
+                        🗑 Apagar
+                      </button>
+
+                    </div>
+
+                  </div>
+
+                </article>
+
+              `;
+
+            }
+          )
+          .join("");
+
+    }
+
+
+    /* =====================================================
+       DOWNLOAD ORIGINAL
+       ===================================================== */
+
+    async function descarregarOriginal(
+      id
+    ) {
+
+      const token =
+        obterToken();
+
+
+      if (!token) {
+
+        alert(
+          "Sessão de administrador inválida."
+        );
+
+        return;
+
+      }
+
+
+      const botao =
+        event &&
+        event.currentTarget
+          ? event.currentTarget
+          : null;
+
+
+      const textoOriginal =
+        botao
+          ? botao.textContent
+          : "";
+
+
+      try {
+
+        if (botao) {
+
+          botao.disabled =
+            true;
+
+          botao.textContent =
+            "A preparar...";
+
+        }
+
+
+        const dados =
+          await apiGet(
+            "downloadoriginal",
+            {
+              token:
+                token,
+
+              id:
+                id
+            }
+          );
+
+
+        if (!dados.base64) {
+
+          throw new Error(
+            "O original não foi recebido."
+          );
+
+        }
+
+
+        const byteCharacters =
+          atob(
+            dados.base64
+          );
+
+
+        const byteNumbers =
+          new Array(
+            byteCharacters.length
+          );
+
+
+        for (
+          let i = 0;
+          i < byteCharacters.length;
+          i++
+        ) {
+
+          byteNumbers[i] =
+            byteCharacters.charCodeAt(
+              i
+            );
+
+        }
+
+
+        const byteArray =
+          new Uint8Array(
+            byteNumbers
+          );
+
+
+        const blob =
+          new Blob(
+            [byteArray],
+            {
+              type:
+                dados.mimeType ||
+                "application/octet-stream"
+            }
+          );
+
+
+        const url =
+          URL.createObjectURL(
+            blob
+          );
+
+
+        const link =
+          document.createElement(
+            "a"
+          );
+
+
+        link.href =
+          url;
+
+
+        link.download =
+          dados.nomeFicheiro ||
+          "fotografia";
+
+
+        link.style.display =
+          "none";
+
+
+        document.body.appendChild(
+          link
+        );
+
+
+        link.click();
+
+
+        link.remove();
+
+
+        setTimeout(
+          function() {
+
+            URL.revokeObjectURL(
+              url
+            );
+
+          },
+          2000
+        );
+
+
+        mostrarToast(
+          "Download iniciado."
+        );
+
+
+      } catch (erro) {
+
+        console.error(
+          erro
+        );
+
+
+        alert(
+          "Não foi possível descarregar o original.\n\n" +
+          erro.message
+        );
+
+
+      } finally {
+
+        if (botao) {
+
+          botao.disabled =
+            false;
+
+          botao.textContent =
+            textoOriginal ||
+            "⬇ Download original";
+
+        }
+
+      }
+
+    }
+
+
+    /* =====================================================
+       EDITAR FOTOGRAFIA
+       ===================================================== */
+
+    async function editarFotografiaAdmin(
+      id
+    ) {
+
+      const foto =
+        fotografiasAdminCache.find(
+          function(item) {
+
+            return String(
+              item.ID
+            ) === String(id);
+
+          }
+        );
+
+
+      if (!foto) {
+
+        alert(
+          "Fotografia não encontrada."
+        );
+
+        return;
+
+      }
+
+
+      const titulo =
+        prompt(
+          "Título da fotografia:",
+          foto.Titulo || ""
+        );
+
+
+      if (
+        titulo === null
+      ) {
+
+        return;
+
+      }
+
+
+      const preco =
+        prompt(
+          "Preço:",
+          foto.Preco || ""
+        );
+
+
+      if (
+        preco === null
+      ) {
+
+        return;
+
+      }
+
+
+      const descricao =
+        prompt(
+          "Descrição:",
+          foto.Descricao || ""
+        );
+
+
+      if (
+        descricao === null
+      ) {
+
+        return;
+
+      }
+
+
+      try {
+
+        await apiPost({
+
+          acao:
+            "editarFotografia",
+
+          token:
+            obterToken(),
+
+          id:
+            id,
+
+          titulo:
+            titulo,
+
+          preco:
+            preco,
+
+          descricao:
+            descricao
+
+        });
+
+
+        mostrarToast(
+          "Fotografia atualizada."
+        );
+
+
+        await carregarAdmin();
+
+      } catch (erro) {
+
+        alert(
+          erro.message
+        );
+
+      }
+
+    }
+
+
+    /* =====================================================
+       APAGAR FOTOGRAFIA
+       ===================================================== */
+
+    async function apagarFotografiaAdmin(
+      id
+    ) {
+
+      const foto =
+        fotografiasAdminCache.find(
+          function(item) {
+
+            return String(
+              item.ID
+            ) === String(id);
+
+          }
+        );
+
+
+      if (!foto) {
+        return;
+      }
+
+
+      const confirmar =
+        confirm(
+          "Apagar a fotografia \"" +
+          (
+            foto.Titulo ||
+            foto.NomeFicheiro ||
+            ""
+          ) +
+          "\"?\n\nEsta ação também elimina os ficheiros do Google Drive."
+        );
+
+
+      if (!confirmar) {
+        return;
+      }
+
+
+      try {
+
+        await apiPost({
+
+          acao:
+            "apagarFotografia",
+
+          token:
+            obterToken(),
+
+          id:
+            id
+
+        });
+
+
+        mostrarToast(
+          "Fotografia apagada."
+        );
+
+
+        await carregarAdmin();
+
+        await carregarEventosPublicos();
+
+      } catch (erro) {
+
+        alert(
+          erro.message
+        );
+
+      }
+
+    }
+
+
+    /* =====================================================
+       LOGOUT
+       ===================================================== */
+
+    async function terminarSessao() {
+
+      const token =
+        obterToken();
+
+
+      try {
+
+        if (token) {
+
+          await apiPost({
+
+            acao:
+              "logout",
+
+            token:
+              token
+
+          });
+
+        }
+
+      } catch (erro) {
+
+        console.error(
+          erro
+        );
+
+      }
+
+
+      apagarToken();
+
+      dadosAdminCarregados =
+        false;
+
+
+      mostrarSite();
+
+    }
+
+
+    /* =====================================================
+       HELPERS
+       ===================================================== */
+
+    function estaAtivo(
+      valor
+    ) {
+
+      if (
+        valor === false ||
+        valor === 0
+      ) {
+
+        return false;
+
+      }
+
+
+      const texto =
+        String(valor)
+          .toLowerCase()
+          .trim();
+
+
+      return !(
+        texto === "false" ||
+        texto === "0" ||
+        texto === "nao" ||
+        texto === "não"
+      );
+
+    }
+
+
+    function formatarData(
+      valor
+    ) {
+
+      if (!valor) {
+        return "";
+      }
+
+
+      const data =
+        new Date(
+          valor
+        );
+
+
+      if (
+        Number.isNaN(
+          data.getTime()
+        )
+      ) {
+
+        return String(
+          valor
+        );
+
+      }
+
+
+      return data.toLocaleDateString(
+        "pt-PT"
+      );
+
+    }
+
+
+    function escapeHtml(
+      valor
+    ) {
+
+      return String(
+        valor ?? ""
+      )
+        .replace(
+          /&/g,
+          "&amp;"
+        )
+        .replace(
+          /</g,
+          "&lt;"
+        )
+        .replace(
+          />/g,
+          "&gt;"
+        )
+        .replace(
+          /"/g,
+          "&quot;"
+        )
+        .replace(
+          /'/g,
+          "&#039;"
+        );
+
+    }
+
+
+    function escapeAttr(
+      valor
+    ) {
+
+      return escapeHtml(
+        valor
+      );
+
+    }
+
+  </script>
 
 </body>
 </html>
