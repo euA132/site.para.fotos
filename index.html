@@ -1,4005 +1,2514 @@
 <!DOCTYPE html>
 <html lang="pt-PT">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <meta name="theme-color" content="#090909">
-    <meta name="description" content="Portefólio fotográfico de André Silva">
-
-    <title>André Silva | Fotografia</title>
-
-    <style>
-        :root {
-            --bg: #090909;
-            --bg2: #101010;
-            --bg3: #171717;
-            --text: #f5f5f5;
-            --muted: #999;
-            --gold: #c9a45c;
-            --gold-light: #e2c47e;
-            --border: #292929;
-            --danger: #d9534f;
-            --success: #4caf50;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            background: var(--bg);
-            color: var(--text);
-            font-family: Arial, Helvetica, sans-serif;
-            min-height: 100vh;
-        }
-
-        button,
-        input,
-        textarea,
-        select {
-            font: inherit;
-        }
-
-        button {
-            cursor: pointer;
-        }
-
-        img {
-            max-width: 100%;
-        }
-
-        /* =========================
-           HEADER
-        ========================= */
-
-        header {
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            background: rgba(9, 9, 9, 0.94);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border);
-        }
-
-        .nav {
-            max-width: 1450px;
-            margin: auto;
-            padding: 15px 25px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .logo {
-            font-size: 21px;
-            font-weight: 800;
-            letter-spacing: 1px;
-        }
-
-        .logo span {
-            color: var(--gold);
-        }
-
-        /* =========================
-           BUTTONS
-        ========================= */
-
-        .btn {
-            border: 1px solid var(--border);
-            background: var(--bg3);
-            color: white;
-            padding: 10px 15px;
-            border-radius: 7px;
-            transition: 0.2s;
-        }
-
-        .btn:hover {
-            border-color: var(--gold);
-            transform: translateY(-1px);
-        }
-
-        .btn.gold {
-            background: var(--gold);
-            border-color: var(--gold);
-            color: #090909;
-            font-weight: 700;
-        }
-
-        .btn.gold:hover {
-            background: var(--gold-light);
-        }
-
-        .btn.danger {
-            border-color: var(--danger);
-            color: #ffaaa7;
-        }
-
-        .btn.small {
-            padding: 7px 10px;
-            font-size: 13px;
-        }
-
-        /* =========================
-           HERO
-        ========================= */
-
-        .hero {
-            min-height: 440px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 70px 20px;
-
-            background:
-                radial-gradient(
-                    circle at center,
-                    #252525 0%,
-                    #111 45%,
-                    #090909 80%
-                );
-        }
-
-        .hero-content {
-            max-width: 900px;
-        }
-
-        .hero h1 {
-            font-size: clamp(42px, 8vw, 85px);
-            margin-bottom: 15px;
-            letter-spacing: -2px;
-        }
-
-        .hero h1 span {
-            color: var(--gold);
-        }
-
-        .hero p {
-            color: var(--muted);
-            font-size: 18px;
-            line-height: 1.6;
-        }
-
-        /* =========================
-           CONTAINER
-        ========================= */
-
-        .container {
-            max-width: 1450px;
-            margin: auto;
-            padding: 40px 25px;
-        }
-
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 22px;
-        }
-
-        .section-header h2 {
-            font-size: 28px;
-        }
-
-        /* =========================
-           EVENTOS
-        ========================= */
-
-        .events-grid {
-            display: grid;
-            grid-template-columns: repeat(
-                auto-fill,
-                minmax(280px, 1fr)
-            );
-            gap: 20px;
-        }
-
-        .event-card {
-            background: var(--bg2);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            overflow: hidden;
-            cursor: pointer;
-            transition: 0.25s;
-        }
-
-        .event-card:hover {
-            transform: translateY(-4px);
-            border-color: #4a4a4a;
-        }
-
-        .event-cover {
-            width: 100%;
-            height: 230px;
-            object-fit: cover;
-            display: block;
-            background: #151515;
-        }
-
-        .event-cover-placeholder {
-            height: 230px;
-            background:
-                radial-gradient(
-                    circle at center,
-                    #252525,
-                    #101010
-                );
-        }
-
-        .event-body {
-            padding: 18px;
-        }
-
-        .event-body h3 {
-            font-size: 21px;
-            margin-bottom: 9px;
-        }
-
-        .event-meta {
-            color: var(--muted);
-            font-size: 13px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 7px;
-        }
-
-        .event-description {
-            color: #aaa;
-            margin-top: 12px;
-            line-height: 1.5;
-        }
-
-        /* =========================
-           EVENTO
-        ========================= */
-
-        .back-button {
-            margin-bottom: 20px;
-        }
-
-        .event-header {
-            background: var(--bg2);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 25px;
-            margin-bottom: 30px;
-        }
-
-        .event-header h1 {
-            font-size: clamp(30px, 5vw, 52px);
-            margin-bottom: 12px;
-        }
-
-        .event-header p {
-            color: #aaa;
-            line-height: 1.6;
-            margin-top: 15px;
-            white-space: pre-wrap;
-        }
-
-        /* =========================
-           GALERIA
-        ========================= */
-
-        .photos-grid {
-            display: grid;
-            grid-template-columns: repeat(
-                auto-fill,
-                minmax(230px, 1fr)
-            );
-            gap: 12px;
-        }
-
-        .photo-card {
-            position: relative;
-            background: #111;
-            border: 1px solid #222;
-            border-radius: 9px;
-            overflow: hidden;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .photo-card:hover {
-            transform: translateY(-2px);
-            border-color: #444;
-        }
-
-        .photo-image-container {
-            position: relative;
-            width: 100%;
-            height: 260px;
-            overflow: hidden;
-            background: #151515;
-        }
-
-        .photo-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-
-        /*
-            Marca de água visual.
-            A imagem original no Drive não é alterada.
-        */
-
-        .watermark {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            pointer-events: none;
-        }
-
-        .watermark span {
-            color: rgba(255, 255, 255, 0.27);
-            font-size: 23px;
-            font-weight: 900;
-            letter-spacing: 3px;
-            white-space: nowrap;
-            transform: rotate(-28deg);
-            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
-        }
-
-        .photo-info {
-            padding: 11px;
-            background: #111;
-        }
-
-        .photo-title {
-            font-weight: 700;
-        }
-
-        .photo-price {
-            color: var(--gold);
-            font-weight: 700;
-            margin-top: 5px;
-        }
-
-        /* =========================
-           MODAIS
-        ========================= */
-
-        .overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.84);
-            z-index: 5000;
-            display: none;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .overlay.show {
-            display: flex;
-        }
-
-        .modal {
-            position: relative;
-            width: min(600px, 100%);
-            max-height: 92vh;
-            overflow-y: auto;
-            background: #111;
-            border: 1px solid #333;
-            border-radius: 12px;
-            padding: 25px;
-        }
-
-        .modal.large {
-            width: min(1200px, 100%);
-        }
-
-        .close-button {
-            position: absolute;
-            top: 10px;
-            right: 12px;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 30px;
-            line-height: 1;
-            z-index: 2;
-        }
-
-        .modal h2 {
-            margin-bottom: 10px;
-        }
-
-        .modal-subtitle {
-            color: var(--muted);
-            margin-bottom: 20px;
-        }
-
-        /* =========================
-           FOTO MODAL
-        ========================= */
-
-        .modal-photo {
-            width: 100%;
-            max-height: 65vh;
-            object-fit: contain;
-            display: block;
-            background: #050505;
-            border-radius: 8px;
-        }
-
-        .modal-photo-title {
-            font-size: 26px;
-            margin-top: 17px;
-        }
-
-        .modal-photo-event {
-            color: var(--muted);
-            margin-top: 5px;
-        }
-
-        .modal-photo-description {
-            color: #bbb;
-            line-height: 1.6;
-            margin-top: 15px;
-            white-space: pre-wrap;
-        }
-
-        .modal-photo-price {
-            color: var(--gold);
-            font-size: 20px;
-            font-weight: 700;
-            margin-top: 12px;
-        }
-
-        .modal-actions {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 18px;
-        }
-
-        /* =========================
-           FORMULÁRIOS
-        ========================= */
-
-        .form-grid {
-            display: grid;
-            grid-template-columns: repeat(
-                2,
-                minmax(0, 1fr)
-            );
-            gap: 14px;
-        }
-
-        .field {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-
-        .field.full {
-            grid-column: 1 / -1;
-        }
-
-        .field label {
-            color: #bbb;
-            font-size: 13px;
-        }
-
-        .field input,
-        .field textarea,
-        .field select {
-            width: 100%;
-            background: #090909;
-            color: white;
-            border: 1px solid #333;
-            border-radius: 7px;
-            padding: 11px;
-            outline: none;
-        }
-
-        .field input:focus,
-        .field textarea:focus,
-        .field select:focus {
-            border-color: var(--gold);
-        }
-
-        .field textarea {
-            min-height: 110px;
-            resize: vertical;
-        }
-
-        .checkbox {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-top: 10px;
-            color: #bbb;
-        }
-
-        /* =========================
-           ADMIN
-        ========================= */
-
-        .admin-section {
-            background: #121212;
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 20px;
-            margin-top: 20px;
-        }
-
-        .admin-section h3 {
-            margin-bottom: 15px;
-        }
-
-        .admin-list {
-            display: grid;
-            gap: 10px;
-            margin-top: 15px;
-        }
-
-        .admin-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 15px;
-            background: #090909;
-            border: 1px solid #252525;
-            border-radius: 8px;
-            padding: 13px;
-        }
-
-        .admin-main {
-            min-width: 0;
-        }
-
-        .admin-main strong {
-            display: block;
-            margin-bottom: 4px;
-        }
-
-        .admin-main small {
-            color: #888;
-        }
-
-        .admin-actions {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 7px;
-            justify-content: flex-end;
-        }
-
-        .tabs {
-            display: flex;
-            gap: 5px;
-            border-bottom: 1px solid var(--border);
-            margin-bottom: 18px;
-        }
-
-        .tab {
-            background: none;
-            color: #888;
-            border: none;
-            border-bottom: 2px solid transparent;
-            padding: 11px 15px;
-        }
-
-        .tab.active {
-            color: white;
-            border-color: var(--gold);
-        }
-
-        .notice {
-            background: #19150d;
-            color: #dfc98e;
-            border: 1px solid #4a3b1e;
-            border-radius: 7px;
-            padding: 11px;
-            margin-top: 13px;
-        }
-
-        /* =========================
-           ESTADOS
-        ========================= */
-
-        .loading {
-            text-align: center;
-            color: var(--muted);
-            padding: 50px 20px;
-        }
-
-        .empty {
-            border: 1px dashed #333;
-            border-radius: 10px;
-            padding: 45px 20px;
-            text-align: center;
-            color: var(--muted);
-        }
-
-        .error {
-            color: #ffaaa7;
-        }
-
-        /* =========================
-           TOAST
-        ========================= */
-
-        #toast {
-            position: fixed;
-            right: 20px;
-            bottom: 20px;
-            z-index: 9000;
-            background: #181818;
-            border: 1px solid #333;
-            color: white;
-            border-radius: 8px;
-            padding: 13px 17px;
-            max-width: 380px;
-            display: none;
-        }
-
-        #toast.show {
-            display: block;
-        }
-
-        #toast.error {
-            border-color: var(--danger);
-        }
-
-        /* =========================
-           FOOTER
-        ========================= */
-
-        footer {
-            margin-top: 50px;
-            border-top: 1px solid var(--border);
-            text-align: center;
-            padding: 25px;
-            color: #777;
-        }
-
-        /* =========================
-           MOBILE
-        ========================= */
-
-        @media (max-width: 700px) {
-
-            .nav {
-                padding: 12px 14px;
-            }
-
-            .logo {
-                font-size: 17px;
-            }
-
-            .hero {
-                min-height: 350px;
-            }
-
-            .container {
-                padding: 30px 14px;
-            }
-
-            .events-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .form-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .field.full {
-                grid-column: auto;
-            }
-
-            .photos-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 7px;
-            }
-
-            .photo-image-container {
-                height: 180px;
-            }
-
-            .watermark span {
-                font-size: 14px;
-                letter-spacing: 1px;
-            }
-
-            .admin-item {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .admin-actions {
-                justify-content: flex-start;
-            }
-
-            .modal {
-                padding: 18px;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portefólio Fotográfico | André Silva</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #111;
+      color: #f2f2f2;
+      min-height: 100vh;
+    }
+
+    button,
+    input,
+    textarea,
+    select {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(15, 15, 15, 0.97);
+      border-bottom: 1px solid #2b2b2b;
+      padding: 15px 25px;
+    }
+
+    .header-inner {
+      max-width: 1400px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .logo {
+      font-size: 21px;
+      font-weight: bold;
+      color: #d6b56a;
+    }
+
+    .admin-button {
+      background: transparent;
+      border: 1px solid #d6b56a;
+      color: #d6b56a;
+      padding: 9px 15px;
+      border-radius: 6px;
+    }
+
+    .admin-button:hover {
+      background: #d6b56a;
+      color: #111;
+    }
+
+    main {
+      max-width: 1400px;
+      margin: auto;
+      padding: 35px 20px 70px;
+    }
+
+    .page-title {
+      margin-bottom: 30px;
+    }
+
+    .page-title h1 {
+      font-size: 34px;
+      margin-bottom: 8px;
+    }
+
+    .page-title p {
+      color: #999;
+    }
+
+    .events-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 22px;
+    }
+
+    .event-card {
+      background: #1a1a1a;
+      border: 1px solid #2c2c2c;
+      border-radius: 10px;
+      overflow: hidden;
+      transition: 0.2s;
+      cursor: pointer;
+    }
+
+    .event-card:hover {
+      transform: translateY(-3px);
+      border-color: #d6b56a;
+    }
+
+    .event-cover {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+      background: #222;
+    }
+
+    .event-info {
+      padding: 18px;
+    }
+
+    .event-info h3 {
+      margin-bottom: 8px;
+      color: #fff;
+    }
+
+    .event-info p {
+      color: #999;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .event-date {
+      color: #d6b56a !important;
+      margin-bottom: 7px;
+    }
+
+    .back-button {
+      margin-bottom: 25px;
+      background: transparent;
+      border: 1px solid #555;
+      color: #ddd;
+      padding: 9px 15px;
+      border-radius: 6px;
+    }
+
+    .back-button:hover {
+      border-color: #d6b56a;
+      color: #d6b56a;
+    }
+
+    .event-header {
+      margin-bottom: 30px;
+    }
+
+    .event-header h1 {
+      font-size: 32px;
+      margin-bottom: 8px;
+    }
+
+    .event-header p {
+      color: #999;
+      line-height: 1.6;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 14px;
+    }
+
+    .photo-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+      background: #191919;
+      border: 1px solid #292929;
+      cursor: pointer;
+      aspect-ratio: 4 / 3;
+    }
+
+    .photo-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.3s;
+    }
+
+    .photo-card:hover img {
+      transform: scale(1.04);
+    }
+
+    .watermark {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.35);
+      font-size: 23px;
+      font-weight: bold;
+      transform: rotate(-25deg);
+      pointer-events: none;
+      text-shadow: 0 1px 4px #000;
+    }
+
+    .photo-label {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 35px 12px 10px;
+      background: linear-gradient(transparent, rgba(0,0,0,0.9));
+      color: white;
+      font-weight: bold;
+    }
+
+    .empty {
+      color: #888;
+      padding: 30px 0;
+    }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 3000;
+      background: rgba(0,0,0,0.88);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-box {
+      width: min(1100px, 100%);
+      max-height: 95vh;
+      overflow-y: auto;
+      background: #181818;
+      border: 1px solid #333;
+      border-radius: 10px;
+      padding: 20px;
+      position: relative;
+    }
+
+    .modal-close {
+      position: absolute;
+      right: 15px;
+      top: 12px;
+      border: 0;
+      background: #222;
+      color: white;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      font-size: 22px;
+      z-index: 2;
+    }
+
+    .modal-image {
+      width: 100%;
+      max-height: 70vh;
+      object-fit: contain;
+      background: #000;
+      border-radius: 7px;
+    }
+
+    .modal-details {
+      padding-top: 18px;
+    }
+
+    .modal-details h2 {
+      margin-bottom: 8px;
+    }
+
+    .modal-details p {
+      color: #aaa;
+      line-height: 1.5;
+      margin-bottom: 10px;
+    }
+
+    .whatsapp-button {
+      display: inline-block;
+      background: #25d366;
+      color: white;
+      text-decoration: none;
+      border: 0;
+      padding: 11px 17px;
+      border-radius: 6px;
+      font-weight: bold;
+      margin-top: 8px;
+    }
+
+    .login-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 4000;
+      background: rgba(0,0,0,0.85);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .login-overlay.active {
+      display: flex;
+    }
+
+    .login-box {
+      width: min(400px, 100%);
+      background: #191919;
+      border: 1px solid #333;
+      border-radius: 10px;
+      padding: 25px;
+    }
+
+    .login-box h2 {
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      color: #bbb;
+      font-size: 14px;
+      margin-bottom: 6px;
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      background: #101010;
+      color: white;
+      border: 1px solid #3b3b3b;
+      border-radius: 6px;
+      padding: 10px;
+      outline: none;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      border-color: #d6b56a;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 90px;
+    }
+
+    .button {
+      border: 0;
+      border-radius: 6px;
+      padding: 10px 15px;
+      font-weight: bold;
+    }
+
+    .button-primary {
+      background: #d6b56a;
+      color: #111;
+    }
+
+    .button-secondary {
+      background: #333;
+      color: white;
+    }
+
+    .button-danger {
+      background: #a83232;
+      color: white;
+    }
+
+    .button-success {
+      background: #238b57;
+      color: white;
+    }
+
+    .button + .button {
+      margin-left: 6px;
+    }
+
+    .admin-panel {
+      display: none;
+    }
+
+    .admin-panel.active {
+      display: block;
+    }
+
+    .admin-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 25px;
+    }
+
+    .admin-box {
+      background: #191919;
+      border: 1px solid #2d2d2d;
+      border-radius: 10px;
+      padding: 20px;
+    }
+
+    .admin-box h2 {
+      margin-bottom: 18px;
+    }
+
+    .photo-upload-area {
+      border: 2px dashed #444;
+      border-radius: 8px;
+      padding: 25px;
+      text-align: center;
+      cursor: pointer;
+      margin-bottom: 15px;
+    }
+
+    .photo-upload-area:hover {
+      border-color: #d6b56a;
+    }
+
+    .photo-upload-area input {
+      display: none;
+    }
+
+    .selected-files {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 15px;
+      max-height: 500px;
+      overflow-y: auto;
+    }
+
+    .selected-file {
+      display: grid;
+      grid-template-columns: 90px 1fr auto;
+      gap: 12px;
+      align-items: center;
+      background: #101010;
+      border: 1px solid #2d2d2d;
+      border-radius: 7px;
+      padding: 8px;
+    }
+
+    .selected-file img {
+      width: 90px;
+      height: 70px;
+      object-fit: cover;
+      border-radius: 5px;
+    }
+
+    .selected-file-info {
+      min-width: 0;
+    }
+
+    .selected-file-name {
+      color: #aaa;
+      font-size: 13px;
+      margin-bottom: 6px;
+      word-break: break-all;
+    }
+
+    .selected-file input {
+      width: 100%;
+    }
+
+    .remove-file {
+      width: 34px;
+      height: 34px;
+      border: 0;
+      border-radius: 5px;
+      background: #702b2b;
+      color: white;
+    }
+
+    .upload-progress {
+      margin-top: 15px;
+      color: #d6b56a;
+      font-weight: bold;
+    }
+
+    .admin-photo-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 15px;
+      margin-top: 15px;
+    }
+
+    .admin-photo {
+      background: #101010;
+      border: 1px solid #2b2b2b;
+      border-radius: 7px;
+      overflow: hidden;
+    }
+
+    .admin-photo img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+    }
+
+    .admin-photo-info {
+      padding: 10px;
+    }
+
+    .admin-photo-info strong {
+      display: block;
+      margin-bottom: 6px;
+      word-break: break-word;
+    }
+
+    .admin-photo-info small {
+      display: block;
+      color: #777;
+      margin-bottom: 10px;
+      word-break: break-word;
+    }
+
+    .admin-photo-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+
+    .admin-photo-buttons button {
+      padding: 7px 9px;
+      font-size: 12px;
+    }
+
+    .status {
+      padding: 12px;
+      border-radius: 6px;
+      background: #202020;
+      color: #bbb;
+      margin-bottom: 15px;
+      display: none;
+    }
+
+    .status.show {
+      display: block;
+    }
+
+    .status.error {
+      color: #ff8b8b;
+      border: 1px solid #702b2b;
+    }
+
+    .status.success {
+      color: #8bffb2;
+      border: 1px solid #28613f;
+    }
+
+    .loading {
+      color: #aaa;
+      padding: 30px 0;
+    }
+
+    .admin-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 25px;
+      flex-wrap: wrap;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    @media (max-width: 800px) {
+      .admin-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .selected-file {
+        grid-template-columns: 70px 1fr 34px;
+      }
+
+      .selected-file img {
+        width: 70px;
+        height: 60px;
+      }
+
+      .gallery {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+      }
+
+      .event-cover {
+        height: 180px;
+      }
+
+      .page-title h1,
+      .event-header h1 {
+        font-size: 27px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
 <header>
-    <nav class="nav">
+  <div class="header-inner">
+    <div class="logo">ANDRÉ SILVA | FOTOGRAFIA</div>
 
-        <div class="logo">
-            ANDRÉ <span>SILVA</span>
-        </div>
-
-        <button
-            class="btn small"
-            id="adminButton">
-            Administração / Login
-        </button>
-
-    </nav>
+    <button class="admin-button" onclick="abrirLogin()">
+      Administração / Login
+    </button>
+  </div>
 </header>
-
 
 <main>
 
-    <!-- =========================
-         HOME
-    ========================= -->
+  <section id="publicPage">
+    <div class="page-title">
+      <h1 id="publicTitle">Portefólio</h1>
+      <p>Fotografia e cobertura de eventos</p>
+    </div>
 
-    <section id="homeView">
+    <div id="publicContent">
+      <div class="loading">A carregar...</div>
+    </div>
+  </section>
 
-        <div class="hero">
+  <section id="adminPage" class="admin-panel">
 
-            <div class="hero-content">
+    <div class="admin-top">
+      <div>
+        <h1>Administração</h1>
+        <p style="color:#888;margin-top:5px;">
+          Gestão de eventos e fotografias
+        </p>
+      </div>
 
-                <h1>
-                    ANDRÉ <span>SILVA</span>
-                </h1>
+      <button class="button button-danger" onclick="logout()">
+        Terminar sessão
+      </button>
+    </div>
 
-                <p>
-                    Fotografia de eventos, desporto e momentos especiais.
-                </p>
+    <div id="adminStatus" class="status"></div>
 
-            </div>
+    <div class="admin-grid">
 
+      <div class="admin-box">
+
+        <h2>Eventos</h2>
+
+        <div class="form-group">
+          <label>Nome do evento</label>
+          <input id="eventoNome" type="text">
         </div>
 
-
-        <div class="container">
-
-            <div class="section-header">
-                <h2>Eventos</h2>
-            </div>
-
-            <div
-                id="eventsGrid"
-                class="events-grid">
-
-                <div class="loading">
-                    A carregar eventos...
-                </div>
-
-            </div>
-
+        <div class="form-group">
+          <label>Data</label>
+          <input id="eventoData" type="date">
         </div>
 
-    </section>
+        <div class="form-group">
+          <label>Local</label>
+          <input id="eventoLocal" type="text">
+        </div>
 
+        <div class="form-group">
+          <label>Categoria</label>
+          <input id="eventoCategoria" type="text">
+        </div>
 
-    <!-- =========================
-         EVENTO
-    ========================= -->
+        <div class="form-group">
+          <label>Descrição</label>
+          <textarea id="eventoDescricao"></textarea>
+        </div>
 
-    <section
-        id="eventView"
-        class="container"
-        style="display:none;">
-
-        <button
-            id="backButton"
-            class="btn back-button">
-            ← Voltar aos eventos
+        <button class="button button-primary" onclick="criarEvento()">
+          Criar evento
         </button>
 
-        <div id="eventContent"></div>
+        <hr style="border:0;border-top:1px solid #333;margin:25px 0;">
 
-        <div id="galleryContent"></div>
+        <h3 style="margin-bottom:12px;">Eventos existentes</h3>
 
-    </section>
+        <div class="form-group">
+          <select id="adminEventoSelect" onchange="selecionarEventoAdmin()">
+            <option value="">Selecionar evento</option>
+          </select>
+        </div>
+
+        <button class="button button-secondary" onclick="editarEventoAtual()">
+          Editar evento
+        </button>
+
+        <button class="button button-danger" onclick="apagarEventoAtual()">
+          Apagar evento
+        </button>
+
+      </div>
+
+
+      <div class="admin-box">
+
+        <h2>Upload de fotografias</h2>
+
+        <div class="form-group">
+          <label>Evento</label>
+          <select id="uploadEventoSelect">
+            <option value="">Selecionar evento</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Preço por defeito</label>
+          <input id="uploadPreco" type="number" min="0" step="0.01" placeholder="Ex.: 5">
+        </div>
+
+        <div class="form-group">
+          <label>Descrição por defeito</label>
+          <textarea id="uploadDescricao" placeholder="Opcional"></textarea>
+        </div>
+
+        <div class="photo-upload-area" onclick="document.getElementById('photoInput').click()">
+          <strong>Selecionar fotografias</strong>
+          <p style="color:#777;margin-top:7px;">
+            Podes selecionar uma ou centenas de fotografias
+          </p>
+
+          <input
+            id="photoInput"
+            type="file"
+            accept="image/*"
+            multiple
+            onchange="prepararFotografias(this.files)"
+          >
+        </div>
+
+        <div id="selectedFiles" class="selected-files"></div>
+
+        <div id="uploadProgress" class="upload-progress"></div>
+
+        <div style="margin-top:15px;display:flex;gap:7px;flex-wrap:wrap;">
+
+          <button
+            class="button button-success"
+            onclick="uploadFotografiasEmMassa()"
+          >
+            Carregar fotografias
+          </button>
+
+          <button
+            class="button button-secondary"
+            onclick="limparSelecaoFotografias()"
+          >
+            Limpar seleção
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="admin-box" style="margin-top:25px;">
+
+      <h2>Fotografias do evento</h2>
+
+      <div id="adminPhotos">
+        <div class="loading">
+          Seleciona um evento.
+        </div>
+      </div>
+
+    </div>
+
+  </section>
 
 </main>
 
 
-<footer>
+<!-- MODAL FOTO -->
 
-    © <span id="year"></span>
-    André Silva Photography
+<div id="photoModal" class="modal" onclick="fecharModal(event)">
+  <div class="modal-box">
 
-</footer>
+    <button class="modal-close" onclick="fecharModal()">
+      ×
+    </button>
 
+    <img id="modalImage" class="modal-image" src="" alt="">
 
-<!-- =========================
-     LOGIN
-========================= -->
+    <div class="modal-details">
 
-<div
-    id="loginOverlay"
-    class="overlay">
+      <h2 id="modalTitle"></h2>
 
-    <div class="modal">
+      <p id="modalDescription"></p>
 
-        <button
-            class="close-button"
-            data-close="loginOverlay">
-            ×
-        </button>
+      <p id="modalPrice"></p>
 
-        <h2>Administração</h2>
-
-        <div class="modal-subtitle">
-            Introduz os dados de administrador.
-        </div>
-
-        <form id="loginForm">
-
-            <div class="field">
-
-                <label>
-                    Utilizador
-                </label>
-
-                <input
-                    id="loginUsername"
-                    type="text"
-                    autocomplete="username"
-                    required>
-
-            </div>
-
-
-            <div
-                class="field"
-                style="margin-top:14px;">
-
-                <label>
-                    Password
-                </label>
-
-                <input
-                    id="loginPassword"
-                    type="password"
-                    autocomplete="current-password"
-                    required>
-
-            </div>
-
-
-            <button
-                type="submit"
-                class="btn gold"
-                style="width:100%;margin-top:18px;">
-
-                Entrar
-
-            </button>
-
-        </form>
+      <a
+        id="modalWhatsapp"
+        class="whatsapp-button"
+        href="#"
+        target="_blank"
+      >
+        Pedir fotografia pelo WhatsApp
+      </a>
 
     </div>
 
+  </div>
 </div>
 
 
-<!-- =========================
-     ADMIN
-========================= -->
+<!-- LOGIN -->
 
-<div
-    id="adminOverlay"
-    class="overlay">
+<div id="loginOverlay" class="login-overlay">
 
-    <div class="modal large">
+  <div class="login-box">
 
-        <button
-            class="close-button"
-            data-close="adminOverlay">
-            ×
-        </button>
+    <h2>Administração</h2>
 
+    <div id="loginStatus" class="status"></div>
 
-        <div class="section-header">
-
-            <div>
-
-                <h2>Administração</h2>
-
-                <div
-                    id="adminStatus"
-                    class="modal-subtitle">
-                    Sessão ativa
-                </div>
-
-            </div>
-
-
-            <button
-                id="logoutButton"
-                class="btn danger small">
-
-                Terminar sessão
-
-            </button>
-
-        </div>
-
-
-        <div class="tabs">
-
-            <button
-                class="tab active"
-                data-tab="eventsTab">
-
-                Eventos
-
-            </button>
-
-
-            <button
-                class="tab"
-                data-tab="photosTab">
-
-                Fotografias
-
-            </button>
-
-        </div>
-
-
-        <!-- =========================
-             EVENTOS ADMIN
-        ========================= -->
-
-        <div id="eventsTab">
-
-            <div class="admin-section">
-
-                <h3>
-                    Criar evento
-                </h3>
-
-
-                <form id="createEventForm">
-
-                    <div class="form-grid">
-
-                        <div class="field">
-
-                            <label>
-                                Nome
-                            </label>
-
-                            <input
-                                id="eventName"
-                                required>
-
-                        </div>
-
-
-                        <div class="field">
-
-                            <label>
-                                Data
-                            </label>
-
-                            <input
-                                id="eventDate"
-                                type="date">
-
-                        </div>
-
-
-                        <div class="field">
-
-                            <label>
-                                Local
-                            </label>
-
-                            <input
-                                id="eventLocal">
-
-                        </div>
-
-
-                        <div class="field">
-
-                            <label>
-                                Categoria
-                            </label>
-
-                            <input
-                                id="eventCategory"
-                                placeholder="Ex.: Desporto">
-
-                        </div>
-
-
-                        <div class="field full">
-
-                            <label>
-                                Descrição
-                            </label>
-
-                            <textarea
-                                id="eventDescription">
-                            </textarea>
-
-                        </div>
-
-
-                        <div class="field full">
-
-                            <label>
-                                URL da capa, opcional
-                            </label>
-
-                            <input
-                                id="eventCover"
-                                type="url">
-
-                        </div>
-
-                    </div>
-
-
-                    <label class="checkbox">
-
-                        <input
-                            id="eventActive"
-                            type="checkbox"
-                            checked>
-
-                        Evento ativo/publicado
-
-                    </label>
-
-
-                    <button
-                        type="submit"
-                        class="btn gold"
-                        style="margin-top:15px;">
-
-                        Criar evento
-
-                    </button>
-
-                </form>
-
-            </div>
-
-
-            <div class="admin-section">
-
-                <h3>
-                    Eventos existentes
-                </h3>
-
-                <div
-                    id="adminEventsList"
-                    class="admin-list">
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <!-- =========================
-             FOTOGRAFIAS ADMIN
-        ========================= -->
-
-        <div
-            id="photosTab"
-            style="display:none;">
-
-            <div class="admin-section">
-
-                <h3>
-                    Carregar fotografias
-                </h3>
-
-
-                <form id="uploadPhotoForm">
-
-                    <div class="form-grid">
-
-                        <div class="field">
-
-                            <label>
-                                Evento
-                            </label>
-
-                            <select
-                                id="photoEvent"
-                                required>
-                            </select>
-
-                        </div>
-
-
-                        <div class="field">
-
-                            <label>
-                                Título
-                            </label>
-
-                            <input
-                                id="photoTitle">
-
-                        </div>
-
-
-                        <div class="field">
-
-                            <label>
-                                Preço
-                            </label>
-
-                            <input
-                                id="photoPrice"
-                                placeholder="Ex.: 5,00 €">
-
-                        </div>
-
-
-                        <div class="field full">
-
-                            <label>
-                                Descrição
-                            </label>
-
-                            <textarea
-                                id="photoDescription">
-                            </textarea>
-
-                        </div>
-
-
-                        <div class="field full">
-
-                            <label>
-                                Fotografias
-                            </label>
-
-                            <input
-                                id="photoFiles"
-                                type="file"
-                                accept="image/*"
-                                multiple
-                                required>
-
-                        </div>
-
-                    </div>
-
-
-                    <label class="checkbox">
-
-                        <input
-                            id="photoFeatured"
-                            type="checkbox">
-
-                        Fotografia em destaque
-
-                    </label>
-
-
-                    <label class="checkbox">
-
-                        <input
-                            id="photoActive"
-                            type="checkbox"
-                            checked>
-
-                        Fotografia ativa/publicada
-
-                    </label>
-
-
-                    <div
-                        id="uploadProgress"
-                        class="notice"
-                        style="display:none;">
-                    </div>
-
-
-                    <button
-                        type="submit"
-                        class="btn gold"
-                        style="margin-top:15px;">
-
-                        Carregar fotografias
-
-                    </button>
-
-                </form>
-
-            </div>
-
-
-            <div class="admin-section">
-
-                <h3>
-                    Fotografias do evento
-                </h3>
-
-
-                <div class="field">
-
-                    <label>
-                        Selecionar evento
-                    </label>
-
-                    <select
-                        id="adminPhotoEvent">
-                    </select>
-
-                </div>
-
-
-                <div
-                    id="adminPhotosList"
-                    class="admin-list">
-                </div>
-
-            </div>
-
-        </div>
-
+    <div class="form-group">
+      <label>Utilizador</label>
+      <input id="loginUsername" type="text">
     </div>
 
-</div>
-
-
-<!-- =========================
-     FOTO
-========================= -->
-
-<div
-    id="photoOverlay"
-    class="overlay">
-
-    <div class="modal large">
-
-        <button
-            class="close-button"
-            data-close="photoOverlay">
-            ×
-        </button>
-
-
-        <img
-            id="modalPhoto"
-            class="modal-photo"
-            alt="Fotografia">
-
-
-        <h2
-            id="modalPhotoTitle"
-            class="modal-photo-title">
-        </h2>
-
-
-        <div
-            id="modalPhotoEvent"
-            class="modal-photo-event">
-        </div>
-
-
-        <div
-            id="modalPhotoDescription"
-            class="modal-photo-description">
-        </div>
-
-
-        <div
-            id="modalPhotoPrice"
-            class="modal-photo-price">
-        </div>
-
-
-        <div class="modal-actions">
-
-            <button
-                id="previousPhoto"
-                class="btn">
-
-                ← Anterior
-
-            </button>
-
-
-            <button
-                id="nextPhoto"
-                class="btn">
-
-                Seguinte →
-
-            </button>
-
-
-            <a
-                id="whatsappButton"
-                class="btn gold"
-                target="_blank"
-                rel="noopener">
-
-                Pedir esta fotografia no WhatsApp
-
-            </a>
-
-        </div>
-
+    <div class="form-group">
+      <label>Palavra-passe</label>
+      <input id="loginPassword" type="password">
     </div>
 
+    <button class="button button-primary" onclick="login()">
+      Entrar
+    </button>
+
+    <button
+      class="button button-secondary"
+      onclick="fecharLogin()"
+    >
+      Cancelar
+    </button>
+
+  </div>
+
 </div>
-
-
-<div id="toast"></div>
 
 
 <script>
 
-/* =====================================================
-   CONFIGURAÇÃO
-===================================================== */
-
 const API_URL =
-    "https://script.google.com/macros/s/AKfycbwmpVdajsKiouktxt-vP6vDqfjwgYmfgq2y761QE3g3LtZA4PmwZoBZTsnIUcIr6aTX9A/exec";
+  "https://script.google.com/macros/s/AKfycbwmpVdajsKiouktxt-vP6vDqfjwgYmfgq2y761QE3g3LtZA4PmwZoBZTsnIUcIr6aTX9A/exec";
 
 const WHATSAPP_NUMBER = "351914625989";
 
-const SESSION_STORAGE_KEY =
-    "portfolio_admin_token";
-
-
-/* =====================================================
-   ESTADO
-===================================================== */
+const SESSION_STORAGE_KEY = "portfolio_admin_token";
 
 let eventos = [];
+let fotografiasAtuais = [];
 
-let eventoAtual = null;
+let eventoAtualAdmin = null;
 
-let fotografias = [];
-
-let fotoAtualIndex = 0;
-
-let adminToken =
-    localStorage.getItem(
-        SESSION_STORAGE_KEY
-    ) || "";
-
-let adminData = {
-    eventos: [],
-    fotografias: [],
-    configuracao: []
-};
+let fotografiasSelecionadas = [];
 
 
-/* =====================================================
-   ATALHO
-===================================================== */
+/* =========================================================
+   API
+========================================================= */
 
-function $(id) {
-    return document.getElementById(id);
-}
+async function apiGet(acao, parametros = {}) {
 
-
-/* =====================================================
-   ESCAPAR HTML
-===================================================== */
-
-function escaparHTML(valor) {
-
-    return String(valor ?? "")
-        .replace(/[&<>"']/g, function(char) {
-
-            return {
-                "&": "&amp;",
-                "<": "&lt;",
-                ">": "&gt;",
-                '"': "&quot;",
-                "'": "&#039;"
-            }[char];
-
-        });
-
-}
-
-
-/* =====================================================
-   TOAST
-===================================================== */
-
-function mostrarToast(
-    mensagem,
-    erro = false
-) {
-
-    const toast = $("toast");
-
-    toast.textContent = mensagem;
-
-    toast.className =
-        erro
-            ? "show error"
-            : "show";
-
-    clearTimeout(
-        window.toastTimer
-    );
-
-    window.toastTimer =
-        setTimeout(function() {
-
-            toast.className = "";
-
-        }, 4000);
-
-}
-
-
-/* =====================================================
-   GET API
-===================================================== */
-
-async function apiGet(
+  const query = new URLSearchParams({
     acao,
-    parametros = {}
-) {
+    ...parametros
+  });
 
-    const query =
-        new URLSearchParams({
-            acao,
-            ...parametros
-        });
-
-    const resposta =
-        await fetch(
-            API_URL +
-            "?" +
-            query.toString(),
-            {
-                cache: "no-store"
-            }
-        );
-
-    if (!resposta.ok) {
-
-        throw new Error(
-            "Erro HTTP " +
-            resposta.status
-        );
-
+  const resposta = await fetch(
+    API_URL + "?" + query.toString(),
+    {
+      cache: "no-store"
     }
+  );
 
-    const dados =
-        await resposta.json();
+  if (!resposta.ok) {
+    throw new Error("Erro HTTP " + resposta.status);
+  }
 
-    if (!dados.ok) {
+  const dados = await resposta.json();
 
-        throw new Error(
-            dados.erro ||
-            "Erro na API"
-        );
+  if (!dados.ok) {
+    throw new Error(dados.erro || "Erro na API");
+  }
 
-    }
-
-    return dados;
-
+  return dados;
 }
 
 
-/* =====================================================
-   POST API
-===================================================== */
+async function apiPost(dados) {
 
-async function apiPost(
-    dados
-) {
-
-    const resposta =
-        await fetch(
-            API_URL,
-            {
-                method: "POST",
-
-                headers: {
-                    "Content-Type":
-                        "text/plain;charset=utf-8"
-                },
-
-                body:
-                    JSON.stringify(dados)
-            }
-        );
-
-    if (!resposta.ok) {
-
-        throw new Error(
-            "Erro HTTP " +
-            resposta.status
-        );
-
+  const resposta = await fetch(
+    API_URL,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "text/plain;charset=utf-8"
+      },
+      body: JSON.stringify(dados)
     }
+  );
 
-    const resultado =
-        await resposta.json();
+  if (!resposta.ok) {
+    throw new Error("Erro HTTP " + resposta.status);
+  }
 
-    if (!resultado.ok) {
+  const resultado = await resposta.json();
 
-        throw new Error(
-            resultado.erro ||
-            "Erro na API"
-        );
+  if (!resultado.ok) {
+    throw new Error(resultado.erro || "Erro na API");
+  }
 
-    }
-
-    return resultado;
-
+  return resultado;
 }
 
 
-/* =====================================================
-   DATA
-===================================================== */
+/* =========================================================
+   INICIALIZAÇÃO
+========================================================= */
 
-function formatarData(valor) {
+document.addEventListener("DOMContentLoaded", async () => {
 
-    if (!valor) {
-        return "";
+  await carregarEventosPublicos();
+
+  verificarSessao();
+
+});
+
+
+/* =========================================================
+   EVENTOS PÚBLICOS
+========================================================= */
+
+async function carregarEventosPublicos() {
+
+  const content = document.getElementById("publicContent");
+
+  content.innerHTML =
+    '<div class="loading">A carregar eventos...</div>';
+
+  try {
+
+    const resposta = await apiGet("eventos");
+
+    eventos = resposta.eventos || [];
+
+    if (!eventos.length) {
+
+      content.innerHTML =
+        '<div class="empty">Ainda não existem eventos.</div>';
+
+      return;
     }
 
-    const data =
-        new Date(valor);
+    renderizarEventos();
 
-    if (isNaN(data)) {
-        return String(valor);
-    }
+  } catch (erro) {
 
-    return new Intl.DateTimeFormat(
-        "pt-PT",
-        {
-            day: "2-digit",
-            month: "2-digit",
-            year: "numeric"
-        }
-    ).format(data);
-
+    content.innerHTML =
+      '<div class="empty">Erro ao carregar eventos: ' +
+      escaparHTML(erro.message) +
+      '</div>';
+  }
 }
 
-
-/* =====================================================
-   CARREGAR EVENTOS
-===================================================== */
-
-async function carregarEventos() {
-
-    $("eventsGrid").innerHTML =
-        '<div class="loading">' +
-        "A carregar eventos..." +
-        "</div>";
-
-    try {
-
-        const dados =
-            await apiGet("eventos");
-
-        eventos =
-            dados.eventos || [];
-
-        renderizarEventos();
-
-    } catch (erro) {
-
-        $("eventsGrid").innerHTML =
-            '<div class="empty">' +
-            "Não foi possível carregar os eventos." +
-            "<br><br>" +
-            '<span class="error">' +
-            escaparHTML(erro.message) +
-            "</span>" +
-            "</div>";
-
-    }
-
-}
-
-
-/* =====================================================
-   RENDER EVENTOS
-===================================================== */
 
 function renderizarEventos() {
 
-    const ativos =
-        eventos.filter(function(evento) {
+  const content = document.getElementById("publicContent");
 
-            return String(
-                evento.Ativo
-            ).toLowerCase() !== "false";
+  const grid = document.createElement("div");
 
-        });
+  grid.className = "events-grid";
 
+  eventos.forEach(evento => {
 
-    if (!ativos.length) {
+    const card = document.createElement("div");
 
-        $("eventsGrid").innerHTML =
-            '<div class="empty">' +
-            "Ainda não existem eventos publicados." +
-            "</div>";
+    card.className = "event-card";
 
-        return;
+    card.onclick = () => abrirEventoPublico(evento.ID);
 
-    }
+    const capa =
+      evento.Capa ||
+      "https://via.placeholder.com/800x600?text=Sem+fotografia";
 
+    card.innerHTML = `
+      <img
+        class="event-cover"
+        src="${escaparAtributo(capa)}"
+        loading="lazy"
+        alt="${escaparAtributo(evento.Nome || "")}"
+      >
 
-    $("eventsGrid").innerHTML =
-        ativos.map(function(evento) {
+      <div class="event-info">
 
-            const capa =
-                evento.Capa || "";
+        <h3>
+          ${escaparHTML(evento.Nome || "Evento")}
+        </h3>
 
-            return `
-                <article
-                    class="event-card"
-                    data-event-id="${escaparHTML(evento.ID)}">
-
-                    ${
-                        capa
-                        ?
-                        `
-                        <img
-                            class="event-cover"
-                            src="${escaparHTML(capa)}"
-                            loading="lazy"
-                            alt="${escaparHTML(evento.Nome)}"
-                            onerror="this.style.display='none'">
-                        `
-                        :
-                        `
-                        <div
-                            class="event-cover-placeholder">
-                        </div>
-                        `
-                    }
-
-                    <div class="event-body">
-
-                        <h3>
-                            ${escaparHTML(evento.Nome)}
-                        </h3>
-
-                        <div class="event-meta">
-
-                            ${
-                                evento.Data
-                                ?
-                                `<span>
-                                    ${escaparHTML(
-                                        formatarData(
-                                            evento.Data
-                                        )
-                                    )}
-                                </span>`
-                                :
-                                ""
-                            }
-
-                            ${
-                                evento.Local
-                                ?
-                                `<span>
-                                    •
-                                    ${escaparHTML(
-                                        evento.Local
-                                    )}
-                                </span>`
-                                :
-                                ""
-                            }
-
-                            ${
-                                evento.Categoria
-                                ?
-                                `<span>
-                                    •
-                                    ${escaparHTML(
-                                        evento.Categoria
-                                    )}
-                                </span>`
-                                :
-                                ""
-                            }
-
-                        </div>
-
-
-                        ${
-                            evento.Descricao
-                            ?
-                            `
-                            <div class="event-description">
-                                ${escaparHTML(
-                                    String(
-                                        evento.Descricao
-                                    ).substring(
-                                        0,
-                                        180
-                                    )
-                                )}
-                                ${
-                                    String(
-                                        evento.Descricao
-                                    ).length > 180
-                                    ? "..."
-                                    : ""
-                                }
-                            </div>
-                            `
-                            :
-                            ""
-                        }
-
-                    </div>
-
-                </article>
-            `;
-
-        }).join("");
-
-}
-
-
-/* =====================================================
-   ABRIR EVENTO
-===================================================== */
-
-async function abrirEvento(
-    id,
-    alterarURL = true
-) {
-
-    $("homeView").style.display =
-        "none";
-
-    $("eventView").style.display =
-        "block";
-
-    $("eventContent").innerHTML =
-        '<div class="loading">' +
-        "A carregar evento..." +
-        "</div>";
-
-    $("galleryContent").innerHTML =
-        "";
-
-    try {
-
-        const resultados =
-            await Promise.all([
-
-                apiGet(
-                    "evento",
-                    {
-                        id: id
-                    }
-                ),
-
-                apiGet(
-                    "fotografias",
-                    {
-                        eventoId: id
-                    }
-                )
-
-            ]);
-
-
-        eventoAtual =
-            resultados[0].evento;
-
-        fotografias =
-            resultados[1].fotografias ||
-            [];
-
-
-        if (alterarURL) {
-
-            history.pushState(
-                {
-                    evento: id
-                },
-                "",
-                "#evento=" +
-                encodeURIComponent(id)
-            );
-
+        ${
+          evento.Data
+            ? `<p class="event-date">${escaparHTML(formatarData(evento.Data))}</p>`
+            : ""
         }
 
+        ${
+          evento.Local
+            ? `<p>${escaparHTML(evento.Local)}</p>`
+            : ""
+        }
 
-        renderizarEvento();
+        ${
+          evento.Descricao
+            ? `<p style="margin-top:7px;">
+                ${escaparHTML(evento.Descricao)}
+               </p>`
+            : ""
+        }
 
-        window.scrollTo(
-            {
-                top: 0,
-                behavior: "smooth"
-            }
-        );
+      </div>
+    `;
 
-    } catch (erro) {
+    grid.appendChild(card);
 
-        mostrarToast(
-            erro.message,
-            true
-        );
+  });
 
-        voltarInicio(false);
+  content.innerHTML = "";
 
-    }
-
+  content.appendChild(grid);
 }
 
 
-/* =====================================================
-   RENDER EVENTO
-===================================================== */
+/* =========================================================
+   EVENTO PÚBLICO
+========================================================= */
 
-function renderizarEvento() {
+async function abrirEventoPublico(id) {
 
-    const evento =
-        eventoAtual;
+  const evento =
+    eventos.find(e => String(e.ID) === String(id));
 
+  if (!evento) return;
 
-    $("eventContent").innerHTML = `
+  const content =
+    document.getElementById("publicContent");
 
-        <div class="event-header">
+  content.innerHTML =
+    '<div class="loading">A carregar fotografias...</div>';
 
-            <h1>
-                ${escaparHTML(
-                    evento.Nome
-                )}
-            </h1>
+  try {
 
-
-            <div class="event-meta">
-
-                ${
-                    evento.Data
-                    ?
-                    `<span>
-                        ${escaparHTML(
-                            formatarData(
-                                evento.Data
-                            )
-                        )}
-                    </span>`
-                    :
-                    ""
-                }
-
-
-                ${
-                    evento.Local
-                    ?
-                    `<span>
-                        •
-                        ${escaparHTML(
-                            evento.Local
-                        )}
-                    </span>`
-                    :
-                    ""
-                }
-
-
-                ${
-                    evento.Categoria
-                    ?
-                    `<span>
-                        •
-                        ${escaparHTML(
-                            evento.Categoria
-                        )}
-                    </span>`
-                    :
-                    ""
-                }
-
-            </div>
-
-
-            ${
-                evento.Descricao
-                ?
-                `
-                <p>
-                    ${escaparHTML(
-                        evento.Descricao
-                    )}
-                </p>
-                `
-                :
-                ""
-            }
-
-        </div>
-
-    `;
-
-
-    if (!fotografias.length) {
-
-        $("galleryContent").innerHTML =
-            '<div class="empty">' +
-            "Este evento ainda não tem " +
-            "fotografias publicadas." +
-            "</div>";
-
-        return;
-
-    }
-
-
-    $("galleryContent").innerHTML = `
-
-        <div class="section-header">
-
-            <h2>
-                Fotografias
-            </h2>
-
-            <span class="modal-subtitle">
-                ${fotografias.length}
-                fotografia(s)
-            </span>
-
-        </div>
-
-
-        <div class="photos-grid">
-
-            ${
-                fotografias.map(
-                    function(foto, index) {
-
-                        return `
-
-                            <article
-                                class="photo-card"
-                                data-photo-index="${index}">
-
-                                <div
-                                    class="photo-image-container">
-
-                                    <img
-                                        class="photo-image"
-                                        src="${escaparHTML(
-                                            foto.ImagemURL
-                                        )}"
-                                        loading="lazy"
-                                        alt="${escaparHTML(
-                                            foto.Titulo ||
-                                            "Fotografia"
-                                        )}">
-
-                                    <div
-                                        class="watermark">
-
-                                        <span>
-                                            ANDRÉ SILVA
-                                            •
-                                            PRÉ-VISUALIZAÇÃO
-                                        </span>
-
-                                    </div>
-
-                                </div>
-
-
-                                <div
-                                    class="photo-info">
-
-                                    <div
-                                        class="photo-title">
-
-                                        ${escaparHTML(
-                                            foto.Titulo ||
-                                            "Fotografia"
-                                        )}
-
-                                    </div>
-
-
-                                    ${
-                                        foto.Preco
-                                        ?
-                                        `
-                                        <div
-                                            class="photo-price">
-
-                                            ${escaparHTML(
-                                                foto.Preco
-                                            )}
-
-                                        </div>
-                                        `
-                                        :
-                                        ""
-                                    }
-
-                                </div>
-
-                            </article>
-
-                        `;
-
-                    }
-                ).join("")
-            }
-
-        </div>
-
-    `;
-
-}
-
-
-/* =====================================================
-   VOLTAR
-===================================================== */
-
-function voltarInicio(
-    alterarURL = true
-) {
-
-    $("eventView").style.display =
-        "none";
-
-    $("homeView").style.display =
-        "block";
-
-    eventoAtual = null;
-
-    fotografias = [];
-
-    if (alterarURL) {
-
-        history.pushState(
-            {},
-            "",
-            location.pathname +
-            location.search
-        );
-
-    }
-
-    window.scrollTo(
+    const respostaFotos =
+      await apiGet(
+        "fotografias",
         {
-            top: 0,
-            behavior: "smooth"
+          eventoId: id
         }
-    );
+      );
 
+    fotografiasAtuais =
+      respostaFotos.fotografias || [];
+
+    const html = `
+
+      <button
+        class="back-button"
+        onclick="carregarEventosPublicos()"
+      >
+        ← Voltar aos eventos
+      </button>
+
+      <div class="event-header">
+
+        <h1>
+          ${escaparHTML(evento.Nome || "")}
+        </h1>
+
+        ${
+          evento.Data
+            ? `<p style="color:#d6b56a;">
+                ${escaparHTML(formatarData(evento.Data))}
+               </p>`
+            : ""
+        }
+
+        ${
+          evento.Local
+            ? `<p>${escaparHTML(evento.Local)}</p>`
+            : ""
+        }
+
+        ${
+          evento.Descricao
+            ? `<p style="margin-top:10px;">
+                ${escaparHTML(evento.Descricao)}
+               </p>`
+            : ""
+        }
+
+      </div>
+
+      <div id="publicGallery"></div>
+    `;
+
+    content.innerHTML = html;
+
+    renderizarGaleriaPublica();
+
+  } catch (erro) {
+
+    content.innerHTML =
+      '<div class="empty">Erro ao carregar fotografias: ' +
+      escaparHTML(erro.message) +
+      '</div>';
+  }
 }
 
 
-/* =====================================================
-   MODAL FOTO
-===================================================== */
+function renderizarGaleriaPublica() {
 
-function abrirFoto(index) {
+  const gallery =
+    document.getElementById("publicGallery");
 
-    if (!fotografias[index]) {
-        return;
-    }
+  if (!fotografiasAtuais.length) {
 
-    fotoAtualIndex =
-        index;
+    gallery.innerHTML =
+      '<div class="empty">Ainda não existem fotografias neste evento.</div>';
 
-    renderizarFotoModal();
+    return;
+  }
 
-    $("photoOverlay")
-        .classList
-        .add("show");
+  const grid =
+    document.createElement("div");
 
+  grid.className = "gallery";
+
+  fotografiasAtuais.forEach(foto => {
+
+    const card =
+      document.createElement("div");
+
+    card.className = "photo-card";
+
+    card.onclick = () => abrirFotoModal(foto);
+
+    card.innerHTML = `
+
+      <img
+        src="${escaparAtributo(foto.ImagemURL || "")}"
+        loading="lazy"
+        alt="${escaparAtributo(foto.Titulo || "")}"
+      >
+
+      <div class="watermark">
+        ANDRÉ SILVA
+      </div>
+
+      <div class="photo-label">
+        ${escaparHTML(foto.Titulo || foto.NomeFicheiro || "")}
+      </div>
+
+    `;
+
+    grid.appendChild(card);
+
+  });
+
+  gallery.appendChild(grid);
 }
 
 
-function renderizarFotoModal() {
+/* =========================================================
+   MODAL
+========================================================= */
 
-    const foto =
-        fotografias[
-            fotoAtualIndex
-        ];
+function abrirFotoModal(foto) {
 
+  document.getElementById("modalImage").src =
+    foto.ImagemURL || "";
 
-    $("modalPhoto").src =
-        foto.ImagemURL;
+  document.getElementById("modalTitle").textContent =
+    foto.Titulo || foto.NomeFicheiro || "";
 
+  document.getElementById("modalDescription").textContent =
+    foto.Descricao || "";
 
-    $("modalPhoto").alt =
-        foto.Titulo ||
-        "Fotografia";
+  const preco =
+    document.getElementById("modalPrice");
 
+  if (
+    foto.Preco !== undefined &&
+    foto.Preco !== null &&
+    foto.Preco !== ""
+  ) {
 
-    $("modalPhotoTitle")
-        .textContent =
-        foto.Titulo ||
-        "Fotografia";
+    preco.textContent =
+      "Preço: " +
+      Number(foto.Preco).toFixed(2) +
+      " €";
 
+  } else {
 
-    $("modalPhotoEvent")
-        .textContent =
-        eventoAtual
-        ?
-        eventoAtual.Nome
-        :
-        "";
+    preco.textContent = "";
+  }
 
+  const mensagem =
+    "Olá! Tenho interesse na fotografia \"" +
+    (foto.Titulo || foto.NomeFicheiro || "") +
+    "\".";
 
-    $("modalPhotoDescription")
-        .textContent =
-        foto.Descricao ||
-        "";
+  document.getElementById("modalWhatsapp").href =
+    "https://wa.me/" +
+    WHATSAPP_NUMBER +
+    "?text=" +
+    encodeURIComponent(mensagem);
 
-
-    $("modalPhotoPrice")
-        .textContent =
-        foto.Preco ||
-        "";
-
-
-    const mensagem =
-        `Olá, tenho interesse na fotografia "${foto.Titulo || "Fotografia"}" do evento "${eventoAtual ? eventoAtual.Nome : ""}".`;
-
-
-    $("whatsappButton").href =
-        "https://wa.me/" +
-        WHATSAPP_NUMBER +
-        "?text=" +
-        encodeURIComponent(
-            mensagem
-        );
-
+  document
+    .getElementById("photoModal")
+    .classList.add("active");
 }
 
 
-/* =====================================================
+function fecharModal(event) {
+
+  if (
+    event &&
+    event.target &&
+    event.target.id !== "photoModal"
+  ) {
+    return;
+  }
+
+  document
+    .getElementById("photoModal")
+    .classList.remove("active");
+}
+
+
+/* =========================================================
    LOGIN
-===================================================== */
+========================================================= */
 
 function abrirLogin() {
 
-    $("loginOverlay")
-        .classList
-        .add("show");
+  document
+    .getElementById("loginOverlay")
+    .classList.add("active");
 
-    $("loginUsername").focus();
-
+  document
+    .getElementById("loginUsername")
+    .focus();
 }
 
 
-async function fazerLogin(
-    evento
-) {
+function fecharLogin() {
 
-    evento.preventDefault();
+  document
+    .getElementById("loginOverlay")
+    .classList.remove("active");
+}
+
+
+async function login() {
+
+  const username =
+    document.getElementById("loginUsername").value.trim();
+
+  const password =
+    document.getElementById("loginPassword").value;
+
+  const status =
+    document.getElementById("loginStatus");
+
+  status.className = "status show";
+
+  status.textContent = "A entrar...";
+
+  try {
+
+    const resposta =
+      await apiPost({
+        acao: "login",
+        utilizador: username,
+        password: password
+      });
+
+    sessionStorage.setItem(
+      SESSION_STORAGE_KEY,
+      resposta.token
+    );
+
+    status.className =
+      "status show success";
+
+    status.textContent =
+      "Sessão iniciada.";
+
+    setTimeout(() => {
+
+      fecharLogin();
+
+      abrirAdministracao();
+
+    }, 300);
+
+  } catch (erro) {
+
+    status.className =
+      "status show error";
+
+    status.textContent =
+      erro.message;
+  }
+}
+
+
+async function verificarSessao() {
+
+  const token =
+    sessionStorage.getItem(SESSION_STORAGE_KEY);
+
+  if (!token) return;
+
+  try {
+
+    await apiGet(
+      "validarsessao",
+      {
+        token
+      }
+    );
+
+  } catch (erro) {
+
+    sessionStorage.removeItem(
+      SESSION_STORAGE_KEY
+    );
+  }
+}
+
+
+async function logout() {
+
+  const token =
+    sessionStorage.getItem(SESSION_STORAGE_KEY);
+
+  if (token) {
 
     try {
 
-        const resultado =
-            await apiPost({
+      await apiPost({
+        acao: "logout",
+        token
+      });
 
-                acao: "login",
+    } catch (erro) {}
+  }
 
-                utilizador:
-                    $("loginUsername")
-                        .value
-                        .trim(),
+  sessionStorage.removeItem(
+    SESSION_STORAGE_KEY
+  );
 
-                password:
-                    $("loginPassword")
-                        .value
+  document
+    .getElementById("adminPage")
+    .classList.remove("active");
 
-            });
+  document
+    .getElementById("publicPage")
+    .style.display = "block";
 
-
-        adminToken =
-            resultado.token;
-
-
-        localStorage.setItem(
-            SESSION_STORAGE_KEY,
-            adminToken
-        );
-
-
-        $("loginForm").reset();
-
-        fecharModal(
-            "loginOverlay"
-        );
-
-
-        await carregarDadosAdmin();
-
-
-        $("adminOverlay")
-            .classList
-            .add("show");
-
-
-        mostrarToast(
-            "Login efetuado com sucesso."
-        );
-
-
-    } catch (erro) {
-
-        mostrarToast(
-            erro.message,
-            true
-        );
-
-    }
-
+  carregarEventosPublicos();
 }
 
 
-/* =====================================================
-   VALIDAR SESSÃO
-===================================================== */
-
-async function validarSessao() {
-
-    if (!adminToken) {
-        return false;
-    }
-
-    try {
-
-        const resultado =
-            await apiGet(
-                "validarsessao",
-                {
-                    token: adminToken
-                }
-            );
-
-
-        if (!resultado.autenticado) {
-
-            adminToken = "";
-
-            localStorage.removeItem(
-                SESSION_STORAGE_KEY
-            );
-
-            return false;
-
-        }
-
-
-        return true;
-
-    } catch (erro) {
-
-        return false;
-
-    }
-
-}
-
-
-/* =====================================================
-   ABRIR ADMIN
-===================================================== */
+/* =========================================================
+   ADMINISTRAÇÃO
+========================================================= */
 
 async function abrirAdministracao() {
 
-    const autenticado =
-        await validarSessao();
+  const token =
+    sessionStorage.getItem(SESSION_STORAGE_KEY);
 
+  if (!token) {
 
-    if (!autenticado) {
+    abrirLogin();
 
-        abrirLogin();
+    return;
+  }
 
-        return;
+  try {
 
-    }
+    await apiGet(
+      "validarsessao",
+      {
+        token
+      }
+    );
 
+    document
+      .getElementById("publicPage")
+      .style.display = "none";
 
-    try {
+    document
+      .getElementById("adminPage")
+      .classList.add("active");
 
-        await carregarDadosAdmin();
+    await carregarDadosAdmin();
 
-        $("adminOverlay")
-            .classList
-            .add("show");
+  } catch (erro) {
 
-    } catch (erro) {
+    sessionStorage.removeItem(
+      SESSION_STORAGE_KEY
+    );
 
-        mostrarToast(
-            erro.message,
-            true
-        );
-
-    }
-
+    abrirLogin();
+  }
 }
 
-
-/* =====================================================
-   CARREGAR DADOS ADMIN
-===================================================== */
 
 async function carregarDadosAdmin() {
 
-    const resultado =
-        await apiGet(
-            "admindados",
-            {
-                token: adminToken
-            }
-        );
+  try {
 
+    const resposta =
+      await apiGet("admindados", {
+        token:
+          sessionStorage.getItem(
+            SESSION_STORAGE_KEY
+          )
+      });
 
-    adminData =
-        resultado;
+    eventos =
+      resposta.eventos || [];
 
+    preencherSelectsEventos();
 
-    renderizarAdminEventos();
+  } catch (erro) {
 
-    preencherSelectsAdmin();
-
-    renderizarAdminFotos();
-
-
-    $("adminStatus")
-        .textContent =
-        "Sessão ativa";
-
+    mostrarAdminStatus(
+      erro.message,
+      "error"
+    );
+  }
 }
 
 
-/* =====================================================
-   ADMIN EVENTOS
-===================================================== */
+function preencherSelectsEventos() {
 
-function renderizarAdminEventos() {
+  const selects = [
+    document.getElementById("adminEventoSelect"),
+    document.getElementById("uploadEventoSelect")
+  ];
 
-    const lista =
-        $("adminEventsList");
+  selects.forEach(select => {
 
+    const valorAtual = select.value;
 
-    if (
-        !adminData.eventos ||
-        !adminData.eventos.length
-    ) {
+    select.innerHTML =
+      '<option value="">Selecionar evento</option>';
 
-        lista.innerHTML =
-            '<div class="empty">' +
-            "Ainda não existem eventos." +
-            "</div>";
+    eventos.forEach(evento => {
 
-        return;
+      const option =
+        document.createElement("option");
 
+      option.value =
+        evento.ID;
+
+      option.textContent =
+        evento.Nome;
+
+      select.appendChild(option);
+    });
+
+    if (valorAtual) {
+      select.value = valorAtual;
     }
-
-
-    lista.innerHTML =
-        adminData.eventos
-            .map(
-                function(evento) {
-
-                    const inativo =
-                        String(
-                            evento.Ativo
-                        ).toLowerCase() ===
-                        "false";
-
-
-                    return `
-
-                        <div
-                            class="admin-item">
-
-                            <div
-                                class="admin-main">
-
-                                <strong>
-                                    ${escaparHTML(
-                                        evento.Nome
-                                    )}
-                                </strong>
-
-                                <small>
-
-                                    ${
-                                        evento.Data
-                                        ?
-                                        escaparHTML(
-                                            formatarData(
-                                                evento.Data
-                                            )
-                                        )
-                                        :
-                                        ""
-                                    }
-
-                                    ${
-                                        evento.Local
-                                        ?
-                                        " • " +
-                                        escaparHTML(
-                                            evento.Local
-                                        )
-                                        :
-                                        ""
-                                    }
-
-                                    ${
-                                        inativo
-                                        ?
-                                        " • INATIVO"
-                                        :
-                                        ""
-                                    }
-
-                                </small>
-
-                            </div>
-
-
-                            <div
-                                class="admin-actions">
-
-                                <button
-                                    class="btn small"
-                                    data-edit-event="${escaparHTML(evento.ID)}">
-
-                                    Editar
-
-                                </button>
-
-
-                                <button
-                                    class="btn danger small"
-                                    data-delete-event="${escaparHTML(evento.ID)}">
-
-                                    Apagar
-
-                                </button>
-
-                            </div>
-
-                        </div>
-
-                    `;
-
-                }
-            )
-            .join("");
-
+  });
 }
 
 
-/* =====================================================
-   SELECTS ADMIN
-===================================================== */
+function selecionarEventoAdmin() {
 
-function preencherSelectsAdmin() {
+  const id =
+    document.getElementById("adminEventoSelect").value;
 
-    const lista =
-        adminData.eventos ||
-        [];
+  if (!id) {
 
+    eventoAtualAdmin = null;
 
-    const options =
-        lista.map(
-            function(evento) {
+    document.getElementById("adminPhotos").innerHTML =
+      '<div class="loading">Seleciona um evento.</div>';
 
-                return `
-                    <option
-                        value="${escaparHTML(evento.ID)}">
+    return;
+  }
 
-                        ${escaparHTML(
-                            evento.Nome
-                        )}
+  eventoAtualAdmin =
+    eventos.find(
+      e => String(e.ID) === String(id)
+    );
 
-                    </option>
-                `;
+  document.getElementById("uploadEventoSelect").value =
+    id;
 
-            }
-        ).join("");
-
-
-    $("photoEvent").innerHTML =
-        options ||
-        '<option value="">Sem eventos</option>';
-
-
-    $("adminPhotoEvent").innerHTML =
-        options ||
-        '<option value="">Sem eventos</option>';
-
+  carregarFotografiasAdmin(id);
 }
 
 
-/* =====================================================
-   ADMIN FOTOGRAFIAS
-===================================================== */
+async function carregarFotografiasAdmin(eventoId) {
 
-function renderizarAdminFotos() {
+  const container =
+    document.getElementById("adminPhotos");
 
-    const eventoID =
-        $("adminPhotoEvent").value;
+  container.innerHTML =
+    '<div class="loading">A carregar...</div>';
 
+  try {
+
+    const resposta =
+      await apiGet(
+        "fotografias",
+        {
+          eventoId
+        }
+      );
 
     const fotos =
-        (
-            adminData.fotografias ||
-            []
-        ).filter(
-            function(foto) {
-
-                return String(
-                    foto.EventoID
-                ) ===
-                String(
-                    eventoID
-                );
-
-            }
-        );
-
-
-    const lista =
-        $("adminPhotosList");
-
+      resposta.fotografias || [];
 
     if (!fotos.length) {
 
-        lista.innerHTML =
-            '<div class="empty">' +
-            "Não existem fotografias neste evento." +
-            "</div>";
+      container.innerHTML =
+        '<div class="empty">Este evento ainda não tem fotografias.</div>';
 
-        return;
-
+      return;
     }
 
+    const grid =
+      document.createElement("div");
 
-    lista.innerHTML =
-        fotos.map(
-            function(foto) {
+    grid.className =
+      "admin-photo-list";
 
-                const inativa =
-                    String(
-                        foto.Ativo
-                    ).toLowerCase() ===
-                    "false";
+    fotos.forEach(foto => {
 
+      const card =
+        document.createElement("div");
 
-                return `
+      card.className =
+        "admin-photo";
 
-                    <div
-                        class="admin-item">
+      card.innerHTML = `
 
-                        <div
-                            class="admin-main">
+        <img
+          src="${escaparAtributo(foto.ImagemURL || "")}"
+          loading="lazy"
+          alt=""
+        >
 
-                            <strong>
-                                ${escaparHTML(
-                                    foto.Titulo ||
-                                    "Fotografia"
-                                )}
-                            </strong>
+        <div class="admin-photo-info">
 
-                            <small>
+          <strong>
+            ${escaparHTML(foto.Titulo || foto.NomeFicheiro || "")}
+          </strong>
 
-                                ${
-                                    foto.Preco
-                                    ?
-                                    escaparHTML(
-                                        foto.Preco
-                                    )
-                                    :
-                                    "Sem preço"
-                                }
+          <small>
+            ${escaparHTML(foto.NomeFicheiro || "")}
+          </small>
 
-                                ${
-                                    inativa
-                                    ?
-                                    " • INATIVA"
-                                    :
-                                    ""
-                                }
+          <div class="admin-photo-buttons">
 
-                            </small>
-
-                        </div>
-
-
-                        <div
-                            class="admin-actions">
-
-                            ${
-                                foto.OriginalURL
-                                ?
-                                `
-                                <a
-                                    class="btn small"
-                                    href="${escaparHTML(
-                                        foto.OriginalURL
-                                    )}"
-                                    target="_blank"
-                                    rel="noopener">
-
-                                    Original
-
-                                </a>
-                                `
-                                :
-                                ""
-                            }
-
-
-                            <button
-                                class="btn small"
-                                data-edit-photo="${escaparHTML(foto.ID)}">
-
-                                Editar
-
-                            </button>
-
-
-                            <button
-                                class="btn danger small"
-                                data-delete-photo="${escaparHTML(foto.ID)}">
-
-                                Apagar
-
-                            </button>
-
-                        </div>
-
-                    </div>
-
-                `;
-
+            ${
+              foto.OriginalURL
+                ? `<button
+                    class="button button-success"
+                    onclick="abrirOriginal('${escaparAtributo(foto.OriginalURL)}')"
+                  >
+                    Original
+                   </button>`
+                : ""
             }
-        ).join("");
 
+            <button
+              class="button button-secondary"
+              onclick="editarFotografia('${escaparAtributo(foto.ID)}')"
+            >
+              Editar
+            </button>
+
+            <button
+              class="button button-danger"
+              onclick="apagarFotografia('${escaparAtributo(foto.ID)}')"
+            >
+              Apagar
+            </button>
+
+          </div>
+
+        </div>
+      `;
+
+      grid.appendChild(card);
+    });
+
+    container.innerHTML = "";
+
+    container.appendChild(grid);
+
+  } catch (erro) {
+
+    container.innerHTML =
+      '<div class="empty">Erro: ' +
+      escaparHTML(erro.message) +
+      '</div>';
+  }
 }
 
 
-/* =====================================================
+/* =========================================================
    CRIAR EVENTO
-===================================================== */
+========================================================= */
 
-async function criarEvento(
-    evento
-) {
+async function criarEvento() {
 
-    evento.preventDefault();
-
-
-    try {
-
-        await apiPost({
-
-            acao:
-                "criarEvento",
-
-            token:
-                adminToken,
-
-            nome:
-                $("eventName")
-                    .value
-                    .trim(),
-
-            data:
-                $("eventDate")
-                    .value,
-
-            local:
-                $("eventLocal")
-                    .value
-                    .trim(),
-
-            categoria:
-                $("eventCategory")
-                    .value
-                    .trim(),
-
-            descricao:
-                $("eventDescription")
-                    .value
-                    .trim(),
-
-            capa:
-                $("eventCover")
-                    .value
-                    .trim(),
-
-            ativo:
-                $("eventActive")
-                    .checked
-
-        });
-
-
-        mostrarToast(
-            "Evento criado com sucesso."
-        );
-
-
-        evento.target.reset();
-
-        $("eventActive")
-            .checked = true;
-
-
-        await carregarDadosAdmin();
-
-        await carregarEventos();
-
-
-    } catch (erro) {
-
-        mostrarToast(
-            erro.message,
-            true
-        );
-
-    }
-
-}
-
-
-/* =====================================================
-   EDITAR EVENTO
-===================================================== */
-
-async function editarEvento(
-    id
-) {
-
-    const evento =
-        adminData.eventos.find(
-            function(item) {
-
-                return String(
-                    item.ID
-                ) ===
-                String(id);
-
-            }
-        );
-
-
-    if (!evento) {
-        return;
-    }
-
-
-    const nome =
-        prompt(
-            "Nome do evento:",
-            evento.Nome || ""
-        );
-
-
-    if (nome === null) {
-        return;
-    }
-
-
-    const data =
-        prompt(
-            "Data (AAAA-MM-DD):",
-            evento.Data || ""
-        );
-
-
-    if (data === null) {
-        return;
-    }
-
-
-    const local =
-        prompt(
-            "Local:",
-            evento.Local || ""
-        );
-
-
-    if (local === null) {
-        return;
-    }
-
-
-    const categoria =
-        prompt(
-            "Categoria:",
-            evento.Categoria || ""
-        );
-
-
-    if (categoria === null) {
-        return;
-    }
-
-
-    const descricao =
-        prompt(
-            "Descrição:",
-            evento.Descricao || ""
-        );
-
-
-    if (descricao === null) {
-        return;
-    }
-
-
-    const capa =
-        prompt(
-            "URL da capa:",
-            evento.Capa || ""
-        );
-
-
-    if (capa === null) {
-        return;
-    }
-
-
-    const ativo =
-        confirm(
-            "OK = evento ativo/publicado.\n\n" +
-            "Cancelar = evento inativo."
-        );
-
-
-    try {
-
-        await apiPost({
-
-            acao:
-                "editarEvento",
-
-            token:
-                adminToken,
-
-            id:
-                id,
-
-            nome:
-                nome,
-
-            data:
-                data,
-
-            local:
-                local,
-
-            categoria:
-                categoria,
-
-            descricao:
-                descricao,
-
-            capa:
-                capa,
-
-            ativo:
-                ativo
-
-        });
-
-
-        mostrarToast(
-            "Evento atualizado."
-        );
-
-
-        await carregarDadosAdmin();
-
-        await carregarEventos();
-
-
-    } catch (erro) {
-
-        mostrarToast(
-            erro.message,
-            true
-        );
-
-    }
-
-}
-
-
-/* =====================================================
-   APAGAR EVENTO
-===================================================== */
-
-async function apagarEvento(
-    id
-) {
-
-    const evento =
-        adminData.eventos.find(
-            function(item) {
-
-                return String(
-                    item.ID
-                ) ===
-                String(id);
-
-            }
-        );
-
-
-    if (!evento) {
-        return;
-    }
-
-
-    const confirmar =
-        confirm(
-            'Apagar o evento "' +
-            evento.Nome +
-            '"?\n\n' +
-            "As fotografias associadas também serão apagadas."
-        );
-
-
-    if (!confirmar) {
-        return;
-    }
-
-
-    try {
-
-        await apiPost({
-
-            acao:
-                "apagarEvento",
-
-            token:
-                adminToken,
-
-            id:
-                id
-
-        });
-
-
-        mostrarToast(
-            "Evento apagado."
-        );
-
-
-        await carregarDadosAdmin();
-
-        await carregarEventos();
-
-
-        if (
-            eventoAtual &&
-            String(
-                eventoAtual.ID
-            ) ===
-            String(id)
-        ) {
-
-            voltarInicio();
-
-        }
-
-
-    } catch (erro) {
-
-        mostrarToast(
-            erro.message,
-            true
-        );
-
-    }
-
-}
-
-
-/* =====================================================
-   FICHEIRO PARA BASE64
-===================================================== */
-
-function ficheiroParaBase64(
-    ficheiro
-) {
-
-    return new Promise(
-        function(resolve, reject) {
-
-            const leitor =
-                new FileReader();
-
-
-            leitor.onload =
-                function() {
-
-                    resolve(
-                        leitor.result
-                    );
-
-                };
-
-
-            leitor.onerror =
-                function(erro) {
-
-                    reject(erro);
-
-                };
-
-
-            leitor.readAsDataURL(
-                ficheiro
-            );
-
-        }
+  const token =
+    sessionStorage.getItem(
+      SESSION_STORAGE_KEY
     );
 
+  const nome =
+    document.getElementById("eventoNome").value.trim();
+
+  if (!nome) {
+
+    mostrarAdminStatus(
+      "Indica o nome do evento.",
+      "error"
+    );
+
+    return;
+  }
+
+  try {
+
+    await apiPost({
+
+      acao: "criarEvento",
+
+      token,
+
+      nome,
+
+      data:
+        document.getElementById("eventoData").value,
+
+      local:
+        document.getElementById("eventoLocal").value.trim(),
+
+      categoria:
+        document.getElementById("eventoCategoria").value.trim(),
+
+      descricao:
+        document.getElementById("eventoDescricao").value.trim()
+    });
+
+    mostrarAdminStatus(
+      "Evento criado com sucesso.",
+      "success"
+    );
+
+    document.getElementById("eventoNome").value = "";
+    document.getElementById("eventoData").value = "";
+    document.getElementById("eventoLocal").value = "";
+    document.getElementById("eventoCategoria").value = "";
+    document.getElementById("eventoDescricao").value = "";
+
+    await carregarDadosAdmin();
+
+  } catch (erro) {
+
+    mostrarAdminStatus(
+      erro.message,
+      "error"
+    );
+  }
 }
 
 
-/* =====================================================
-   UPLOAD FOTOGRAFIAS
-===================================================== */
+/* =========================================================
+   EDITAR EVENTO
+========================================================= */
 
-async function carregarFotografias(
-    evento
-) {
+async function editarEventoAtual() {
 
-    evento.preventDefault();
+  if (!eventoAtualAdmin) {
 
+    mostrarAdminStatus(
+      "Seleciona primeiro um evento.",
+      "error"
+    );
 
-    const ficheiros =
-        Array.from(
-            $("photoFiles").files
-        );
+    return;
+  }
 
+  const novoNome =
+    prompt(
+      "Nome do evento:",
+      eventoAtualAdmin.Nome || ""
+    );
 
-    const eventoID =
-        $("photoEvent").value;
+  if (novoNome === null) return;
 
+  const novaData =
+    prompt(
+      "Data:",
+      eventoAtualAdmin.Data || ""
+    );
 
-    if (!ficheiros.length) {
+  if (novaData === null) return;
 
-        mostrarToast(
-            "Seleciona pelo menos uma fotografia.",
-            true
-        );
+  const novoLocal =
+    prompt(
+      "Local:",
+      eventoAtualAdmin.Local || ""
+    );
 
-        return;
+  if (novoLocal === null) return;
 
-    }
+  const novaDescricao =
+    prompt(
+      "Descrição:",
+      eventoAtualAdmin.Descricao || ""
+    );
 
+  if (novaDescricao === null) return;
 
-    if (!eventoID) {
+  try {
 
-        mostrarToast(
-            "Seleciona um evento.",
-            true
-        );
+    await apiPost({
 
-        return;
+      acao: "editarEvento",
 
-    }
+      token:
+        sessionStorage.getItem(
+          SESSION_STORAGE_KEY
+        ),
 
+      id:
+        eventoAtualAdmin.ID,
 
-    const progress =
-        $("uploadProgress");
+      nome:
+        novoNome,
 
+      data:
+        novaData,
 
-    progress.style.display =
-        "block";
+      local:
+        novoLocal,
 
+      descricao:
+        novaDescricao
+    });
 
-    try {
+    mostrarAdminStatus(
+      "Evento atualizado.",
+      "success"
+    );
 
-        for (
-            let i = 0;
-            i < ficheiros.length;
-            i++
-        ) {
+    await carregarDadosAdmin();
 
-            const ficheiro =
-                ficheiros[i];
+  } catch (erro) {
 
-
-            progress.textContent =
-                "A carregar " +
-                (i + 1) +
-                " de " +
-                ficheiros.length +
-                ": " +
-                ficheiro.name;
-
-
-            const base64 =
-                await ficheiroParaBase64(
-                    ficheiro
-                );
-
-
-            await apiPost({
-
-                acao:
-                    "uploadFotografia",
-
-                token:
-                    adminToken,
-
-                eventoId:
-                    eventoID,
-
-                titulo:
-                    $("photoTitle")
-                        .value
-                        .trim() ||
-                    ficheiro.name,
-
-                preco:
-                    $("photoPrice")
-                        .value
-                        .trim(),
-
-                descricao:
-                    $("photoDescription")
-                        .value
-                        .trim(),
-
-                destaque:
-                    $("photoFeatured")
-                        .checked,
-
-                ativo:
-                    $("photoActive")
-                        .checked,
-
-                ficheiro:
-                    base64,
-
-                nomeFicheiro:
-                    ficheiro.name,
-
-                mimeType:
-                    ficheiro.type
-
-            });
-
-        }
-
-
-        progress.textContent =
-            "Upload concluído.";
-
-
-        mostrarToast(
-            ficheiros.length +
-            " fotografia(s) carregada(s)."
-        );
-
-
-        evento.target.reset();
-
-        $("photoActive")
-            .checked = true;
-
-
-        await carregarDadosAdmin();
-
-        await carregarEventos();
-
-
-        $("adminPhotoEvent")
-            .value =
-            eventoID;
-
-
-        renderizarAdminFotos();
-
-
-    } catch (erro) {
-
-        progress.textContent =
-            "Erro: " +
-            erro.message;
-
-
-        mostrarToast(
-            erro.message,
-            true
-        );
-
-    }
-
+    mostrarAdminStatus(
+      erro.message,
+      "error"
+    );
+  }
 }
 
 
-/* =====================================================
-   EDITAR FOTOGRAFIA
-===================================================== */
+/* =========================================================
+   APAGAR EVENTO
+========================================================= */
 
-async function editarFotografia(
-    id
-) {
+async function apagarEventoAtual() {
 
-    const foto =
-        adminData.fotografias.find(
-            function(item) {
+  if (!eventoAtualAdmin) {
 
-                return String(
-                    item.ID
-                ) ===
-                String(id);
+    mostrarAdminStatus(
+      "Seleciona primeiro um evento.",
+      "error"
+    );
 
-            }
-        );
+    return;
+  }
+
+  const confirmar =
+    confirm(
+      "Tens a certeza que queres apagar o evento \"" +
+      eventoAtualAdmin.Nome +
+      "\" e as fotografias associadas?"
+    );
+
+  if (!confirmar) return;
+
+  try {
+
+    await apiPost({
+
+      acao: "apagarEvento",
+
+      token:
+        sessionStorage.getItem(
+          SESSION_STORAGE_KEY
+        ),
+
+      id:
+        eventoAtualAdmin.ID
+    });
+
+    eventoAtualAdmin = null;
+
+    mostrarAdminStatus(
+      "Evento apagado.",
+      "success"
+    );
+
+    await carregarDadosAdmin();
+
+    document.getElementById("adminPhotos").innerHTML =
+      '<div class="loading">Seleciona um evento.</div>';
+
+  } catch (erro) {
+
+    mostrarAdminStatus(
+      erro.message,
+      "error"
+    );
+  }
+}
 
 
-    if (!foto) {
-        return;
-    }
+/* =========================================================
+   PREPARAR FOTOGRAFIAS
+========================================================= */
 
+function prepararFotografias(files) {
+
+  const lista =
+    Array.from(files || []);
+
+  if (!lista.length) return;
+
+  lista.forEach(file => {
+
+    const existe =
+      fotografiasSelecionadas.some(
+        item =>
+          item.file.name === file.name &&
+          item.file.size === file.size &&
+          item.file.lastModified === file.lastModified
+      );
+
+    if (existe) return;
 
     const titulo =
-        prompt(
-            "Título:",
-            foto.Titulo || ""
-        );
+      obterTituloDoFicheiro(file.name);
 
+    fotografiasSelecionadas.push({
 
-    if (titulo === null) {
-        return;
-    }
+      file,
 
+      titulo,
 
-    const preco =
-        prompt(
-            "Preço:",
-            foto.Preco || ""
-        );
-
-
-    if (preco === null) {
-        return;
-    }
-
-
-    const descricao =
-        prompt(
-            "Descrição:",
-            foto.Descricao || ""
-        );
-
-
-    if (descricao === null) {
-        return;
-    }
-
-
-    const ativo =
-        confirm(
-            "OK = fotografia ativa/publicada.\n\n" +
-            "Cancelar = fotografia inativa."
-        );
-
-
-    try {
-
-        await apiPost({
-
-            acao:
-                "editarFotografia",
-
-            token:
-                adminToken,
-
-            id:
-                id,
-
-            titulo:
-                titulo,
-
-            preco:
-                preco,
-
-            descricao:
-                descricao,
-
-            ativo:
-                ativo,
-
-            destaque:
-                foto.Destaque
-
-        });
-
-
-        mostrarToast(
-            "Fotografia atualizada."
-        );
-
-
-        await carregarDadosAdmin();
-
-
-    } catch (erro) {
-
-        mostrarToast(
-            erro.message,
-            true
-        );
-
-    }
-
-}
-
-
-/* =====================================================
-   APAGAR FOTOGRAFIA
-===================================================== */
-
-async function apagarFotografia(
-    id
-) {
-
-    const confirmar =
-        confirm(
-            "Apagar esta fotografia?\n\n" +
-            "O original e a pré-visualização " +
-            "também serão eliminados."
-        );
-
-
-    if (!confirmar) {
-        return;
-    }
-
-
-    try {
-
-        await apiPost({
-
-            acao:
-                "apagarFotografia",
-
-            token:
-                adminToken,
-
-            id:
-                id
-
-        });
-
-
-        mostrarToast(
-            "Fotografia apagada."
-        );
-
-
-        await carregarDadosAdmin();
-
-
-        if (eventoAtual) {
-
-            try {
-
-                const resultado =
-                    await apiGet(
-                        "fotografias",
-                        {
-                            eventoId:
-                                eventoAtual.ID
-                        }
-                    );
-
-
-                fotografias =
-                    resultado.fotografias ||
-                    [];
-
-
-                renderizarEvento();
-
-            } catch (erro) {}
-
-        }
-
-
-    } catch (erro) {
-
-        mostrarToast(
-            erro.message,
-            true
-        );
-
-    }
-
-}
-
-
-/* =====================================================
-   LOGOUT
-===================================================== */
-
-async function terminarSessao() {
-
-    try {
-
-        if (adminToken) {
-
-            await apiPost({
-
-                acao:
-                    "logout",
-
-                token:
-                    adminToken
-
-            });
-
-        }
-
-    } catch (erro) {}
-
-
-    adminToken = "";
-
-    localStorage.removeItem(
-        SESSION_STORAGE_KEY
-    );
-
-
-    fecharModal(
-        "adminOverlay"
-    );
-
-
-    mostrarToast(
-        "Sessão terminada."
-    );
-
-}
-
-
-/* =====================================================
-   FECHAR MODAL
-===================================================== */
-
-function fecharModal(
-    id
-) {
-
-    $(id)
-        .classList
-        .remove("show");
-
-}
-
-
-/* =====================================================
-   EVENTOS DA PÁGINA
-===================================================== */
-
-document.addEventListener(
-    "DOMContentLoaded",
-    async function() {
-
-        $("year")
-            .textContent =
-            new Date()
-                .getFullYear();
-
-
-        await carregarEventos();
-
-
-        /*
-            Se o endereço tiver:
-            #evento=ID
-        */
-
-        if (
-            location.hash
-                .startsWith(
-                    "#evento="
-                )
-        ) {
-
-            const id =
-                decodeURIComponent(
-                    location.hash
-                        .substring(8)
-                );
-
-
-            if (id) {
-
-                await abrirEvento(
-                    id,
-                    false
-                );
-
-            }
-
-        }
-
-
-        /* LOGIN */
-
-        $("adminButton")
-            .addEventListener(
-                "click",
-                abrirAdministracao
-            );
-
-
-        $("loginForm")
-            .addEventListener(
-                "submit",
-                fazerLogin
-            );
-
-
-        /* EVENTO */
-
-        $("backButton")
-            .addEventListener(
-                "click",
-                function() {
-
-                    voltarInicio();
-
-                }
-            );
-
-
-        $("createEventForm")
-            .addEventListener(
-                "submit",
-                criarEvento
-            );
-
-
-        /* UPLOAD */
-
-        $("uploadPhotoForm")
-            .addEventListener(
-                "submit",
-                carregarFotografias
-            );
-
-
-        $("adminPhotoEvent")
-            .addEventListener(
-                "change",
-                renderizarAdminFotos
-            );
-
-
-        /* LOGOUT */
-
-        $("logoutButton")
-            .addEventListener(
-                "click",
-                terminarSessao
-            );
-
-
-        /* FOTO ANTERIOR */
-
-        $("previousPhoto")
-            .addEventListener(
-                "click",
-                function() {
-
-                    if (
-                        !fotografias.length
-                    ) {
-                        return;
-                    }
-
-
-                    fotoAtualIndex =
-                        (
-                            fotoAtualIndex -
-                            1 +
-                            fotografias.length
-                        ) %
-                        fotografias.length;
-
-
-                    renderizarFotoModal();
-
-                }
-            );
-
-
-        /* FOTO SEGUINTE */
-
-        $("nextPhoto")
-            .addEventListener(
-                "click",
-                function() {
-
-                    if (
-                        !fotografias.length
-                    ) {
-                        return;
-                    }
-
-
-                    fotoAtualIndex =
-                        (
-                            fotoAtualIndex +
-                            1
-                        ) %
-                        fotografias.length;
-
-
-                    renderizarFotoModal();
-
-                }
-            );
-
-
-        /* CLIQUES GERAIS */
-
-        document.addEventListener(
-            "click",
-            function(evento) {
-
-                const eventCard =
-                    evento.target.closest(
-                        ".event-card"
-                    );
-
-
-                if (eventCard) {
-
-                    abrirEvento(
-                        eventCard.dataset
-                            .eventId
-                    );
-
-                    return;
-
-                }
-
-
-                const photoCard =
-                    evento.target.closest(
-                        ".photo-card"
-                    );
-
-
-                if (photoCard) {
-
-                    abrirFoto(
-                        Number(
-                            photoCard.dataset
-                                .photoIndex
-                        )
-                    );
-
-                    return;
-
-                }
-
-
-                const fechar =
-                    evento.target.closest(
-                        "[data-close]"
-                    );
-
-
-                if (fechar) {
-
-                    fecharModal(
-                        fechar.dataset.close
-                    );
-
-                    return;
-
-                }
-
-
-                const editarEventoButton =
-                    evento.target.closest(
-                        "[data-edit-event]"
-                    );
-
-
-                if (
-                    editarEventoButton
-                ) {
-
-                    editarEvento(
-                        editarEventoButton
-                            .dataset
-                            .editEvent
-                    );
-
-                    return;
-
-                }
-
-
-                const apagarEventoButton =
-                    evento.target.closest(
-                        "[data-delete-event]"
-                    );
-
-
-                if (
-                    apagarEventoButton
-                ) {
-
-                    apagarEvento(
-                        apagarEventoButton
-                            .dataset
-                            .deleteEvent
-                    );
-
-                    return;
-
-                }
-
-
-                const editarFotoButton =
-                    evento.target.closest(
-                        "[data-edit-photo]"
-                    );
-
-
-                if (
-                    editarFotoButton
-                ) {
-
-                    editarFotografia(
-                        editarFotoButton
-                            .dataset
-                            .editPhoto
-                    );
-
-                    return;
-
-                }
-
-
-                const apagarFotoButton =
-                    evento.target.closest(
-                        "[data-delete-photo]"
-                    );
-
-
-                if (
-                    apagarFotoButton
-                ) {
-
-                    apagarFotografia(
-                        apagarFotoButton
-                            .dataset
-                            .deletePhoto
-                    );
-
-                    return;
-
-                }
-
-
-                const tab =
-                    evento.target.closest(
-                        "[data-tab]"
-                    );
-
-
-                if (tab) {
-
-                    document
-                        .querySelectorAll(
-                            ".tab"
-                        )
-                        .forEach(
-                            function(item) {
-
-                                item.classList
-                                    .remove(
-                                        "active"
-                                    );
-
-                            }
-                        );
-
-
-                    tab.classList
-                        .add("active");
-
-
-                    document
-                        .querySelectorAll(
-                            "#eventsTab,#photosTab"
-                        )
-                        .forEach(
-                            function(item) {
-
-                                item.style.display =
-                                    "none";
-
-                            }
-                        );
-
-
-                    $(tab.dataset.tab)
-                        .style.display =
-                        "block";
-
-                }
-
-            }
-        );
-
-
-        /* TECLADO */
-
-        document.addEventListener(
-            "keydown",
-            function(evento) {
-
-                /* ESC */
-
-                if (
-                    evento.key ===
-                    "Escape"
-                ) {
-
-                    document
-                        .querySelectorAll(
-                            ".overlay.show"
-                        )
-                        .forEach(
-                            function(item) {
-
-                                item.classList
-                                    .remove(
-                                        "show"
-                                    );
-
-                            }
-                        );
-
-                }
-
-
-                /* CTRL + ALT + A */
-
-                if (
-                    evento.ctrlKey &&
-                    evento.altKey &&
-                    evento.key.toLowerCase()
-                    === "a"
-                ) {
-
-                    evento.preventDefault();
-
-                    abrirAdministracao();
-
-                }
-
-
-                /* SETAS NA GALERIA */
-
-                if (
-                    $("photoOverlay")
-                        .classList
-                        .contains("show")
-                ) {
-
-                    if (
-                        evento.key ===
-                        "ArrowLeft"
-                    ) {
-
-                        $("previousPhoto")
-                            .click();
-
-                    }
-
-
-                    if (
-                        evento.key ===
-                        "ArrowRight"
-                    ) {
-
-                        $("nextPhoto")
-                            .click();
-
-                    }
-
-                }
-
-            }
-        );
-
-
-        /* HISTÓRICO DO BROWSER */
-
-        window.addEventListener(
-            "popstate",
-            function() {
-
-                if (
-                    location.hash
-                        .startsWith(
-                            "#evento="
-                        )
-                ) {
-
-                    const id =
-                        decodeURIComponent(
-                            location.hash
-                                .substring(8)
-                        );
-
-
-                    abrirEvento(
-                        id,
-                        false
-                    );
-
-                } else {
-
-                    voltarInicio(
-                        false
-                    );
-
-                }
-
-            }
-        );
+      preview:
+        URL.createObjectURL(file)
 
     });
+
+  });
+
+  renderizarFotografiasSelecionadas();
+}
+
+
+function obterTituloDoFicheiro(nome) {
+
+  const ultimoPonto =
+    nome.lastIndexOf(".");
+
+  if (ultimoPonto <= 0) {
+    return nome;
+  }
+
+  return nome.substring(
+    0,
+    ultimoPonto
+  );
+}
+
+
+function renderizarFotografiasSelecionadas() {
+
+  const container =
+    document.getElementById("selectedFiles");
+
+  container.innerHTML = "";
+
+  if (!fotografiasSelecionadas.length) {
+
+    container.innerHTML =
+      '<div style="color:#777;">Nenhuma fotografia selecionada.</div>';
+
+    return;
+  }
+
+  fotografiasSelecionadas.forEach(
+    (item, index) => {
+
+      const row =
+        document.createElement("div");
+
+      row.className =
+        "selected-file";
+
+      row.innerHTML = `
+
+        <img
+          src="${item.preview}"
+          alt=""
+        >
+
+        <div class="selected-file-info">
+
+          <div class="selected-file-name">
+            ${escaparHTML(item.file.name)}
+          </div>
+
+          <input
+            type="text"
+            value="${escaparAtributo(item.titulo)}"
+            placeholder="Título da fotografia"
+            oninput="alterarTituloFotografia(${index}, this.value)"
+          >
+
+        </div>
+
+        <button
+          class="remove-file"
+          onclick="removerFotografiaSelecionada(${index})"
+          title="Remover"
+        >
+          ×
+        </button>
+
+      `;
+
+      container.appendChild(row);
+
+    }
+  );
+}
+
+
+function alterarTituloFotografia(index, valor) {
+
+  if (
+    fotografiasSelecionadas[index]
+  ) {
+
+    fotografiasSelecionadas[index].titulo =
+      valor;
+  }
+}
+
+
+function removerFotografiaSelecionada(index) {
+
+  const item =
+    fotografiasSelecionadas[index];
+
+  if (item && item.preview) {
+
+    URL.revokeObjectURL(
+      item.preview
+    );
+  }
+
+  fotografiasSelecionadas.splice(
+    index,
+    1
+  );
+
+  renderizarFotografiasSelecionadas();
+}
+
+
+function limparSelecaoFotografias() {
+
+  fotografiasSelecionadas.forEach(item => {
+
+    if (item.preview) {
+
+      URL.revokeObjectURL(
+        item.preview
+      );
+    }
+
+  });
+
+  fotografiasSelecionadas = [];
+
+  document.getElementById("photoInput").value = "";
+
+  document.getElementById("uploadProgress").textContent = "";
+
+  renderizarFotografiasSelecionadas();
+}
+
+
+/* =========================================================
+   CONVERTER IMAGEM PARA BASE64
+========================================================= */
+
+function ficheiroParaBase64(file) {
+
+  return new Promise((resolve, reject) => {
+
+    const reader =
+      new FileReader();
+
+    reader.onload = () => {
+
+      const resultado =
+        reader.result;
+
+      const base64 =
+        String(resultado).split(",")[1];
+
+      resolve(base64);
+    };
+
+    reader.onerror = () => {
+
+      reject(
+        new Error(
+          "Não foi possível ler o ficheiro " +
+          file.name
+        )
+      );
+
+    };
+
+    reader.readAsDataURL(file);
+  });
+}
+
+
+/* =========================================================
+   UPLOAD EM MASSA
+========================================================= */
+
+async function uploadFotografiasEmMassa() {
+
+  const token =
+    sessionStorage.getItem(
+      SESSION_STORAGE_KEY
+    );
+
+  const eventoId =
+    document.getElementById(
+      "uploadEventoSelect"
+    ).value;
+
+  if (!token) {
+
+    abrirLogin();
+
+    return;
+  }
+
+  if (!eventoId) {
+
+    mostrarAdminStatus(
+      "Seleciona o evento para as fotografias.",
+      "error"
+    );
+
+    return;
+  }
+
+  if (!fotografiasSelecionadas.length) {
+
+    mostrarAdminStatus(
+      "Seleciona pelo menos uma fotografia.",
+      "error"
+    );
+
+    return;
+  }
+
+  const preco =
+    document.getElementById(
+      "uploadPreco"
+    ).value;
+
+  const descricao =
+    document.getElementById(
+      "uploadDescricao"
+    ).value.trim();
+
+  const total =
+    fotografiasSelecionadas.length;
+
+  let enviadas = 0;
+
+  const progress =
+    document.getElementById(
+      "uploadProgress"
+    );
+
+  progress.textContent =
+    "A preparar upload...";
+
+  try {
+
+    for (
+      let i = 0;
+      i < fotografiasSelecionadas.length;
+      i++
+    ) {
+
+      const item =
+        fotografiasSelecionadas[i];
+
+      progress.textContent =
+        "A carregar fotografia " +
+        (i + 1) +
+        " de " +
+        total +
+        ": " +
+        item.file.name;
+
+      const base64 =
+        await ficheiroParaBase64(
+          item.file
+        );
+
+      const titulo =
+        item.titulo.trim() ||
+        obterTituloDoFicheiro(
+          item.file.name
+        );
+
+      await apiPost({
+
+        acao: "uploadFotografia",
+
+        token,
+
+        eventoId,
+
+        titulo,
+
+        preco,
+
+        descricao,
+
+        destaque: false,
+
+        ativo: true,
+
+        base64,
+
+        nomeFicheiro:
+          item.file.name,
+
+        mimeType:
+          item.file.type ||
+          "image/jpeg"
+      });
+
+      enviadas++;
+
+    }
+
+    progress.textContent =
+      "Upload concluído: " +
+      enviadas +
+      " de " +
+      total +
+      " fotografias.";
+
+    mostrarAdminStatus(
+      enviadas +
+      " fotografias carregadas com sucesso.",
+      "success"
+    );
+
+    const eventoSelecionado =
+      document.getElementById(
+        "adminEventoSelect"
+      ).value;
+
+    if (
+      String(eventoSelecionado) ===
+      String(eventoId)
+    ) {
+
+      await carregarFotografiasAdmin(
+        eventoId
+      );
+    }
+
+    limparSelecaoFotografias();
+
+    document.getElementById(
+      "uploadProgress"
+    ).textContent =
+      enviadas +
+      " fotografias carregadas com sucesso.";
+
+  } catch (erro) {
+
+    progress.textContent =
+      "Upload interrompido.";
+
+    mostrarAdminStatus(
+      "Erro depois de carregar " +
+      enviadas +
+      " de " +
+      total +
+      " fotografias: " +
+      erro.message,
+      "error"
+    );
+  }
+}
+
+
+/* =========================================================
+   FOTOGRAFIA INDIVIDUAL ADMIN
+========================================================= */
+
+async function editarFotografia(id) {
+
+  const token =
+    sessionStorage.getItem(
+      SESSION_STORAGE_KEY
+    );
+
+  try {
+
+    const resposta =
+      await apiGet(
+        "fotografias",
+        {
+          eventoId:
+            document.getElementById(
+              "adminEventoSelect"
+            ).value
+        }
+      );
+
+    const fotos =
+      resposta.fotografias || [];
+
+    const foto =
+      fotos.find(
+        f => String(f.ID) === String(id)
+      );
+
+    if (!foto) {
+
+      mostrarAdminStatus(
+        "Fotografia não encontrada.",
+        "error"
+      );
+
+      return;
+    }
+
+    const novoTitulo =
+      prompt(
+        "Título da fotografia:",
+        foto.Titulo || ""
+      );
+
+    if (novoTitulo === null) return;
+
+    const novoPreco =
+      prompt(
+        "Preço:",
+        foto.Preco || ""
+      );
+
+    if (novoPreco === null) return;
+
+    const novaDescricao =
+      prompt(
+        "Descrição:",
+        foto.Descricao || ""
+      );
+
+    if (novaDescricao === null) return;
+
+    await apiPost({
+
+      acao: "editarFotografia",
+
+      token,
+
+      id,
+
+      titulo:
+        novoTitulo,
+
+      preco:
+        novoPreco,
+
+      descricao:
+        novaDescricao,
+
+      destaque:
+        foto.Destaque,
+
+      ativo:
+        foto.Ativo
+    });
+
+    mostrarAdminStatus(
+      "Fotografia atualizada.",
+      "success"
+    );
+
+    await carregarFotografiasAdmin(
+      document.getElementById(
+        "adminEventoSelect"
+      ).value
+    );
+
+  } catch (erro) {
+
+    mostrarAdminStatus(
+      erro.message,
+      "error"
+    );
+  }
+}
+
+
+async function apagarFotografia(id) {
+
+  const confirmar =
+    confirm(
+      "Tens a certeza que queres apagar esta fotografia?"
+    );
+
+  if (!confirmar) return;
+
+  try {
+
+    await apiPost({
+
+      acao: "apagarFotografia",
+
+      token:
+        sessionStorage.getItem(
+          SESSION_STORAGE_KEY
+        ),
+
+      id
+    });
+
+    mostrarAdminStatus(
+      "Fotografia apagada.",
+      "success"
+    );
+
+    await carregarFotografiasAdmin(
+      document.getElementById(
+        "adminEventoSelect"
+      ).value
+    );
+
+  } catch (erro) {
+
+    mostrarAdminStatus(
+      erro.message,
+      "error"
+    );
+  }
+}
+
+
+function abrirOriginal(url) {
+
+  if (!url) return;
+
+  window.open(
+    url,
+    "_blank"
+  );
+}
+
+
+/* =========================================================
+   UTILITÁRIOS
+========================================================= */
+
+function mostrarAdminStatus(
+  mensagem,
+  tipo = ""
+) {
+
+  const status =
+    document.getElementById(
+      "adminStatus"
+    );
+
+  status.textContent =
+    mensagem;
+
+  status.className =
+    "status show " +
+    tipo;
+}
+
+
+function formatarData(data) {
+
+  if (!data) return "";
+
+  const d =
+    new Date(data);
+
+  if (isNaN(d.getTime())) {
+
+    return data;
+  }
+
+  return d.toLocaleDateString(
+    "pt-PT"
+  );
+}
+
+
+function escaparHTML(valor) {
+
+  return String(valor ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+
+function escaparAtributo(valor) {
+
+  return escaparHTML(valor);
+}
+
+
+/* =========================================================
+   TECLAS
+========================================================= */
+
+document.addEventListener(
+  "keydown",
+  event => {
+
+    if (
+      event.ctrlKey &&
+      event.altKey &&
+      event.key.toLowerCase() === "a"
+    ) {
+
+      event.preventDefault();
+
+      abrirAdministracao();
+    }
+
+    if (
+      event.key === "Escape"
+    ) {
+
+      fecharModal();
+
+      fecharLogin();
+    }
+
+  }
+);
 
 </script>
 
