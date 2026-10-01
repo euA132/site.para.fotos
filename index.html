@@ -314,45 +314,7 @@
       transform: scale(1.035);
     }
 
-    /* MARCA DE ÁGUA */
-
-    .watermark {
-      position: absolute;
-
-      width: 160%;
-      height: 160%;
-
-      left: -30%;
-      top: -30%;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      text-align: center;
-
-      transform: rotate(-28deg);
-
-      color: rgba(255, 255, 255, 0.30);
-
-      font-size: clamp(28px, 5vw, 72px);
-
-      font-weight: 900;
-
-      letter-spacing: 4px;
-
-      line-height: 1.2;
-
-      text-shadow:
-        0 2px 8px rgba(0,0,0,0.85),
-        0 0 4px rgba(0,0,0,0.9);
-
-      pointer-events: none;
-      user-select: none;
-
-      z-index: 20;
-    }
-
+    
     .foto-info {
       padding: 12px;
       background: #111;
@@ -2266,10 +2228,6 @@
                   alt="${escapeAttr(foto.Titulo || "Fotografia")}"
                   loading="lazy">
 
-                <div class="watermark">
-                  ANDRÉ SILVA • PORTFÓLIO
-                </div>
-
               </div>
 
               <div class="foto-info">
@@ -2365,9 +2323,7 @@
         src="${escapeAttr(foto.ImagemURL || "")}"
         alt="${escapeAttr(foto.Titulo || "Fotografia")}">
 
-      <div class="watermark">
-        ANDRÉ SILVA • PORTFÓLIO
-      </div>
+    
 
     `;
 
